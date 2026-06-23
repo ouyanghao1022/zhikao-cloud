@@ -142,6 +142,18 @@ async function selectCategory(cat: any) {
   await loadQuestions(cat.id)
 }
 
+/**
+ * 并行加载单道题目的选项详情，单题失败不影响其他题。
+ */
+async function loadOptions(q: any) {
+  if (q.questionType === 1 || q.questionType === 2) {
+    try {
+      const dRes = await request.get(`/question/detail/${q.id}`)
+      q._options = dRes.data?.options || []
+    } catch { q._options = [] }
+  }
+}
+
 async function loadQuestions(categoryId: number) {
   qLoading.value = true
   try {
@@ -149,15 +161,8 @@ async function loadQuestions(categoryId: number) {
       params: { categoryId, current: 1, size: 50 }
     })
     const list = res.data?.records || []
-    // 加载每题选项
-    for (const q of list) {
-      if (q.questionType === 1 || q.questionType === 2) {
-        try {
-          const dRes = await request.get(`/question/detail/${q.id}`)
-          q._options = dRes.data?.options || []
-        } catch { q._options = [] }
-      }
-    }
+    // 并行加载所有题目的选项，避免串行 await 导致的长时间卡死
+    await Promise.all(list.map(q => loadOptions(q)))
     questions.value = list
   } catch (e: any) {
     // 请求失败时清空列表，保持选中状态以便用户重试
