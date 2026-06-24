@@ -165,10 +165,11 @@ public class QuestionCategoryController {
         // 教师数据隔离：学生只能看到所属班级教师创建的分类
         if ("STUDENT".equals(role)) {
             Set<Long> teacherIds = getStudentTeacherIds(userId);
-            if (!teacherIds.isEmpty()) {
-                wrapper.in(QuestionCategory::getCreatorId, teacherIds);
+            if (teacherIds.isEmpty()) {
+                // 学生未加入任何班级，无权限查看任何练习题库
+                return Result.success(Collections.emptyList());
             }
-            // 如果学生没有任何班级，不加过滤（向后兼容，显示全部）
+            wrapper.in(QuestionCategory::getCreatorId, teacherIds);
         }
 
         List<QuestionCategory> all = categoryMapper.selectList(wrapper);

@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <el-empty v-else-if="!catLoading" description="暂无可练习的题库" />
+    <el-empty v-else-if="!catLoading" description="暂无可练习的题库，请先加入班级" />
   </div>
 </template>
 
