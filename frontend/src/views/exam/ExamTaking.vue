@@ -385,7 +385,8 @@ const options = computed(() => {
   const q = currentQuestion.value
   if (!q) return []
   // 后端返回 options 数组（QuestionOption: {optionLabel, optionContent}）
-  if (Array.isArray(q.options)) {
+  // Excel导入的题目选项存在 content JSON、question_option 表无记录 → 后端返回 options:[]，需走下方 content 兜底
+  if (Array.isArray(q.options) && q.options.length > 0) {
     return q.options.map((o: any) => ({
       label: o.optionLabel || o.label || '',
       content: o.optionContent || o.content || ''
