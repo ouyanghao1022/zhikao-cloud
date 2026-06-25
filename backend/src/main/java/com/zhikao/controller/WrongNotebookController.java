@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhikao.common.PageRequest;
 import com.zhikao.common.PageResult;
 import com.zhikao.common.Result;
+import com.zhikao.entity.ExamPaper;
+import com.zhikao.entity.ExamSession;
 import com.zhikao.entity.Question;
 import com.zhikao.entity.WrongNotebook;
+import com.zhikao.service.ExamPaperService;
+import com.zhikao.service.ExamSessionService;
 import com.zhikao.service.QuestionService;
 import com.zhikao.service.WrongNotebookService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +32,12 @@ public class WrongNotebookController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private ExamSessionService examSessionService;
+
+    @Autowired
+    private ExamPaperService examPaperService;
 
     /**
      * 分页查询我的错题本
@@ -60,6 +70,24 @@ public class WrongNotebookController {
 
         // 组装返回
         List<Map<String, Object>> records = new ArrayList<>();
+
+        // 批量查 考试记录→试卷→结束时间，用于错题解析门槛
+        List<Long> sessionIds = page.getRecords().stream()
+                .map(WrongNotebook::getExamSessionId).filter(Objects::nonNull).distinct().toList();
+        Map<Long, ExamSession> sessionMap = Collections.emptyMap();
+        Map<Long, ExamPaper> paperMap = Collections.emptyMap();
+        if (!sessionIds.isEmpty()) {
+            sessionMap = examSessionService.listByIds(sessionIds).stream()
+                    .collect(Collectors.toMap(ExamSession::getId, s -> s, (a, b) -> a));
+            List<Long> paperIds = sessionMap.values().stream()
+                    .map(ExamSession::getPaperId).filter(Objects::nonNull).distinct().toList();
+            if (!paperIds.isEmpty()) {
+                paperMap = examPaperService.listByIds(paperIds).stream()
+                        .collect(Collectors.toMap(ExamPaper::getId, p -> p, (a, b) -> a));
+            }
+        }
+        Date now = new Date();
+
         for (WrongNotebook wn : page.getRecords()) {
             Map<String, Object> item = new LinkedHashMap<>();
             item.put("id", wn.getId());
@@ -84,6 +112,14 @@ public class WrongNotebookController {
             }
             if (categoryId != null && (q == null || !categoryId.equals(q.getCategoryId()))) {
                 continue; // 按分类过滤
+            }
+            // 错题解析门槛：仅当试卷已结束（endTime 非空且当前时间 > endTime）才显示正确答案
+            ExamSession session = wn.getExamSessionId() == null ? null : sessionMap.get(wn.getExamSessionId());
+            ExamPaper paper = session == null ? null : paperMap.get(session.getPaperId());
+            boolean analysisLocked = paper == null || paper.getEndTime() == null || now.before(paper.getEndTime());
+            item.put("analysisLocked", analysisLocked);
+            if (analysisLocked) {
+                item.put("correctAnswer", null);
             }
             records.add(item);
         }

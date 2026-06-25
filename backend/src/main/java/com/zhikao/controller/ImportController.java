@@ -319,16 +319,37 @@ public class ImportController {
         String filename = URLEncoder.encode("试卷导入模板.xlsx", StandardCharsets.UTF_8);
         response.setHeader("Content-Disposition", "attachment; filename*=UTF-8''" + filename);
 
-        try (InputStream is = getClass().getResourceAsStream("/import-template-exam.xlsx");
-             OutputStream os = response.getOutputStream()) {
-            if (is == null) {
-                response.setStatus(404);
-                os.write("模板文件未找到".getBytes(StandardCharsets.UTF_8));
-                return;
+        try (Workbook wb = new XSSFWorkbook(); OutputStream os = response.getOutputStream()) {
+            // Sheet1：试卷信息（A列字段名 B列示例值；带*为必填）
+            Sheet infoSheet = wb.createSheet("试卷信息");
+            Object[][] infoRows = {
+                {"试卷名称*", "（示例）高三数学期中考试"},
+                {"考试时长", "60"},
+                {"总分", "100"},
+                {"及格分", "60"},
+                {"开始时间*", "2026-07-01 09:00:00"},
+                {"结束时间*", "2026-07-01 11:00:00"},
+                {"考试说明", "高三数学期中考试"},
+                {"组卷模式", "固定"},
+            };
+            for (int i = 0; i < infoRows.length; i++) {
+                Row row = infoSheet.createRow(i);
+                row.createCell(0).setCellValue(infoRows[i][0].toString());
+                row.createCell(1).setCellValue(infoRows[i][1].toString());
             }
-            byte[] buf = new byte[8192];
-            int n;
-            while ((n = is.read(buf)) != -1) os.write(buf, 0, n);
+            infoSheet.setColumnWidth(0, 4000);
+            infoSheet.setColumnWidth(1, 9000);
+
+            // Sheet2：题目列表（表头 + 示例行）
+            Sheet qSheet = wb.createSheet("题目列表");
+            String[] headers = {"题型", "难度", "题目内容", "选项A", "选项B", "选项C", "选项D", "正确答案", "解析", "分值"};
+            Row headerRow = qSheet.createRow(0);
+            for (int i = 0; i < headers.length; i++) headerRow.createCell(i).setCellValue(headers[i]);
+            String[] example = {"单选", "简单", "log₂8 + log₂4 =", "5", "6", "7", "8", "A", "log₂8=3, log₂4=2, 相加为5", "5"};
+            Row exampleRow = qSheet.createRow(1);
+            for (int i = 0; i < example.length; i++) exampleRow.createCell(i).setCellValue(example[i]);
+
+            wb.write(os);
         }
     }
 
@@ -388,6 +409,18 @@ public class ImportController {
             paper.setShowScoreType(1);
             paper.setAntiCheatLevel(1);
             paper.setMaxScreenSwitch(3);
+            // 考试时间（必填）
+            String startTimeStr = infoMap.getOrDefault("开始时间", "");
+            String endTimeStr = infoMap.getOrDefault("结束时间", "");
+            if (StrUtil.isBlank(startTimeStr) || StrUtil.isBlank(endTimeStr)) {
+                return Result.error("Sheet「试卷信息」中缺少「开始时间」或「结束时间」（必填）");
+            }
+            try {
+                paper.setStartTime(java.sql.Timestamp.valueOf(startTimeStr.replace("T", " ")));
+                paper.setEndTime(java.sql.Timestamp.valueOf(endTimeStr.replace("T", " ")));
+            } catch (Exception e) {
+                return Result.error("考试时间格式错误，应为 yyyy-MM-dd HH:mm:ss，如 2026-07-01 09:00:00");
+            }
             paper.setCreatorId(userId);
             paper.setStatus(0); // 草稿
             paper.setEnrolledCount(0);

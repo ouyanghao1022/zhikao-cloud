@@ -93,6 +93,10 @@ public class ExamPaperController {
         if (params.containsKey("endTime") && params.get("endTime") != null) {
             paper.setEndTime(java.sql.Timestamp.valueOf(params.get("endTime").toString().replace("T", " ")));
         }
+        // 考试时间为必填（错题解析门槛依赖结束时间）
+        if (paper.getStartTime() == null || paper.getEndTime() == null) {
+            return Result.badRequest("考试开始时间和结束时间为必填项");
+        }
         paper.setCreatorId(creatorId);
 
         // 出题老师范围：admin 用传入的 teacherIds；教师自动填自己

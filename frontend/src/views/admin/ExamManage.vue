@@ -146,13 +146,13 @@
           </el-form-item>
           <el-row :gutter="16">
             <el-col :span="12">
-              <el-form-item label="开始时间">
-                <el-date-picker v-model="createForm.startTime" type="datetime" placeholder="不限（可选）" value-format="YYYY-MM-DD HH:mm:ss" style="width:100%" />
+              <el-form-item label="开始时间" required>
+                <el-date-picker v-model="createForm.startTime" type="datetime" placeholder="必填" value-format="YYYY-MM-DD HH:mm:ss" style="width:100%" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="结束时间">
-                <el-date-picker v-model="createForm.endTime" type="datetime" placeholder="不限（可选）" value-format="YYYY-MM-DD HH:mm:ss" default-time="23:59:59" style="width:100%" />
+              <el-form-item label="结束时间" required>
+                <el-date-picker v-model="createForm.endTime" type="datetime" placeholder="必填" value-format="YYYY-MM-DD HH:mm:ss" default-time="23:59:59" style="width:100%" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -579,6 +579,8 @@ async function goNextStep() {
   // 步骤1（基本信息）→ 步骤2（选题/配置）
   if (createStep.value === stepBasic.value) {
     if (!createForm.title.trim()) { ElMessage.warning('请输入考试名称'); return }
+    if (!createForm.startTime) { ElMessage.warning('请选择考试开始时间'); return }
+    if (!createForm.endTime) { ElMessage.warning('请选择考试结束时间'); return }
     if (createForm.mode === 1) {
       searchQuestions()
     }

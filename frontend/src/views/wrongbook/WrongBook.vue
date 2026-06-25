@@ -77,7 +77,7 @@
             </el-table-column>
             <el-table-column label="正确答案" width="120">
               <template #default="{ row }">
-                <span class="correct-answer">{{ row.correctAnswer || '-' }}</span>
+                <span class="correct-answer">{{ row.analysisLocked ? '🔒 未结束' : (row.correctAnswer || '-') }}</span>
               </template>
             </el-table-column>
             <el-table-column label="标签" min-width="160">
@@ -181,7 +181,21 @@
           </div>
         </div>
       </template>
-      <div v-else v-loading="detailLoading" style="min-height:120px"></div>
+      <div v-else v-loading="detailLoading" style="min-height:120px">
+        <template v-if="!detailLoading && detailRow?.analysisLocked">
+          <div class="detail-title">{{ detailRow?.title }}</div>
+          <div class="answer-compare">
+            <div class="answer-row wrong-row">
+              <span class="answer-label">❌ 你的答案：</span>
+              <span class="answer-value wrong-value">{{ detailRow?.wrongAnswer || '未作答' }}</span>
+            </div>
+          </div>
+          <div class="detail-analysis" style="background:#fff7e6">
+            <div class="analysis-title" style="color:#e6a23c">🔒 考试未结束</div>
+            <div class="analysis-content">考试结束后方可查看正确答案与解析</div>
+          </div>
+        </template>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -322,10 +336,12 @@ async function openDetail(row: any) {
   detailNoteTags.value = []
   detailTagInput.value = ''
   try {
-    const res = await getQuestionDetail(row.questionId)
-    if (res.data) {
-      detailQuestion.value = res.data.question || null
-      detailOptions.value = res.data.options || []
+    if (!row.analysisLocked) {
+      const res = await getQuestionDetail(row.questionId)
+      if (res.data) {
+        detailQuestion.value = res.data.question || null
+        detailOptions.value = res.data.options || []
+      }
     }
   } catch (e) {
     ElMessage.error('获取题目详情失败')
