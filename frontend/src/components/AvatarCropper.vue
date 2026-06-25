@@ -22,7 +22,6 @@
         @touchend="stopDrag"
       >
         <img
-          ref="imgRef"
           :src="imageSrc"
           class="crop-img"
           :style="{
@@ -67,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus, ZoomIn, ZoomOut, Check, Loading } from '@element-plus/icons-vue'
 import { compressImage, validateImage } from '@/utils/imageCompress'
@@ -77,7 +76,6 @@ const emit = defineEmits<{
 }>()
 
 const fileInputRef = ref<HTMLInputElement | null>(null)
-const imgRef = ref<HTMLImageElement | null>(null)
 const cropAreaRef = ref<HTMLDivElement | null>(null)
 
 const imageSrc = ref('')
@@ -245,8 +243,6 @@ async function doCrop() {
     // 计算图片在裁剪框中的实际位置
     // img 经过 scale 变换后，translate(offsetX, offsetY)
     // 需要把裁剪框左上角对应的图片原始坐标算出来
-    const imgScaledW = img.naturalWidth * scale.value
-    const imgScaledH = img.naturalHeight * scale.value
 
     // 裁剪框中心点在容器坐标系中是 (boxSize/2, boxSize/2)
     // 图片中心点经过 translate 后在 (boxSize/2 + offsetX, boxSize/2 + offsetY)

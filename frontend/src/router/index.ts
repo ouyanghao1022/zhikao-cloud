@@ -30,6 +30,7 @@ const routes = [
       { path: 'wrongbook', component: () => import('@/views/wrongbook/WrongBook.vue') },
       // 个人中心
       { path: 'user/profile', component: () => import('@/views/user/Profile.vue') },
+      { path: 'user/notification', component: () => import('@/views/user/NotificationSetting.vue') },
       // 收藏夹
       { path: 'favorite', component: () => import('@/views/favorite/Favorite.vue') },
       // 学情报告
@@ -52,8 +53,10 @@ const routes = [
       { path: 'admin/exams', component: () => import('@/views/admin/ExamManage.vue'), meta: { requiresTeacher: true } },
       { path: 'admin/questions', component: () => import('@/views/admin/QuestionManage.vue'), meta: { requiresTeacher: true } },
       { path: 'admin/reports', component: () => import('@/views/admin/ClassReport.vue'), meta: { requiresTeacher: true } },
+      { path: 'admin/grade', component: () => import('@/views/exam/ExamGrade.vue'), meta: { requiresTeacher: true } },
       // 超管路由
       { path: 'admin/users', component: () => import('@/views/admin/UserManage.vue'), meta: { requiresAdmin: true } },
+      { path: 'admin/logs', component: () => import('@/views/admin/SysLogManage.vue'), meta: { requiresAdmin: true } },
       { path: 'admin/classes', component: () => import('@/views/admin/ClassManage.vue'), meta: { requiresTeacher: true } },
       { path: 'admin/pk', component: () => import('@/views/admin/PKManage.vue'), meta: { requiresAdmin: true } },
       { path: 'admin/groups', component: () => import('@/views/admin/GroupManage.vue'), meta: { requiresAdmin: true } },
@@ -72,7 +75,7 @@ const router = createRouter({
 })
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const userStore = useUserStore()
 
   if (to.meta.requiresAuth && !userStore.isLoggedIn) {

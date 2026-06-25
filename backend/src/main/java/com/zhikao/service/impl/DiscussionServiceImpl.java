@@ -28,6 +28,9 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private DiscussionFollowMapper followMapper;
 
+    @Autowired
+    private com.zhikao.mapper.UserMapper userMapper;
+
     @Override
     public List<DiscussionSection> listSections() {
         LambdaQueryWrapper<DiscussionSection> wrapper = new LambdaQueryWrapper<>();
@@ -255,5 +258,73 @@ public class DiscussionServiceImpl implements DiscussionService {
             return comment != null ? comment.getLikeCount() : 0;
         }
         return 0;
+    }
+
+    @Override
+    @Transactional
+    public Object followUser(Long userId, Long followUserId) {
+        if (userId.equals(followUserId)) {
+            throw new RuntimeException("不能关注自己");
+        }
+        LambdaQueryWrapper<DiscussionFollow> w = new LambdaQueryWrapper<>();
+        w.eq(DiscussionFollow::getUserId, userId)
+         .eq(DiscussionFollow::getFollowUserId, followUserId);
+        DiscussionFollow existing = followMapper.selectOne(w);
+        Map<String, Object> result = new HashMap<>();
+        if (existing != null) {
+            followMapper.deleteById(existing.getId());
+            result.put("followed", false);
+        } else {
+            DiscussionFollow f = new DiscussionFollow();
+            f.setUserId(userId);
+            f.setFollowUserId(followUserId);
+            f.setCreatedAt(new Date());
+            followMapper.insert(f);
+            result.put("followed", true);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> listFollowings(Long userId) {
+        List<DiscussionFollow> list = followMapper.selectList(
+                new LambdaQueryWrapper<DiscussionFollow>()
+                        .eq(DiscussionFollow::getUserId, userId)
+                        .orderByDesc(DiscussionFollow::getCreatedAt));
+        return fillUserInfo(list, true);
+    }
+
+    @Override
+    public List<Map<String, Object>> listFollowers(Long userId) {
+        List<DiscussionFollow> list = followMapper.selectList(
+                new LambdaQueryWrapper<DiscussionFollow>()
+                        .eq(DiscussionFollow::getFollowUserId, userId)
+                        .orderByDesc(DiscussionFollow::getCreatedAt));
+        return fillUserInfo(list, false);
+    }
+
+    @Override
+    public boolean isFollowing(Long userId, Long followUserId) {
+        Long count = followMapper.selectCount(
+                new LambdaQueryWrapper<DiscussionFollow>()
+                        .eq(DiscussionFollow::getUserId, userId)
+                        .eq(DiscussionFollow::getFollowUserId, followUserId));
+        return count != null && count > 0;
+    }
+
+    /** 填充关注列表的用户昵称/头像 */
+    private List<Map<String, Object>> fillUserInfo(List<DiscussionFollow> list, boolean following) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (DiscussionFollow f : list) {
+            Long targetId = following ? f.getFollowUserId() : f.getUserId();
+            com.zhikao.entity.User u = userMapper.selectById(targetId);
+            Map<String, Object> m = new HashMap<>();
+            m.put("userId", targetId);
+            m.put("nickname", u != null ? u.getNickname() : null);
+            m.put("avatar", u != null ? u.getAvatar() : null);
+            m.put("username", u != null ? u.getUsername() : null);
+            result.add(m);
+        }
+        return result;
     }
 }

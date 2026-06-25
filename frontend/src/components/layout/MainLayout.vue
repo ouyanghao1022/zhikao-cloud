@@ -40,6 +40,9 @@
           <router-link to="/admin/discuss" class="nav-item" :class="{ active: route.path === '/admin/discuss' }">
             <span class="nav-icon"><ChatDotSquare /></span><span class="nav-label">讨论区管理</span>
           </router-link>
+          <router-link to="/admin/logs" class="nav-item" :class="{ active: route.path === '/admin/logs' }">
+            <span class="nav-icon"><Notebook /></span><span class="nav-label">系统日志</span>
+          </router-link>
         </template>
 
         <!-- 教师 -->
@@ -56,6 +59,9 @@
           </router-link>
           <router-link to="/admin/reports" class="nav-item" :class="{ active: route.path === '/admin/reports' }">
             <span class="nav-icon"><DataAnalysis /></span><span class="nav-label">班级报告</span>
+          </router-link>
+          <router-link to="/admin/grade" class="nav-item" :class="{ active: route.path === '/admin/grade' }">
+            <span class="nav-icon"><EditPen /></span><span class="nav-label">主观题批阅</span>
           </router-link>
         </template>
 
@@ -91,6 +97,9 @@
         </router-link>
         <router-link to="/user/profile" class="nav-item" :class="{ active: route.path === '/user/profile' }">
           <span class="nav-icon"><Setting /></span><span class="nav-label">个人中心</span>
+        </router-link>
+        <router-link to="/user/notification" class="nav-item" :class="{ active: route.path === '/user/notification' }">
+          <span class="nav-icon"><Bell /></span><span class="nav-label">通知设置</span>
         </router-link>
       </nav>
     </aside>
@@ -165,7 +174,8 @@ const pageTitle = computed(() => {
     '/group': '学习小组', '/user/profile': '个人中心', '/admin/users': '用户管理',
     '/admin/classes': '班级管理', '/admin/pk': '组队PK管理', '/admin/groups': '学习小组管理',
     '/admin/exams': '考试管理', '/admin/questions': '题库管理',    '/admin/reports': '班级报告',
-    '/admin/discuss': '讨论区管理'
+    '/admin/discuss': '讨论区管理', '/admin/logs': '系统日志', '/admin/grade': '主观题批阅',
+    '/user/notification': '通知设置'
   }
   for (const [k, v] of Object.entries(m)) if (route.path.startsWith(k)) return v
   return ''
