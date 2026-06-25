@@ -1,0 +1,26 @@
+# Build output
+backend/target/
+frontend/dist/
+
+# Dependencies
+frontend/node_modules/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+*.iml
+
+# OS / temp artifacts
+.fuse_hidden*
+Thumbs.db
+.DS_Store
+nul
+
+# Compiled Java
+*.class
+
+# Runtime uploads
+uploads/

@@ -1,0 +1,1 @@
+import{l as e}from"./index-HOXYwCek.js";function r(t){return e.get("/exam/list",{params:t})}function n(t){return e.get(`/exam/detail/${t}`)}function s(t){return e.get(`/exam/take/${t}`)}function m(t){return e.post("/exam/submit",t)}function u(t){return e.get("/exam/my-records",{params:t})}export{r as a,n as b,u as g,m as s,s as t};

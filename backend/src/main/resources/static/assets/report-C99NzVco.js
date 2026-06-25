@@ -1,0 +1,1 @@
+import{l as e}from"./index-B5Pt7l4i.js";function n(){return e.get("/report/personal")}function s(){return e.get("/report/knowledge-heatmap")}function p(){return e.get("/report/weak-areas")}function g(a,t){const r={};return t&&(r.classId=t),e.get(`/report/class/${a}`,{params:r})}export{s as a,p as b,g as c,n as g};

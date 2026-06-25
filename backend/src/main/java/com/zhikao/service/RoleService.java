@@ -1,0 +1,22 @@
+package com.zhikao.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhikao.entity.Role;
+
+import java.util.List;
+
+/**
+ * 角色Service接口
+ */
+public interface RoleService extends IService<Role> {
+
+    /**
+     * 根据用户ID查询角色列表
+     */
+    List<Role> getRolesByUserId(Long userId);
+
+    /**
+     * 查询所有可用角色
+     */
+    List<Role> listEnabledRoles();
+}

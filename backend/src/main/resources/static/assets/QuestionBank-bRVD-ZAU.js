@@ -1,0 +1,1 @@
+import{_ as t}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as n,c as s,a,b as c,f as r}from"./index-rxXRNRf9.js";const _={},p={class:"page-container"};function d(i,e){const o=r("el-empty");return n(),s("div",p,[e[0]||(e[0]=a("h2",null,"📝 题库练习",-1)),c(o,{description:"暂无题目，敬请期待"})])}const f=t(_,[["render",d],["__scopeId","data-v-4c361f82"]]);export{f as default};

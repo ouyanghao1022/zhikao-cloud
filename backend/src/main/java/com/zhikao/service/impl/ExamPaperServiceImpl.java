@@ -305,8 +305,15 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
             totalScore = totalScore.add(score);
         }
 
-        // 更新试卷总分为实际题目分值总和
+        // 更新试卷总分为实际题目分值总和；按用户设定的及格比例重算及格分，
+        // 避免实际总分（题目分值累加）与输入总分不一致时及格线失衡（如输入100/60，实际70→及格42而非60）
+        java.math.BigDecimal originalTotal = paper.getTotalScore();
+        java.math.BigDecimal originalPass = paper.getPassScore();
         paper.setTotalScore(totalScore);
+        if (originalTotal != null && originalTotal.compareTo(java.math.BigDecimal.ZERO) > 0 && originalPass != null) {
+            java.math.BigDecimal ratio = originalPass.divide(originalTotal, 4, java.math.RoundingMode.HALF_UP);
+            paper.setPassScore(totalScore.multiply(ratio).setScale(0, java.math.RoundingMode.HALF_UP));
+        }
         updateById(paper);
     }
 
@@ -369,13 +376,21 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
             totalScore = totalScore.add(epq.getScore());
         }
 
+        java.math.BigDecimal oldTotal = paper.getTotalScore();
+        java.math.BigDecimal oldPass = paper.getPassScore();
         paper.setTotalScore(totalScore);
+        // 重抽后实际总分变化，按原及格比例重算及格分
+        if (oldTotal != null && oldTotal.compareTo(java.math.BigDecimal.ZERO) > 0 && oldPass != null) {
+            java.math.BigDecimal ratio = oldPass.divide(oldTotal, 4, java.math.RoundingMode.HALF_UP);
+            paper.setPassScore(totalScore.multiply(ratio).setScale(0, java.math.RoundingMode.HALF_UP));
+        }
         paper.setUpdatedAt(new Date());
         updateById(paper);
 
         Map<String, Object> result = new HashMap<>();
         result.put("questionCount", selectedQuestions.size());
         result.put("totalScore", totalScore);
+        result.put("passScore", paper.getPassScore());
         return result;
     }
 
