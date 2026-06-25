@@ -96,6 +96,19 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
+    public boolean isLiked(Long userId, Integer targetType, Long targetId) {
+        if (userId == null || targetType == null || targetId == null) {
+            return false;
+        }
+        LambdaQueryWrapper<DiscussionLike> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DiscussionLike::getUserId, userId)
+                .eq(DiscussionLike::getTargetType, targetType)
+                .eq(DiscussionLike::getTargetId, targetId);
+        Long count = likeMapper.selectCount(wrapper);
+        return count != null && count > 0;
+    }
+
+    @Override
     @Transactional
     public Object likePost(Long userId, Integer targetType, Long targetId) {
         LambdaQueryWrapper<DiscussionLike> wrapper = new LambdaQueryWrapper<>();

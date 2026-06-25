@@ -103,4 +103,23 @@ public class QuestionTagServiceImpl extends ServiceImpl<QuestionTagMapper, Quest
         }
         return rels.stream().map(QuestionTagRel::getQuestionId).distinct().collect(Collectors.toList());
     }
+
+    @Override
+    public List<QuestionTag> listTagsOfQuestion(Long questionId) {
+        LambdaQueryWrapper<QuestionTagRel> relWrapper = new LambdaQueryWrapper<>();
+        relWrapper.eq(QuestionTagRel::getQuestionId, questionId);
+        List<QuestionTagRel> rels = questionTagRelMapper.selectList(relWrapper);
+        if (rels.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<Long> tagIds = rels.stream()
+                .map(QuestionTagRel::getTagId)
+                .filter(java.util.Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+        if (tagIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return listByIds(tagIds);
+    }
 }

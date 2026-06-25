@@ -95,6 +95,25 @@ public class ExamPaperController {
         }
         paper.setCreatorId(creatorId);
 
+        // 出题老师范围：admin 用传入的 teacherIds；教师自动填自己
+        var authentication = org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication();
+        boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"));
+        List<Long> teacherIds;
+        if (isAdmin) {
+            @SuppressWarnings("unchecked")
+            List<Object> rawTeacherIds = (List<Object>) params.get("teacherIds");
+            teacherIds = rawTeacherIds == null ? java.util.List.of() :
+                    rawTeacherIds.stream().map(o -> Long.valueOf(o.toString())).toList();
+            if (teacherIds.isEmpty()) {
+                return Result.badRequest("请选择至少一位出题老师");
+            }
+        } else {
+            teacherIds = java.util.List.of(creatorId);
+        }
+        paper.setTeacherIds(String.join(",", teacherIds.stream().map(String::valueOf).toList()));
+
         @SuppressWarnings("unchecked")
         List<Long> questionIds = params.containsKey("questionIds") ?
                 (List<Long>) params.get("questionIds") : null;
@@ -108,6 +127,19 @@ public class ExamPaperController {
 
         examPaperService.createPaper(paper, questionIds, questionScores, randomConfig);
         return Result.success("创建成功", paper.getId());
+    }
+
+    /**
+     * 重新抽题（仅草稿随机试卷）
+     */
+    @PreAuthorize("hasAnyRole('TEACHER', 'SUPER_ADMIN')")
+    @PostMapping("/{id}/reassemble")
+    public Result<?> reassemble(@PathVariable Long id) {
+        try {
+            return Result.success(examPaperService.reassembleRandomPaper(id));
+        } catch (RuntimeException e) {
+            return Result.badRequest(e.getMessage());
+        }
     }
 
     /**

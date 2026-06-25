@@ -5,16 +5,24 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhikao.entity.ExamCertificate;
 import com.zhikao.entity.ExamPaper;
 import com.zhikao.entity.ExamSession;
+import com.zhikao.entity.User;
 import com.zhikao.mapper.ExamCertificateMapper;
 import com.zhikao.mapper.ExamPaperMapper;
 import com.zhikao.mapper.UserMapper;
 import com.zhikao.service.ExamCertificateService;
 import com.zhikao.service.ExamSessionService;
+import com.zhikao.utils.CertificateImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,6 +42,9 @@ public class ExamCertificateServiceImpl extends ServiceImpl<ExamCertificateMappe
 
     @Autowired
     private UserMapper userMapper;
+
+    @Value("${app.upload-dir:./uploads}")
+    private String uploadDir;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -56,12 +67,18 @@ public class ExamCertificateServiceImpl extends ServiceImpl<ExamCertificateMappe
             throw new RuntimeException("未达到及格分，无法颁发证书");
         }
 
+        User user = userMapper.selectById(session.getUserId());
+        String name = (user != null && user.getNickname() != null) ? user.getNickname()
+                : (user != null ? user.getUsername() : "");
+        String examTitle = paper.getTitle() != null ? paper.getTitle() : "智考云在线考试";
+        int scoreInt = session.getTotalScore() != null ? session.getTotalScore().intValue() : 0;
+
         ExamCertificate cert = new ExamCertificate();
         cert.setSessionId(sessionId);
         cert.setUserId(session.getUserId());
         cert.setPaperId(session.getPaperId());
         cert.setCertNo("ZK" + System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100, 999));
-        cert.setCertUrl("/cert/by-session/" + sessionId);
+        cert.setCertUrl(generateAndSavePng(sessionId, cert.getCertNo(), name, examTitle, scoreInt));
         cert.setIssueTime(new Date());
         save(cert);
         return cert;
@@ -78,5 +95,19 @@ public class ExamCertificateServiceImpl extends ServiceImpl<ExamCertificateMappe
         return list(new LambdaQueryWrapper<ExamCertificate>()
                 .eq(ExamCertificate::getUserId, userId)
                 .orderByDesc(ExamCertificate::getIssueTime));
+    }
+
+    /** 生成证书 PNG 并落盘到 uploads/certs/，返回可直链的文件 URL；失败时降级为按需生成路由。 */
+    private String generateAndSavePng(Long sessionId, String certNo, String name, String exam, int score) {
+        try {
+            BufferedImage img = CertificateImageUtil.render(name, exam, score);
+            Path dir = Paths.get(uploadDir, "certs");
+            Files.createDirectories(dir);
+            String fileName = certNo + ".png";
+            ImageIO.write(img, "PNG", dir.resolve(fileName).toFile());
+            return "/api/v1/uploads/certs/" + fileName;
+        } catch (Exception e) {
+            return "/cert/by-session/" + sessionId;
+        }
     }
 }

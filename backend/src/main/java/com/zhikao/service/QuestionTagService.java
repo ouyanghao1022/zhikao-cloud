@@ -34,4 +34,9 @@ public interface QuestionTagService extends IService<QuestionTag> {
      * 按标签查题目列表
      */
     List<Long> listQuestionIdsByTag(Long tagId);
+
+    /**
+     * 题目已打的标签
+     */
+    List<QuestionTag> listTagsOfQuestion(Long questionId);
 }

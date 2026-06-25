@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d D:\\Claude-Code-workplace\\zhikao-cloud\\frontend && D:\\AppData\\Java\\Node\\node.exe D:\\Claude-Code-workplace\\zhikao-cloud\\frontend\\node_modules\\vite\\bin\\vite.js"],
+      "port": 3000
+    },
+    {
+      "name": "backend",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "D:\\Claude-Code-workplace\\zhikao-cloud\\.claude\\run-backend.bat"],
+      "port": 8080
+    }
+  ]
+}
