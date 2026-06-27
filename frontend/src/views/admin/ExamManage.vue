@@ -824,13 +824,8 @@ onMounted(loadData)
 </script>
 
 <style scoped>
-.admin-page { padding: 24px; max-width: 1400px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.page-header h2 { margin: 0; font-size: 20px; font-weight: 600; }
-.filter-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-
-.panel-title { font-size: 14px; font-weight: 600; color: #303133; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #409eff; }
-.empty-hint { color: #c0c4cc; text-align: center; padding: 32px 0; font-size: 13px; }
+.panel-title { font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
+.empty-hint { color: var(--color-ink-muted); text-align: center; padding: 32px 0; font-size: 13px; }
 
 .selected-item { border: 1px solid #e8e8e8; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; background: #fafafa; }
 .selected-item:hover { border-color: #409eff; }

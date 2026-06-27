@@ -297,10 +297,7 @@ onMounted(loadTeams)
 </script>
 
 <style scoped>
-.admin-page { padding: 24px; max-width: 1400px; }
-.page-header { margin-bottom: 20px; display: flex; align-items: baseline; gap: 12px; }
-.page-header h2 { font-size: 20px; font-weight: 600; margin: 0; }
-.header-hint { font-size: 13px; color: #909399; }
+.header-hint { font-size: 13px; color: var(--color-ink-muted); }
 .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
 
 .stats-row { margin-bottom: 16px; }

@@ -183,10 +183,6 @@ onMounted(loadClassList)
 </script>
 
 <style scoped>
-.admin-page { padding: 24px; }
-.page-header { margin-bottom: 16px; }
-.page-header h2 { font-size: 20px; margin: 0; }
-.filter-bar { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
 .empty-hint { text-align: center; padding: 60px 0; color: #909399; font-size: 15px; }
 .stats-row { margin-bottom: 24px; }
 .stat-card { background: #f5f7fa; border-radius: 10px; padding: 20px; text-align: center; }

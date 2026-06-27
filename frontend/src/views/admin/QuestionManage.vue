@@ -407,8 +407,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.admin-page { padding: 24px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.page-header h2 { margin: 0; font-size: 20px; }
-.filter-bar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+/* scoped overrides if needed */
 </style>

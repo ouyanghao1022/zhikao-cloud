@@ -89,6 +89,50 @@ a:hover {
   border: 1px solid var(--color-rice-border);
 }
 
+/* 管理页面通用 */
+.admin-page { padding: 24px; background: var(--color-rice); min-height: 100%; }
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-rice-border);
+}
+.page-header h2 {
+  margin: 0; font-size: 21px; font-weight: 700;
+  color: var(--color-ink); font-family: 'Noto Serif SC', 'Source Han Serif CN', 'SimSun', serif;
+  padding-left: 12px; border-left: 4px solid var(--color-primary);
+}
+.page-header .el-button { font-size: 13px; }
+.filter-bar {
+  display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  padding: 16px 20px; background: var(--color-rice-card);
+  border-radius: var(--radius-md); border: 1px solid var(--color-rice-border);
+}
+
+/* 管理页内的 el-card */
+.admin-page .el-card {
+  background: var(--color-rice-card);
+  border: 1px solid var(--color-rice-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.admin-page .el-card__body { padding: 20px; }
+
+/* 管理页表格 */
+.admin-page .el-table { font-size: 13px; }
+.admin-page .el-table th.el-table__cell {
+  background: var(--color-rice) !important;
+  color: var(--color-ink-light); font-weight: 600;
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.admin-page .el-table td.el-table__cell { color: var(--color-ink); }
+.admin-page .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: rgba(254, 253, 245, 0.6);
+}
+
+/* 管理页分页 */
+.admin-page .el-pagination { margin-top: 16px; justify-content: flex-end; }
+
 /* 页面过渡 */
 .page-fade-enter-active,
 .page-fade-leave-active {

@@ -475,11 +475,6 @@ onMounted(loadAll)
 </script>
 
 <style scoped>
-.admin-page { padding: 24px; max-width: 1400px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.page-header h2 { margin: 0; font-size: 20px; font-weight: 600; }
-.filter-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-
 .stat-card { display: flex; align-items: center; padding: 20px; }
 .stat-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-right: 16px; flex-shrink: 0; }
 .stat-info { flex: 1; }
