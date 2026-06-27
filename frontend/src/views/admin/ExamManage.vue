@@ -285,7 +285,7 @@
       <el-alert type="info" :closable="false" style="margin-bottom:12px">
         <div style="line-height:1.6">
           请先下载模板按格式填写。Excel 包含两个 Sheet：<br>
-          <b>①试卷信息</b>：试卷名称*、考试时长、总分、及格分、组卷模式、考试说明<br>
+          <b>①试卷信息</b>：试卷名称*、考试时长、总分、及格分、开始时间*、结束时间*、组卷模式、考试说明<br>
           <b>②题目列表</b>：题型、难度、题目内容*、选项A-D、正确答案*、解析、分值*
         </div>
       </el-alert>

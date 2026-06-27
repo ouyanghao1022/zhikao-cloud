@@ -68,6 +68,84 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePaper(Long paperId, ExamPaper input,
+                            List<Long> questionIds, List<String> questionScores) {
+        ExamPaper paper = getById(paperId);
+        if (paper == null) throw new RuntimeException("试卷不存在");
+
+        int status = paper.getStatus() != null ? paper.getStatus() : 0;
+        if (status == 2) throw new RuntimeException("已结束的试卷不可编辑");
+
+        // 检查是否有作答记录
+        long sessionCount = examSessionService.count(
+                new LambdaQueryWrapper<ExamSession>().eq(ExamSession::getPaperId, paperId));
+        boolean hasSessions = sessionCount > 0;
+
+        // ===== 基本信息 =====
+        if (input.getTitle() != null) paper.setTitle(input.getTitle());
+        if (input.getDescription() != null) paper.setDescription(input.getDescription());
+        if (input.getDuration() != null) paper.setDuration(input.getDuration());
+        if (input.getMaxScreenSwitch() != null) paper.setMaxScreenSwitch(input.getMaxScreenSwitch());
+
+        // 总分/及格分/开始时间：有作答记录后锁定（仅 endTime 可延期）
+        if (hasSessions) {
+            if (input.getTotalScore() != null || input.getPassScore() != null || input.getStartTime() != null) {
+                throw new RuntimeException("已有作答记录，总分/及格分/开始时间不可修改（仅可修改结束时间）");
+            }
+            if (input.getEndTime() != null) paper.setEndTime(input.getEndTime());
+        } else {
+            if (input.getTotalScore() != null) paper.setTotalScore(input.getTotalScore());
+            if (input.getPassScore() != null) paper.setPassScore(input.getPassScore());
+            if (input.getStartTime() != null) paper.setStartTime(input.getStartTime());
+            if (input.getEndTime() != null) paper.setEndTime(input.getEndTime());
+        }
+
+        // ===== 固定组卷：替换题目（仅草稿 + 无作答） =====
+        if (questionIds != null && !questionIds.isEmpty() && paper.getPaperType() != null && paper.getPaperType() == 1) {
+            if (hasSessions) throw new RuntimeException("已有作答记录，不可修改题目");
+            if (status != 0) throw new RuntimeException("仅草稿状态的固定试卷可替换题目");
+
+            examPaperQuestionMapper.delete(
+                    new LambdaQueryWrapper<ExamPaperQuestion>().eq(ExamPaperQuestion::getPaperId, paperId));
+            java.math.BigDecimal totalScore = java.math.BigDecimal.ZERO;
+            List<Question> questions = questionService.listByIds(questionIds);
+            for (int i = 0; i < questions.size(); i++) {
+                Question q = questions.get(i);
+                ExamPaperQuestion epq = new ExamPaperQuestion();
+                epq.setPaperId(paperId);
+                epq.setQuestionId(q.getId());
+                epq.setSort(i + 1);
+                java.math.BigDecimal score;
+                if (questionScores != null && i < questionScores.size() && questionScores.get(i) != null) {
+                    score = new java.math.BigDecimal(questionScores.get(i));
+                } else {
+                    score = q.getScore() != null ? q.getScore() : java.math.BigDecimal.ZERO;
+                }
+                epq.setScore(score);
+                epq.setCreatedAt(new Date());
+                examPaperQuestionMapper.insert(epq);
+                totalScore = totalScore.add(score);
+            }
+            paper.setTotalScore(totalScore);
+            // 按比例重算及格分
+            if (input.getPassScore() == null && paper.getPassScore() != null) {
+                java.math.BigDecimal originalPass = paper.getPassScore();
+                java.math.BigDecimal oldTotal = input.getTotalScore() != null ? input.getTotalScore()
+                        : (paper.getTotalScore() != null ? paper.getTotalScore() : java.math.BigDecimal.ONE);
+                // 仅当 oldTotal>0 时重算
+                if (oldTotal.compareTo(java.math.BigDecimal.ZERO) > 0) {
+                    java.math.BigDecimal ratio = originalPass.divide(oldTotal, 4, java.math.RoundingMode.HALF_UP);
+                    paper.setPassScore(totalScore.multiply(ratio).setScale(0, java.math.RoundingMode.HALF_UP));
+                }
+            }
+        }
+
+        paper.setUpdatedAt(new Date());
+        updateById(paper);
+    }
+
+    @Override
     public IPage<ExamPaper> pageList(long current, long size, Integer status, Long categoryId, Long classId, Long creatorId) {
         LambdaQueryWrapper<ExamPaper> wrapper = new LambdaQueryWrapper<>();
         // 按班级过滤时，强制只显示已发布的考试（学生端保护）

@@ -44,6 +44,12 @@ public interface ExamPaperService extends IService<ExamPaper> {
     Map<String, Object> reassembleRandomPaper(Long paperId);
 
     /**
+     * 编辑试卷（基本字段 + 草稿固定卷可替换题目；已发布/有作答仅允许改 endTime/说明）
+     */
+    void updatePaper(Long paperId, ExamPaper paper,
+                     java.util.List<Long> questionIds, java.util.List<String> questionScores);
+
+    /**
      * 发布试卷（绑定到指定班级）
      */
     void publishPaper(Long paperId, List<Long> classIds);

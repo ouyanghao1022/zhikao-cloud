@@ -172,6 +172,41 @@ public class ExamPaperController {
     }
 
     /**
+     * 编辑试卷（基本字段；草稿固定卷可替换题目）
+     */
+    @PreAuthorize("hasAnyRole('TEACHER', 'SUPER_ADMIN')")
+    @PutMapping("/{id}")
+    public Result<?> update(@PathVariable Long id, @RequestBody Map<String, Object> params) {
+        ExamPaper paper = new ExamPaper();
+        if (params.containsKey("title")) paper.setTitle((String) params.get("title"));
+        if (params.containsKey("description")) paper.setDescription((String) params.get("description"));
+        if (params.containsKey("duration") && params.get("duration") != null) paper.setDuration(((Number) params.get("duration")).intValue());
+        if (params.containsKey("totalScore") && params.get("totalScore") != null) paper.setTotalScore(new java.math.BigDecimal(params.get("totalScore").toString()));
+        if (params.containsKey("passScore") && params.get("passScore") != null) paper.setPassScore(new java.math.BigDecimal(params.get("passScore").toString()));
+        if (params.containsKey("startTime") && params.get("startTime") != null) {
+            paper.setStartTime(java.sql.Timestamp.valueOf(params.get("startTime").toString().replace("T", " ")));
+        }
+        if (params.containsKey("endTime") && params.get("endTime") != null) {
+            paper.setEndTime(java.sql.Timestamp.valueOf(params.get("endTime").toString().replace("T", " ")));
+        }
+        if (params.containsKey("maxScreenSwitch") && params.get("maxScreenSwitch") != null) {
+            paper.setMaxScreenSwitch(((Number) params.get("maxScreenSwitch")).intValue());
+        }
+        @SuppressWarnings("unchecked")
+        List<Long> questionIds = params.containsKey("questionIds") ?
+                ((List<Object>) params.get("questionIds")).stream().map(o -> Long.valueOf(o.toString())).toList() : null;
+        @SuppressWarnings("unchecked")
+        List<String> questionScores = params.containsKey("questionScores") ?
+                ((List<Object>) params.get("questionScores")).stream().map(Object::toString).toList() : null;
+        try {
+            examPaperService.updatePaper(id, paper, questionIds, questionScores);
+            return Result.success("更新成功");
+        } catch (RuntimeException e) {
+            return Result.badRequest(e.getMessage());
+        }
+    }
+
+    /**
      * 学生参加考试 - 获取试卷题目
      */
     @GetMapping("/take/{id}")

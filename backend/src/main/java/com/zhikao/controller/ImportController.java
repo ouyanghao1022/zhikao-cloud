@@ -356,7 +356,7 @@ public class ImportController {
     /**
      * 批量导入试卷
      * Excel 格式：
-     *   Sheet1 "试卷信息"：A列字段名 B列字段值（试卷名称*、考试时长、总分、及格分、考试说明、组卷模式）
+     *   Sheet1 "试卷信息"：A列字段名 B列字段值（试卷名称*、考试时长、总分、及格分、开始时间*、结束时间*、考试说明、组卷模式）
      *   Sheet2 "题目列表"：题型*、难度、题目内容*、选项A、选项B、选项C、选项D、正确答案*、解析、分值*
      */
     @PreAuthorize("hasAnyRole('SUPER_ADMIN','TEACHER')")
@@ -379,7 +379,7 @@ public class ImportController {
                 if (row == null) continue;
                 String key = getCellStr(row, 0);
                 String val = getCellStr(row, 1);
-                if (StrUtil.isNotBlank(key)) infoMap.put(key.trim(), val.trim());
+                if (StrUtil.isNotBlank(key)) infoMap.put(key.trim().replaceAll("\\*+$", "").trim(), val.trim());
             }
 
             String title = infoMap.getOrDefault("试卷名称", "");
@@ -490,6 +490,7 @@ public class ImportController {
                     q.setStatus(1);
                     q.setAllowPractice(0); // 试卷题目默认不允许练习
                     q.setBankType(0);
+                    q.setCategoryId(1L); // 试卷导入题目默认归到数学(id=1)，可在题库管理中调整
                     q.setCreatedAt(new Date());
                     q.setUpdatedAt(new Date());
                     questionMapper.insert(q);
