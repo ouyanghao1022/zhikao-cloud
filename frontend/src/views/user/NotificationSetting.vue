@@ -51,3 +51,17 @@ async function save() {
   ElMessage.success('已保存')
 }
 </script>
+
+<style scoped>
+.el-card {
+  background: var(--color-rice-card);
+  border: 1px solid var(--color-rice-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.el-card :deep(.el-card__header) {
+  font-family: 'Noto Serif SC','Source Han Serif CN','SimSun',serif;
+  font-weight: 600; font-size: 16px; color: var(--color-ink);
+  border-bottom: 1px solid var(--color-rice-border);
+}
+</style>
