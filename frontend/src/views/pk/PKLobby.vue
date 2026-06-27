@@ -264,7 +264,7 @@ onMounted(loadTeams)
   border: 1px solid #ebeef5; border-radius: 10px; padding: 20px;
   transition: all 0.3s;
 }
-.team-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #409EFF; }
+.team-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: var(--color-primary); }
 .team-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .team-name { font-size: 16px; color: #303133; margin: 0; }
 .team-meta { display: flex; gap: 16px; font-size: 13px; color: #909399; margin: 12px 0; }

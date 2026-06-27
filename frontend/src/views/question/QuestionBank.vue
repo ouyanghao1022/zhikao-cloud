@@ -760,7 +760,7 @@ onMounted(async () => {
 .tree-parent { cursor: pointer; padding: 8px 0; font-weight: 500; color: #303133; display: flex; align-items: center; gap: 4px; }
 .tree-child { cursor: pointer; padding: 7px 8px 7px 20px; font-size: 13px; color: #606266; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
 .tree-child:hover { background: #f5f7fa; }
-.tree-child.active { background: #ecf5ff; color: #409EFF; font-weight: 500; }
+.tree-child.active { background: rgba(5,150,105,0.06); color: var(--color-primary); font-weight: 500; }
 .q-count { font-size: 11px; color: #909399; }
 
 /* 右侧练习区域 */
@@ -818,7 +818,7 @@ onMounted(async () => {
   border: 1.5px solid #e8e8e8;
   cursor: pointer; transition: all .2s;
 }
-.q-option:hover { border-color: #409EFF; background: #f5f9ff; }
+.q-option:hover { border-color: var(--color-primary); background: rgba(5,150,105,0.04); }
 .q-option.correct { border-color: #67c23a; background: #f0f9eb; }
 .q-option.wrong { border-color: #f56c6c; background: #fef0f0; }
 .q-option.disabled-option { cursor: default; pointer-events: none; }
@@ -925,7 +925,7 @@ onMounted(async () => {
 .qa-section-title { font-weight: 600; margin-bottom: 10px; color: #303133; }
 .qa-fav-row { display: flex; align-items: center; gap: 10px; }
 .qa-analysis-text { color: #606266; line-height: 1.7; white-space: pre-wrap; margin-bottom: 8px; }
-.qa-video a { color: #409eff; }
+.qa-video a { color: var(--color-primary); }
 .qa-kp { font-size: 13px; color: #909399; margin-top: 4px; }
 .qa-kp-label { color: #303133; font-weight: 500; }
 .qa-analysis-empty { color: #909399; font-size: 13px; margin-bottom: 8px; }

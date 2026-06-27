@@ -186,7 +186,7 @@ onMounted(loadClassList)
 .empty-hint { text-align: center; padding: 60px 0; color: #909399; font-size: 15px; }
 .stats-row { margin-bottom: 24px; }
 .stat-card { background: #f5f7fa; border-radius: 10px; padding: 20px; text-align: center; }
-.stat-num { font-size: 28px; font-weight: 700; color: #409EFF; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--color-primary); }
 .stat-text { font-size: 13px; color: #909399; margin-top: 4px; }
 .section-title { font-size: 16px; color: #303133; margin: 0 0 12px; }
 </style>

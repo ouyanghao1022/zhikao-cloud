@@ -11,7 +11,7 @@
         <el-row :gutter="16" v-loading="loading">
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#409eff">帖</div>
+              <div class="stat-icon" style="background:var(--color-primary)">帖</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.postStats?.total || 0 }}</div>
                 <div class="stat-label">帖子总数</div>

@@ -230,7 +230,7 @@ async function checkIfTaken() {
   padding: 16px; background: #f5f7fa; border-radius: 10px;
   transition: all 0.3s;
 }
-.info-card:hover { background: #ecf5ff; transform: translateY(-2px); }
+.info-card:hover { background: rgba(5,150,105,0.06); transform: translateY(-2px); }
 .info-icon { font-size: 28px; flex-shrink: 0; }
 .info-body { }
 .info-card-label { font-size: 12px; color: #909399; margin-bottom: 4px; }
@@ -244,7 +244,7 @@ async function checkIfTaken() {
   border: 1px solid #f0f0f0; text-align: center;
 }
 .type-label { font-size: 14px; color: #606266; margin-bottom: 6px; }
-.type-count { font-size: 24px; font-weight: 700; color: #409EFF; }
+.type-count { font-size: 24px; font-weight: 700; color: var(--color-primary); }
 .type-score { font-size: 12px; color: #909399; margin-top: 4px; }
 
 /* 考试时间 */

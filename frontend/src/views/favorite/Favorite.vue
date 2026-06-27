@@ -566,7 +566,7 @@ onMounted(() => {
   transition: all 0.2s; margin-bottom: 4px;
 }
 .folder-item:hover { background: #f5f7fa; }
-.folder-item.active { background: #ecf5ff; color: #409EFF; }
+.folder-item.active { background: rgba(5,150,105,0.06); color: var(--color-primary); }
 .folder-info { display: flex; align-items: center; gap: 8px; flex: 1; overflow: hidden; }
 .folder-icon { font-size: 18px; flex-shrink: 0; }
 .folder-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
@@ -584,7 +584,7 @@ onMounted(() => {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 16px; font-weight: 600; font-size: 15px;
 }
-.item-title { cursor: pointer; color: #409EFF; }
+.item-title { cursor: pointer; color: var(--color-primary); }
 .item-title:hover { text-decoration: underline; }
 .note-cell { display: flex; align-items: center; gap: 6px; }
 .note-text { color: #909399; cursor: pointer; font-size: 13px; }

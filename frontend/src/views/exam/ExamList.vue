@@ -121,7 +121,7 @@ function viewScore(exam: any) {
   ElMessageBox.alert(
     `<div style="text-align:center">
       <p style="font-size:18px;margin-bottom:4px"><strong>${exam.title}</strong></p>
-      <p style="font-size:32px;color:#409eff;margin:16px 0">${scoreText}</p>
+      <p style="font-size:32px;color:var(--color-primary);margin:16px 0">${scoreText}</p>
       <p style="color:#909399">总分：${exam.totalScore} 分 ${passText}</p>
     </div>`,
     '考试成绩',

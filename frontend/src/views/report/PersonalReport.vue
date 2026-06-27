@@ -98,9 +98,9 @@ function renderRadarChart() {
       type: 'radar',
       name: '我的能力',
       data: [{ value: d.values, name: '我的能力' }],
-      areaStyle: { color: 'rgba(64, 158, 255, 0.2)' },
-      lineStyle: { color: '#409EFF' },
-      itemStyle: { color: '#409EFF' }
+      areaStyle: { color: 'rgba(5, 150, 105, 0.15)' },
+      lineStyle: { color: '#059669' },
+      itemStyle: { color: '#059669' }
     }]
   }
   radarChart.setOption(option)
@@ -214,7 +214,7 @@ onMounted(() => {
 
 .summary-row { margin-bottom: 16px; }
 .stat-card { text-align: center; padding: 8px 0; }
-.stat-value { font-size: 32px; font-weight: bold; color: #409EFF; }
+.stat-value { font-size: 32px; font-weight: bold; color: var(--color-primary); }
 .stat-label { font-size: 14px; color: #909399; margin-top: 4px; }
 
 .charts-row { margin-bottom: 16px; }

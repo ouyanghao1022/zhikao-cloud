@@ -828,7 +828,7 @@ onMounted(loadData)
 .empty-hint { color: var(--color-ink-muted); text-align: center; padding: 32px 0; font-size: 13px; }
 
 .selected-item { border: 1px solid #e8e8e8; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; background: #fafafa; }
-.selected-item:hover { border-color: #409eff; }
+.selected-item:hover { border-color: var(--color-primary); }
 .sel-header { display: flex; align-items: center; gap: 8px; }
 .sel-title { flex: 1; font-size: 13px; color: #303133; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sel-score { margin-top: 6px; display: flex; align-items: center; gap: 4px; }

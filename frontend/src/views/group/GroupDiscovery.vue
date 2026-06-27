@@ -242,7 +242,7 @@ onMounted(loadGroups)
   background: #fff; border-radius: 12px; overflow: hidden;
   border: 1px solid #ebeef5; transition: all 0.3s;
 }
-.group-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-color: #409EFF; transform: translateY(-2px); }
+.group-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-color: var(--color-primary); transform: translateY(-2px); }
 
 .group-card-header {
   height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

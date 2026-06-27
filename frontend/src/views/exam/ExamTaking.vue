@@ -649,10 +649,10 @@ onUnmounted(() => {
   border: 1.5px solid #dcdfe6; border-radius: 6px; font-size: 13px; color: #606266;
   cursor: pointer; transition: all 0.2s; font-weight: 500; user-select: none;
 }
-.q-number:hover { border-color: #409EFF; color: #409EFF; }
-.q-number.q-current { border-color: #409EFF; background: #ecf5ff; color: #409EFF; font-weight: 700; }
+.q-number:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.q-number.q-current { border-color: var(--color-primary); background: rgba(5,150,105,0.06); color: var(--color-primary); font-weight: 700; }
 .q-number.q-answered { background: #e1f3d8; border-color: #b3e19d; color: #67c23a; }
-.q-number.q-current-answered { background: #409EFF; border-color: #409EFF; color: #fff; font-weight: 700; }
+.q-number.q-current-answered { background: var(--color-primary); border-color: var(--color-primary); color: #fff; font-weight: 700; }
 
 .submit-sidebar-btn { margin-top: 20px; width: 100%; }
 
@@ -684,13 +684,13 @@ onUnmounted(() => {
   transition: all 0.2s; min-height: 48px;
 }
 .option-item:hover { border-color: #c6d0e0; background: #fafafa; }
-.option-item.selected { border-color: #409EFF; background: #ecf5ff; }
+.option-item.selected { border-color: var(--color-primary); background: rgba(5,150,105,0.06); }
 .opt-badge {
   width: 32px; height: 32px; border-radius: 50%; background: #f0f0f0;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 14px; color: #606266; flex-shrink: 0;
 }
-.option-item.selected .opt-badge { background: #409EFF; color: #fff; }
+.option-item.selected .opt-badge { background: var(--color-primary); color: #fff; }
 
 /* 多选题复选框样式 */
 .checkbox-option { }
@@ -699,7 +699,7 @@ onUnmounted(() => {
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   font-size: 14px; color: #fff; transition: all 0.2s;
 }
-.opt-checkbox.checked { background: #409EFF; border-color: #409EFF; }
+.opt-checkbox.checked { background: var(--color-primary); border-color: var(--color-primary); }
 
 .opt-text { font-size: 15px; color: #303133; flex: 1; }
 
@@ -735,5 +735,5 @@ onUnmounted(() => {
 
 /* 结果弹窗 */
 .result-content { text-align: center; padding: 20px 0; }
-.result-score { font-size: 56px; font-weight: 700; color: #409eff; }
+.result-score { font-size: 56px; font-weight: 700; color: var(--color-primary); }
 </style>

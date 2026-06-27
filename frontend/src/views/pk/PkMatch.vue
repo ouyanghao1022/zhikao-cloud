@@ -216,7 +216,7 @@ onMounted(async () => {
 }
 .team { text-align: center; }
 .team-name { font-size: 18px; font-weight: 700; color: #303133; margin-bottom: 8px; }
-.team-score { font-size: 36px; font-weight: 800; color: #409EFF; }
+.team-score { font-size: 36px; font-weight: 800; color: var(--color-primary); }
 .winner .team-name { color: #e6a23c; }
 .winner .team-score { color: #f56c6c; }
 .vs-badge {

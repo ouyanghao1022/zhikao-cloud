@@ -11,7 +11,7 @@
         <el-row :gutter="16" v-loading="loading">
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#409eff">组</div>
+              <div class="stat-icon" style="background:var(--color-primary)">组</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.totalGroups || 0 }}</div>
                 <div class="stat-label">小组总数</div>

@@ -245,7 +245,7 @@ onMounted(loadData)
 }
 .rank-1 .top-avatar { width: 64px; height: 64px; font-size: 26px; }
 .top-name { font-size: 14px; color: #303133; margin-bottom: 4px; font-weight: 500; }
-.top-score { font-size: 18px; color: #409EFF; font-weight: 700; }
+.top-score { font-size: 18px; color: var(--color-primary); font-weight: 700; }
 
 .list-card { }
 .top-rank-icon { font-size: 20px; }
@@ -255,7 +255,7 @@ onMounted(loadData)
   display: flex; align-items: center; justify-content: center;
   font-size: 14px; color: #606266; font-weight: 500;
 }
-.score-value { font-weight: 700; font-size: 15px; color: #409EFF; }
+.score-value { font-weight: 700; font-size: 15px; color: var(--color-primary); }
 .empty-tip { text-align: center; color: #909399; padding: 40px 0; }
 
 .season-card { margin-top: 24px; }

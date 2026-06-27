@@ -86,7 +86,7 @@
         </div>
 
         <div v-if="userStore.isAdmin" class="class-block admin-block">
-          <el-icon :size="24" color="#409EFF"><Monitor /></el-icon>
+          <el-icon :size="24" style="color: var(--color-primary)"><Monitor /></el-icon>
           <span>超级管理员 · 系统全权限</span>
         </div>
       </div>

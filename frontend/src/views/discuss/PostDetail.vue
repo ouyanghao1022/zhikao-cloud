@@ -371,7 +371,7 @@ onMounted(loadPost)
 .sub-comments { margin-top: 12px; margin-left: 48px; padding: 12px 16px; background: #fafafa; border-radius: 8px; }
 .sub-comment-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
 .sub-comment-item:last-child { border-bottom: none; }
-.sub-user { color: #409EFF; font-weight: 500; }
+.sub-user { color: var(--color-primary); font-weight: 500; }
 .reply-to { color: #909399; }
 .sub-text { color: #303133; }
 .sub-footer { display: flex; gap: 12px; font-size: 11px; color: #909399; margin-top: 4px; }
