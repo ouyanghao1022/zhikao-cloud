@@ -550,7 +550,7 @@ onMounted(() => {
 .folder-sidebar {
   width: 260px; flex-shrink: 0;
   background: var(--color-rice-card); border-radius: var(--radius-md); padding: 16px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md); border-left: 4px solid #d97706;
   max-height: 70vh; overflow-y: auto;
 }
 .folder-header {

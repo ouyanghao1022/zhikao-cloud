@@ -155,6 +155,75 @@ a:hover {
   justify-content: flex-end;
 }
 
+/* ========== 卡片色系点缀（左侧彩边 + 微底色） ========== */
+/* 翡翠 — 考试/学习类 */
+.accent-jade {
+  border-left: 4px solid #059669;
+  background: linear-gradient(135deg, rgba(5,150,105,0.04), var(--color-rice-card) 60%);
+}
+.accent-jade .el-card__header {
+  background: rgba(5,150,105,0.06);
+  border-bottom-color: rgba(5,150,105,0.12);
+}
+
+/* 琥珀 — 复习/练习类 */
+.accent-amber {
+  border-left: 4px solid #d97706;
+  background: linear-gradient(135deg, rgba(217,119,6,0.04), var(--color-rice-card) 60%);
+}
+.accent-amber .el-card__header {
+  background: rgba(217,119,6,0.06);
+  border-bottom-color: rgba(217,119,6,0.12);
+}
+
+/* 朱砂 — 错题/警示类 */
+.accent-vermilion {
+  border-left: 4px solid #dc2626;
+  background: linear-gradient(135deg, rgba(220,38,38,0.03), var(--color-rice-card) 60%);
+}
+.accent-vermilion .el-card__header {
+  background: rgba(220,38,38,0.05);
+  border-bottom-color: rgba(220,38,38,0.1);
+}
+
+/* 靛蓝 — 报告/图表类 */
+.accent-indigo {
+  border-left: 4px solid #4f46e5;
+  background: linear-gradient(135deg, rgba(79,70,229,0.04), var(--color-rice-card) 60%);
+}
+.accent-indigo .el-card__header {
+  background: rgba(79,70,229,0.06);
+  border-bottom-color: rgba(79,70,229,0.12);
+}
+
+/* 鎏金 — PK/竞赛类 */
+.accent-gold {
+  border-left: 4px solid #b45309;
+  background: linear-gradient(135deg, rgba(180,83,9,0.04), var(--color-rice-card) 60%);
+}
+.accent-gold .el-card__header {
+  background: rgba(180,83,9,0.06);
+  border-bottom-color: rgba(180,83,9,0.12);
+}
+
+/* 藤紫 — 小组/社交类 */
+.accent-wisteria {
+  border-left: 4px solid #7c3aed;
+  background: linear-gradient(135deg, rgba(124,58,237,0.04), var(--color-rice-card) 60%);
+}
+.accent-wisteria .el-card__header {
+  background: rgba(124,58,237,0.06);
+  border-bottom-color: rgba(124,58,237,0.12);
+}
+
+/* 统计数字色系 */
+.num-jade    { color: #059669; }
+.num-amber   { color: #d97706; }
+.num-vermilion { color: #dc2626; }
+.num-indigo  { color: #4f46e5; }
+.num-gold    { color: #b45309; }
+.num-wisteria { color: #7c3aed; }
+
 /* ========== 管理页面扩展 ========== */
 .admin-page { padding: 24px; background: var(--color-rice); min-height: 100%; }
 .admin-page .el-table { font-size: 13px; }

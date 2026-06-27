@@ -13,7 +13,7 @@
     </div>
 
     <!-- 我的队伍 -->
-    <el-card v-if="myTeam" class="my-team-card" shadow="hover">
+    <el-card v-if="myTeam" class="my-team-card accent-gold" shadow="hover">
       <template #header>
         <div class="my-team-header">
           <span class="my-team-label">我的队伍</span>
@@ -38,7 +38,7 @@
     </el-card>
 
     <!-- 队伍列表 -->
-    <el-card class="team-list-card">
+    <el-card class="team-list-card accent-jade">
       <template #header>
         <div class="card-header">
           <span>队伍列表 ({{ teams.length }})</span>

@@ -7,17 +7,17 @@
     <!-- 概览统计 -->
     <el-row :gutter="16" class="summary-row" v-if="summary">
       <el-col :span="12">
-        <el-card shadow="hover">
+        <el-card shadow="hover" class="accent-jade">
           <div class="stat-card">
-            <div class="stat-value">{{ summary.totalExams }}</div>
+            <div class="stat-value num-jade">{{ summary.totalExams }}</div>
             <div class="stat-label">总考试次数</div>
           </div>
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card shadow="hover">
+        <el-card shadow="hover" class="accent-amber">
           <div class="stat-card">
-            <div class="stat-value">{{ summary.avgScore }}</div>
+            <div class="stat-value num-amber">{{ summary.avgScore }}</div>
             <div class="stat-label">平均分</div>
           </div>
         </el-card>
@@ -28,7 +28,7 @@
     <el-row :gutter="16" class="charts-row">
       <!-- 能力雷达图 -->
       <el-col :span="12">
-        <el-card shadow="hover" v-loading="loading">
+        <el-card shadow="hover" v-loading="loading" class="accent-indigo">
           <template #header>
             <span class="card-title">个人能力模型</span>
           </template>
@@ -41,7 +41,7 @@
 
       <!-- 成绩趋势图 -->
       <el-col :span="12">
-        <el-card shadow="hover" v-loading="loading">
+        <el-card shadow="hover" v-loading="loading" class="accent-indigo">
           <template #header>
             <span class="card-title">考试成绩趋势</span>
           </template>
@@ -212,7 +212,7 @@ onMounted(() => {
 
 .summary-row { margin-bottom: 16px; }
 .stat-card { text-align: center; padding: 8px 0; }
-.stat-value { font-size: 32px; font-weight: bold; color: var(--color-primary); }
+.stat-value { font-size: 32px; font-weight: bold; }
 .stat-label { font-size: 14px; color: var(--color-ink-muted); margin-top: 4px; }
 
 .charts-row { margin-bottom: 16px; }
