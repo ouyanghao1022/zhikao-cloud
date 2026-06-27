@@ -130,6 +130,13 @@ a:hover {
   background: rgba(254, 253, 245, 0.6);
 }
 
+/* 全局表格底色（所有页面生效） */
+.el-table { --el-table-bg-color: var(--color-rice-card); --el-table-tr-bg-color: var(--color-rice-card); --el-table-header-bg-color: var(--color-rice); --el-table-border-color: var(--color-rice-border); }
+.el-table th.el-table__cell { background: var(--color-rice) !important; color: var(--color-ink-light); font-weight: 600; }
+.el-table td.el-table__cell { color: var(--color-ink); }
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell { background: rgba(254, 253, 245, 0.6); }
+.el-table .el-table__body tr:hover > td.el-table__cell { background: rgba(5, 150, 105, 0.04); }
+
 /* 管理页分页 */
 .admin-page .el-pagination { margin-top: 16px; justify-content: flex-end; }
 

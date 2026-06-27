@@ -1,11 +1,12 @@
 <template>
-  <div class="syslog-page">
+  <div class="admin-page">
     <div class="page-header"><h2>系统日志</h2></div>
 
+    <el-card>
     <el-tabs v-model="activeTab">
       <!-- 操作日志 -->
       <el-tab-pane label="操作日志" name="oper">
-        <el-form inline class="filter-form">
+        <div class="filter-bar">
           <el-form-item label="用户名">
             <el-input v-model="operQuery.username" placeholder="模糊查询" clearable style="width:160px" @keyup.enter="loadOper(1)" />
           </el-form-item>
@@ -15,10 +16,8 @@
               <el-option label="失败" :value="0" />
             </el-select>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="loadOper(1)">查询</el-button>
-          </el-form-item>
-        </el-form>
+          <el-button type="primary" @click="loadOper(1)">查询</el-button>
+        </div>
 
         <el-table :data="operLogs" v-loading="operLoading" stripe size="small" border>
           <el-table-column prop="username" label="用户" width="120" show-overflow-tooltip />
@@ -51,7 +50,7 @@
 
       <!-- 登录日志 -->
       <el-tab-pane label="登录日志" name="login">
-        <el-form inline class="filter-form">
+        <div class="filter-bar">
           <el-form-item label="用户名">
             <el-input v-model="loginQuery.username" placeholder="模糊查询" clearable style="width:160px" @keyup.enter="loadLogin(1)" />
           </el-form-item>
@@ -61,10 +60,8 @@
               <el-option label="失败" :value="0" />
             </el-select>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="loadLogin(1)">查询</el-button>
-          </el-form-item>
-        </el-form>
+          <el-button type="primary" @click="loadLogin(1)">查询</el-button>
+        </div>
 
         <el-table :data="loginLogs" v-loading="loginLoading" stripe size="small" border>
           <el-table-column prop="username" label="用户名" width="130" show-overflow-tooltip />
@@ -95,6 +92,7 @@
         />
       </el-tab-pane>
     </el-tabs>
+    </el-card>
   </div>
 </template>
 
@@ -160,9 +158,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.syslog-page { padding: 20px 24px; }
-.page-header { margin-bottom: 16px; }
-.page-header h2 { margin: 0; font-size: 20px; font-weight: 600; color: #303133; }
-.filter-form { margin-bottom: 12px; }
 .pager { margin-top: 14px; display: flex; justify-content: flex-end; }
 </style>
