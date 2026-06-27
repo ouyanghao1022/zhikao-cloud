@@ -1,17 +1,17 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>👥 学习小组管理</h2>
+      <h2>学习小组管理</h2>
       <el-button @click="loadAll" :loading="loading"><el-icon><Refresh /></el-icon> 刷新</el-button>
     </div>
 
     <el-tabs v-model="activeTab" @tab-change="onTabChange">
       <!-- ========== Tab 1: 概览统计 ========== -->
-      <el-tab-pane label="📊 概览统计" name="stats">
+      <el-tab-pane label="概览统计" name="stats">
         <el-row :gutter="16" v-loading="loading">
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#409eff">👥</div>
+              <div class="stat-icon" style="background:#409eff">组</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.totalGroups || 0 }}</div>
                 <div class="stat-label">小组总数</div>
@@ -20,7 +20,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#67c23a">✅</div>
+              <div class="stat-icon" style="background:#67c23a">正</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.activeGroups || 0 }}</div>
                 <div class="stat-label">正常小组</div>
@@ -29,7 +29,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#909399">🚫</div>
+              <div class="stat-icon" style="background:#909399">解</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.dismissedGroups || 0 }}</div>
                 <div class="stat-label">已解散</div>
@@ -38,7 +38,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#e6a23c">🙋</div>
+              <div class="stat-icon" style="background:#e6a23c">员</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.totalMembers || 0 }}</div>
                 <div class="stat-label">活跃成员</div>
@@ -47,7 +47,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#f56c6c">📋</div>
+              <div class="stat-icon" style="background:#f56c6c">任</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.activeTasks || 0 }}</div>
                 <div class="stat-label">进行中任务</div>
@@ -56,7 +56,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#9c27b0">📎</div>
+              <div class="stat-icon" style="background:#9c27b0">件</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.totalResources || 0 }}</div>
                 <div class="stat-label">共享资源</div>
@@ -67,7 +67,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 2: 小组管理 ========== -->
-      <el-tab-pane label="👥 小组管理" name="groups">
+      <el-tab-pane label="小组管理" name="groups">
         <div class="filter-bar">
           <el-input v-model="groupFilter.keyword" placeholder="搜索小组名称" clearable style="width:180px" @keyup.enter="loadGroups" />
           <el-select v-model="groupFilter.joinType" placeholder="加入方式" clearable style="width:110px" @change="loadGroups">
@@ -169,7 +169,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 3: 任务管理 ========== -->
-      <el-tab-pane label="📋 任务管理" name="tasks">
+      <el-tab-pane label="任务管理" name="tasks">
         <div class="filter-bar">
           <el-input v-model="taskFilter.keyword" placeholder="搜索任务标题" clearable style="width:180px" @keyup.enter="loadTasks" />
           <el-select v-model="taskFilter.status" placeholder="状态" clearable style="width:120px" @change="loadTasks">
@@ -206,7 +206,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 4: 资源管理 ========== -->
-      <el-tab-pane label="📎 资源管理" name="resources">
+      <el-tab-pane label="资源管理" name="resources">
         <div class="filter-bar">
           <el-input v-model="resFilter.keyword" placeholder="搜索文件名" clearable style="width:180px" @keyup.enter="loadResources" />
           <el-button type="primary" @click="loadResources">搜索</el-button>

@@ -1,7 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>👥 用户管理</h2>
+      <h2>用户管理</h2>
       <div style="display:flex;gap:8px">
         <el-button @click="downloadUserTemplate"><el-icon><Download /></el-icon> 模板</el-button>
         <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入用户</el-button>

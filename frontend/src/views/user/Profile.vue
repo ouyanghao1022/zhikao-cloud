@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page">
     <div class="page-header">
-      <h2>👤 个人中心</h2>
+      <h2>个人中心</h2>
     </div>
 
     <!-- 上排：用户卡片 + 统计与班级 -->

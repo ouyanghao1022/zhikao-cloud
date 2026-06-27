@@ -1,17 +1,17 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>💬 讨论区管理</h2>
+      <h2>讨论区管理</h2>
       <el-button @click="loadAll" :loading="loading"><el-icon><Refresh /></el-icon> 刷新</el-button>
     </div>
 
     <el-tabs v-model="activeTab" @tab-change="onTabChange">
       <!-- ========== Tab 1: 概览统计 ========== -->
-      <el-tab-pane label="📊 概览统计" name="stats">
+      <el-tab-pane label="概览统计" name="stats">
         <el-row :gutter="16" v-loading="loading">
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#409eff">📝</div>
+              <div class="stat-icon" style="background:#409eff">帖</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.postStats?.total || 0 }}</div>
                 <div class="stat-label">帖子总数</div>
@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#67c23a">💬</div>
+              <div class="stat-icon" style="background:#67c23a">评</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.commentStats?.total || 0 }}</div>
                 <div class="stat-label">评论总数</div>
@@ -31,7 +31,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#e6a23c">📂</div>
+              <div class="stat-icon" style="background:#e6a23c">版</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.sectionStats?.total || 0 }}</div>
                 <div class="stat-label">版块总数</div>
@@ -41,7 +41,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#f56c6c">⏳</div>
+              <div class="stat-icon" style="background:#f56c6c">审</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.postStats?.pending || 0 }}</div>
                 <div class="stat-label">待审核帖子</div>
@@ -52,7 +52,7 @@
         </el-row>
 
         <el-card shadow="never" style="margin-top:20px">
-          <template #header><span>📋 待审核帖子</span></template>
+          <template #header><span>待审核帖子</span></template>
           <el-table :data="pendingPosts" size="small" v-loading="loading">
             <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
             <el-table-column prop="nickname" label="发帖人" width="100" />
@@ -70,7 +70,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 2: 版块管理 ========== -->
-      <el-tab-pane label="📂 版块管理" name="sections">
+      <el-tab-pane label="版块管理" name="sections">
         <div style="margin-bottom:12px">
           <el-button type="primary" @click="openSectionDialog()"><el-icon><Plus /></el-icon> 新增版块</el-button>
         </div>
@@ -134,7 +134,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 3: 帖子管理 ========== -->
-      <el-tab-pane label="📝 帖子管理" name="posts">
+      <el-tab-pane label="帖 帖子管理" name="posts">
         <div class="filter-bar">
           <el-input v-model="postFilter.keyword" placeholder="搜索标题/内容" clearable style="width:200px" @keyup.enter="loadPosts" />
           <el-select v-model="postFilter.sectionId" placeholder="版块" clearable style="width:130px" @change="loadPosts">
@@ -217,7 +217,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 4: 评论管理 ========== -->
-      <el-tab-pane label="💬 评论管理" name="comments">
+      <el-tab-pane label="评论管理" name="comments">
         <div class="filter-bar">
           <el-input v-model="commentFilter.keyword" placeholder="搜索评论内容" clearable style="width:220px" @keyup.enter="loadComments" />
           <el-select v-model="commentFilter.status" placeholder="状态" clearable style="width:120px" @change="loadComments">

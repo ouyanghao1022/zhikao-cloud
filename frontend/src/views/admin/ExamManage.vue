@@ -1,7 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>📝 考试管理</h2>
+      <h2>考试管理</h2>
       <div style="display:flex;gap:8px">
         <el-button @click="downloadExamTemplate"><el-icon><Download /></el-icon> 模板</el-button>
         <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入试卷</el-button>
@@ -77,7 +77,7 @@
           <el-descriptions-item label="说明" :span="3">{{ detailExam.description || '无' }}</el-descriptions-item>
         </el-descriptions>
 
-        <h4 style="margin:16px 0 10px">📋 题目列表 ({{ detailQuestions.length }} 题)</h4>
+        <h4 style="margin:16px 0 10px">题目列表 ({{ detailQuestions.length }} 题)</h4>
         <el-table :data="detailQuestions" size="small" max-height="360">
           <el-table-column label="序号" type="index" width="55" />
           <el-table-column label="题型" width="75">
@@ -90,7 +90,7 @@
         </el-table>
       </div>
       <template #footer>
-        <el-button v-if="detailExam?.paperType===2 && detailExam?.status===0" type="warning" :loading="reassembling" @click="reassemblePaper">🎲 重新抽题</el-button>
+        <el-button v-if="detailExam?.paperType===2 && detailExam?.status===0" type="warning" :loading="reassembling" @click="reassemblePaper">重新抽题</el-button>
         <el-button @click="detailVisible=false">关闭</el-button>
       </template>
     </el-dialog>
@@ -189,8 +189,8 @@
           </el-row>
           <el-form-item label="组卷模式" required>
             <el-radio-group v-model="createForm.mode">
-              <el-radio-button :value="1">📌 固定组卷（手动选题）</el-radio-button>
-              <el-radio-button :value="2">🎲 随机组卷（自动抽题）</el-radio-button>
+              <el-radio-button :value="1">固定组卷（手动选题）</el-radio-button>
+              <el-radio-button :value="2">随机组卷（自动抽题）</el-radio-button>
             </el-radio-group>
             <div style="font-size:12px;color:#909399;margin-top:6px">
               {{ createForm.mode===1?'手动从题库中选择题目组成试卷':'按题型/数量/难度自动从题库随机抽取' }}
@@ -204,7 +204,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="结束时间" required>
-                <el-date-picker v-model="createForm.endTime" type="datetime" placeholder="必填" value-format="YYYY-MM-DD HH:mm:ss" default-time="23:59:59" style="width:100%" />
+                <el-date-picker v-model="createForm.endTime" type="datetime" placeholder="必填" value-format="YYYY-MM-DD HH:mm:ss" :default-time="defaultEndTime" style="width:100%" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -223,7 +223,7 @@
         <el-row :gutter="16">
           <!-- 左侧：题库 -->
           <el-col :span="14">
-            <div class="panel-title">📖 题库</div>
+            <div class="panel-title">题库</div>
             <div class="filter-bar" style="margin-bottom:12px">
               <el-select v-model="qCategoryFilter" placeholder="分类" clearable size="small" style="width:110px" @change="searchQuestions">
                 <el-option label="默认题库" :value="1" />
@@ -256,7 +256,7 @@
           </el-col>
           <!-- 右侧：已选题目 -->
           <el-col :span="10">
-            <div class="panel-title">✅ 已选题目 ({{ selectedQuestions.length }})</div>
+            <div class="panel-title">已选题目 ({{ selectedQuestions.length }})</div>
             <div v-if="selectedQuestions.length===0" class="empty-hint">点击左侧题目加入试卷</div>
             <el-scrollbar max-height="420px">
               <div v-for="(q,i) in selectedQuestions" :key="q.id" class="selected-item">
@@ -378,6 +378,7 @@ import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Delete, Download, Upload, UploadFilled } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
+import dayjs from 'dayjs'
 
 const loading = ref(false)
 const list = ref<any[]>([])
@@ -400,8 +401,11 @@ const creating = ref(false)
 const createStep = ref(0)
 const createForm = reactive({
   title: '', duration: 60, totalScore: 100, passScore: 60, description: '', mode: 1, maxScreenSwitch: 3,
-  startTime: '' as string, endTime: '' as string
+  startTime: null as string | null, endTime: null as string | null,
 })
+// 结束时间默认 23:59:59 —— Element Plus 的 default-time 必须是 Date 对象，
+// 传 { hours, minutes, seconds } 普通对象会导致 dayjs(obj) 返回 Invalid，日历渲染全 NaN
+const defaultEndTime = new Date(2000, 0, 1, 23, 59, 59)
 
 // 题库选择（固定组卷）
 const questionBank = ref<any[]>([])
@@ -633,7 +637,7 @@ async function openCreate() {
 function resetCreate() {
   createStep.value = 0
   selectedTeacherIds.value = []
-  Object.assign(createForm, { title:'', duration:60, totalScore:100, passScore:60, description:'', mode:1, maxScreenSwitch:3, startTime:'', endTime:'' })
+  Object.assign(createForm, { title:'', duration:60, totalScore:100, passScore:60, description:'', mode:1, maxScreenSwitch:3, startTime:null, endTime:null })
   selectedQuestions.value = []
   selectedScores.value = []
   selectedMap.value = new Map()

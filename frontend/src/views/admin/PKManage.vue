@@ -1,7 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>⚔️ 组队PK管理</h2>
+      <h2>组队PK管理</h2>
       <span class="header-hint">管理所有PK队伍、对战记录与排行榜</span>
     </div>
 
@@ -98,7 +98,7 @@
         </el-descriptions>
 
         <!-- 成员列表 -->
-        <h4 class="section-title">👥 队伍成员 ({{ detailMembers.length }})</h4>
+        <h4 class="section-title">队伍成员 ({{ detailMembers.length }})</h4>
         <el-table :data="detailMembers" size="small" stripe max-height="240" v-if="detailMembers.length>0">
           <el-table-column type="index" label="#" width="40" />
           <el-table-column prop="nickname" label="昵称" />
@@ -128,7 +128,7 @@
         <div v-else class="empty-mini">暂无成员</div>
 
         <!-- 对战记录 -->
-        <h4 class="section-title" style="margin-top:20px">⚔️ 对战记录 ({{ detailMatches.length }})</h4>
+        <h4 class="section-title" style="margin-top:20px">对战记录 ({{ detailMatches.length }})</h4>
         <el-table :data="detailMatches" size="small" stripe max-height="240" v-if="detailMatches.length>0">
           <el-table-column type="index" label="#" width="40" />
           <el-table-column prop="matchNo" label="编号" width="140" />

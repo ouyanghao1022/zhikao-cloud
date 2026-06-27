@@ -1,7 +1,7 @@
 <template>
   <div class="exam-list-page">
     <div class="page-header">
-      <h2>📝 考试中心</h2>
+      <h2>考试中心</h2>
       <el-button v-if="userStore.isTeacher" type="primary" @click="$router.push('/admin/exams')">管理考试</el-button>
     </div>
 
@@ -31,12 +31,12 @@
         <h3 class="exam-title">{{ exam.title }}</h3>
         <p class="exam-desc">{{ exam.description || '暂无描述' }}</p>
         <div class="exam-meta">
-          <span>📊 总分：{{ exam.totalScore }}分</span>
-          <span>🎯 及格分：{{ exam.passScore || '无' }}</span>
-          <span>👥 已参加：{{ exam.enrolledCount || 0 }}人</span>
+          <span>总分：{{ exam.totalScore }}分</span>
+          <span>及格分：{{ exam.passScore || '无' }}</span>
+          <span>已参加：{{ exam.enrolledCount || 0 }}人</span>
         </div>
         <div class="exam-footer">
-          <span class="exam-time">📅 {{ formatTime(exam.startTime) }}</span>
+          <span class="exam-time">{{ formatTime(exam.startTime) }}</span>
           <template v-if="takenRecords.has(exam.id)">
             <el-button v-if="takenRecords.get(exam.id)?.graded" type="success" size="small" @click.stop="viewScore(exam)">
               查看成绩
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div v-if="examList.length === 0 && !loading" class="empty-tip">
-        📭 暂无考试，{{ userStore.isTeacher ? '点击右上角管理考试去创建' : '请等待老师发布考试' }}
+        暂无考试，{{ userStore.isTeacher ? '点击右上角管理考试去创建' : '请等待老师发布考试' }}
       </div>
     </div>
 

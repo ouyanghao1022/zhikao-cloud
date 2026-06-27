@@ -1,13 +1,13 @@
 <template>
   <div class="page-container">
     <div class="page-header">
-      <h2>📖 错题本</h2>
+      <h2>错题本</h2>
       <span class="hint" v-if="list.length">共 {{ total }} 道错题</span>
     </div>
 
     <el-tabs v-model="activeTab" class="wb-tabs">
       <!-- ============ Tab 1: 今日复习计划 ============ -->
-      <el-tab-pane label="📅 今日复习计划" name="review">
+      <el-tab-pane label="今日复习计划" name="review">
         <el-card v-loading="reviewLoading">
           <template #header>
             <div class="review-header">
@@ -49,7 +49,7 @@
       </el-tab-pane>
 
       <!-- ============ Tab 2: 错题列表 ============ -->
-      <el-tab-pane label="📚 错题列表" name="list">
+      <el-tab-pane label="错题列表" name="list">
         <el-card v-if="list.length > 0">
           <div class="filter-bar">
             <el-select v-model="masterFilter" placeholder="掌握状态" clearable style="width:140px" @change="loadData">
@@ -164,13 +164,13 @@
 
         <!-- 解析 -->
         <div v-if="detailQuestion.answerAnalysis" class="detail-analysis">
-          <div class="analysis-title">📝 题目解析</div>
+          <div class="analysis-title">题目解析</div>
           <div class="analysis-content">{{ detailQuestion.answerAnalysis }}</div>
         </div>
 
         <!-- 错题标签（详情内） -->
         <div class="detail-tags">
-          <div class="dt-title">🏷️ 错题标签</div>
+          <div class="dt-title">错题标签</div>
           <div class="dt-tags">
             <el-tag v-for="t in detailNoteTags" :key="t" size="small" style="margin-right:4px;margin-bottom:4px">{{ t }}</el-tag>
             <span v-if="!detailNoteTags.length" class="dt-empty">暂无标签</span>

@@ -1,7 +1,7 @@
 <template>
   <div class="practice-page">
     <div class="page-header">
-      <h2>📝 题库练习</h2>
+      <h2>题库练习</h2>
     </div>
 
     <div class="practice-layout" v-if="categories.length > 0">
@@ -45,7 +45,7 @@
         <!-- 练习报告面板 -->
         <div v-else-if="showReport" class="report-panel">
           <div class="report-header">
-            <h3>📊 练习报告</h3>
+            <h3>练习报告</h3>
             <el-tag size="large" :type="accuracy >= 60 ? 'success' : 'danger'" effect="dark">
               {{ accuracy }}%
             </el-tag>
@@ -68,7 +68,7 @@
 
           <!-- 错题回顾 -->
           <div v-if="wrongQuestions.length > 0" class="wrong-review">
-            <h4>❌ 错题回顾（{{ wrongQuestions.length }} 题）</h4>
+            <h4>错题回顾（{{ wrongQuestions.length }} 题）</h4>
             <div v-for="wq in wrongQuestions" :key="wq.id" class="wrong-item" @click="jumpToQuestion(wq.id)">
               <el-tag size="small" :type="typeColor(wq.questionType)">{{ typeLabels[wq.questionType] }}</el-tag>
               <span class="wrong-title">{{ wq.title }}</span>
@@ -79,12 +79,12 @@
 
           <!-- 全部正确 -->
           <div v-else class="all-correct">
-            🎉 全部正确，太棒了！
+            全部正确，太棒了！
           </div>
 
           <div class="report-actions">
-            <el-button type="primary" @click="resetPractice">🔄 重新开始</el-button>
-            <el-button @click="backToCategory">📂 返回分类</el-button>
+            <el-button type="primary" @click="resetPractice">重新开始</el-button>
+            <el-button @click="backToCategory">返回分类</el-button>
           </div>
         </div>
 
@@ -186,7 +186,7 @@
             <el-button-group>
               <el-button :disabled="currentIndex <= 0" @click="goPrev">← 上一题</el-button>
               <el-button v-if="currentIndex < filteredQuestions.length - 1" type="primary" @click="goNext">下一题 →</el-button>
-              <el-button v-else type="success" @click="submitAll">📝 提交</el-button>
+              <el-button v-else type="success" @click="submitAll">提交</el-button>
             </el-button-group>
           </div>
         </div>
@@ -202,7 +202,7 @@
 
         <!-- 收藏笔记 -->
         <div class="qa-section">
-          <div class="qa-section-title">⭐ 收藏</div>
+          <div class="qa-section-title">收藏</div>
           <div class="qa-fav-row">
             <el-button v-if="!qaFavorited" type="primary" size="small" @click="doFavorite">添加收藏</el-button>
             <el-button v-else type="warning" size="small" @click="doUnfavorite">取消收藏</el-button>
@@ -212,7 +212,7 @@
 
         <!-- 题目解析 -->
         <div class="qa-section">
-          <div class="qa-section-title">📝 解析</div>
+          <div class="qa-section-title">解析</div>
           <div v-if="qaAnalysisLoading" v-loading="true" style="min-height:80px"></div>
           <template v-else>
             <div v-if="qaAnalysis">
@@ -321,7 +321,7 @@ const qaTagAddIds = ref<number[]>([])
 // ==================== 标签映射 ====================
 const typeLabels: Record<number, string> = { 1: '单选', 2: '多选', 3: '判断', 4: '填空', 5: '简答' }
 const typeColor = (t: number) => (['', '', 'warning', 'success', 'info', 'danger'][t] || '')
-const diffLabel = (d: number) => (['', '⭐', '⭐⭐', '⭐⭐⭐'][d] || '')
+const diffLabel = (d: number) => (['', '初', '中', '高'][d] || '')
 
 // ==================== 计算属性 ====================
 const currentQuestion = computed(() => filteredQuestions.value[currentIndex.value] || null)
@@ -640,7 +640,7 @@ async function toggleFavorite(q: any) {
         itemId: res.data?.id,
         folderId: defaultFolderId.value
       }
-      ElMessage.success('⭐ 收藏成功')
+      ElMessage.success('收藏成功')
     } catch { ElMessage.error('收藏失败') }
   }
 }

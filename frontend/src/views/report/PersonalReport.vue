@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="page-header">
-      <h2>📈 学情报告</h2>
+      <h2>学情报告</h2>
     </div>
 
     <!-- 概览统计 -->

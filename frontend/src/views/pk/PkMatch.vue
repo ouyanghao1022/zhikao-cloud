@@ -2,7 +2,7 @@
   <div class="pk-match-page">
     <div class="page-header">
       <el-button @click="goBack" :icon="ArrowLeft" type="default" size="small">返回大厅</el-button>
-      <h2>⚔️ 对战详情</h2>
+      <h2>对战详情</h2>
     </div>
 
     <el-row :gutter="16" v-loading="loading">
@@ -13,13 +13,13 @@
             <div class="team team-a" :class="{ winner: match.winnerTeamId === match.teamAId }">
               <div class="team-name">{{ match.teamAName || '队伍A' }}</div>
               <div class="team-score">{{ scoreA }}</div>
-              <el-tag v-if="match.winnerTeamId === match.teamAId" type="warning" size="small">🏆 获胜</el-tag>
+              <el-tag v-if="match.winnerTeamId === match.teamAId" type="warning" size="small">获胜</el-tag>
             </div>
             <div class="vs-badge">VS</div>
             <div class="team team-b" :class="{ winner: match.winnerTeamId === match.teamBId }">
               <div class="team-name">{{ match.teamBName || '队伍B' }}</div>
               <div class="team-score">{{ scoreB }}</div>
-              <el-tag v-if="match.winnerTeamId === match.teamBId" type="warning" size="small">🏆 获胜</el-tag>
+              <el-tag v-if="match.winnerTeamId === match.teamBId" type="warning" size="small">获胜</el-tag>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
           </div>
 
           <div v-if="match.status !== 0 && match.winnerTeamName" class="match-result">
-            <h3 class="result-text">🏆 {{ match.winnerTeamName }} 获胜！</h3>
+            <h3 class="result-text">{{ match.winnerTeamName }} 获胜！</h3>
           </div>
         </el-card>
       </el-col>
@@ -54,7 +54,7 @@
       <el-col :span="8">
         <el-card class="records-card">
           <template #header>
-            <span style="font-weight:600">📝 答题记录 ({{ records.length }})</span>
+            <span style="font-weight:600">答题记录 ({{ records.length }})</span>
             <el-button link size="small" style="float:right" @click="loadRecords">刷新</el-button>
           </template>
           <div v-if="records.length === 0" class="empty-records">暂无答题记录</div>

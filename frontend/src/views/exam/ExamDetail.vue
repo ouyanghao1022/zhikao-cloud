@@ -10,7 +10,7 @@
 
       <!-- 考试信息卡片 -->
       <div class="exam-info-section">
-        <h3 class="section-title">📋 考试信息</h3>
+        <h3 class="section-title">考试信息</h3>
         <div class="info-grid">
           <div class="info-card">
             <div class="info-icon">⏱</div>
@@ -20,28 +20,28 @@
             </div>
           </div>
           <div class="info-card">
-            <div class="info-icon">📊</div>
+            <div class="info-icon">分</div>
             <div class="info-body">
               <div class="info-card-label">试卷满分</div>
               <div class="info-card-value">{{ exam.totalScore || 0 }} 分</div>
             </div>
           </div>
           <div class="info-card">
-            <div class="info-icon">✅</div>
+            <div class="info-icon">及</div>
             <div class="info-body">
               <div class="info-card-label">合格分数</div>
               <div class="info-card-value">{{ exam.passScore || exam.totalScore * 0.6 || 60 }} 分</div>
             </div>
           </div>
           <div class="info-card">
-            <div class="info-icon">📝</div>
+            <div class="info-icon">题</div>
             <div class="info-body">
               <div class="info-card-label">题目总数</div>
               <div class="info-card-value">{{ questionTypeSummary?.total || 0 }} 题</div>
             </div>
           </div>
           <div class="info-card">
-            <div class="info-icon">👤</div>
+            <div class="info-icon">人</div>
             <div class="info-body">
               <div class="info-card-label">创建人</div>
               <div class="info-card-value">{{ exam.creatorName || exam.paper?.creatorName || '—' }}</div>
@@ -52,7 +52,7 @@
 
       <!-- 题型分布 -->
       <div class="question-type-section" v-if="questionTypeSummary">
-        <h3 class="section-title">📑 题型分布</h3>
+        <h3 class="section-title">题型分布</h3>
         <div class="type-grid">
           <div class="type-card" v-for="qt in questionTypeSummary.types" :key="qt.type">
             <div class="type-label">{{ qt.label }}</div>
@@ -64,7 +64,7 @@
 
       <!-- 考试时间 -->
       <div class="exam-time-section" v-if="exam.startTime">
-        <h3 class="section-title">📅 考试时间</h3>
+        <h3 class="section-title">考试时间</h3>
         <div class="time-row">
           <div class="time-item">
             <span class="time-label">开始时间：</span>

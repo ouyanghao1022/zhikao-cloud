@@ -18,11 +18,12 @@ onMounted(() => {
 
 <style>
 #app {
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-family: 'Noto Serif SC', 'Source Han Serif CN', 'SimSun', 'Songti SC',
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   min-height: 100vh;
+  background: var(--color-rice);
 }
 </style>

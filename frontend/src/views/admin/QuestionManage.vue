@@ -1,7 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>📖 题库管理</h2>
+      <h2>题库管理</h2>
       <div style="display:flex;gap:8px">
         <el-button @click="categoryDialogVisible=true">
           <el-icon><FolderAdd /></el-icon> 管理目录

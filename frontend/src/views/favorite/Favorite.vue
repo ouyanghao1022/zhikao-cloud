@@ -1,7 +1,7 @@
 <template>
   <div class="favorite-page">
     <div class="page-header">
-      <h2>⭐ 我的收藏夹</h2>
+      <h2>我的收藏夹</h2>
     </div>
 
     <div class="favorite-body">
@@ -213,7 +213,7 @@
                  :class="{ 'is-correct': opt.isCorrect === 1 }">
               <span class="detail-opt-label">{{ opt.optionLabel }}</span>
               <span class="detail-opt-content">{{ opt.optionContent }}</span>
-              <span v-if="opt.isCorrect === 1" class="detail-correct-tag">✅ 正确答案</span>
+              <span v-if="opt.isCorrect === 1" class="detail-correct-tag">正确答案</span>
             </div>
           </div>
 
@@ -225,13 +225,13 @@
 
           <!-- 解析 -->
           <div v-if="detailQuestion.answerAnalysis" class="detail-analysis">
-            <div class="detail-analysis-label">📖 解析</div>
+            <div class="detail-analysis-label">解析</div>
             <div class="detail-analysis-text">{{ detailQuestion.answerAnalysis }}</div>
           </div>
 
           <!-- 收藏笔记 -->
           <div v-if="detailNote" class="detail-note">
-            <div class="detail-note-label">📝 我的笔记</div>
+            <div class="detail-note-label">我的笔记</div>
             <div class="detail-note-text">{{ detailNote }}</div>
           </div>
         </template>
@@ -311,7 +311,7 @@ function typeLabel(type: number) {
 }
 function detailTypeLabel(t: number) { return ['', '单选', '多选', '判断', '填空', '简答'][t] || '' }
 function detailTypeColor(t: number) { return ['', '', 'warning', 'success', 'info', 'danger'][t] || '' }
-function detailDiffLabel(d: number) { return ['', '⭐', '⭐⭐', '⭐⭐⭐'][d] || '' }
+function detailDiffLabel(d: number) { return ['', '初', '中', '高'][d] || '' }
 function formatDate(date: string) {
   return date ? dayjs(date).format('YYYY-MM-DD HH:mm') : '--'
 }

@@ -349,7 +349,7 @@ async function toggleFavorite() {
         itemUrl: `/question?qId=${q.id}`
       })
       favStatus.value[q.id] = { favorited: true, itemId: res.data?.id, folderId: defaultFolderId.value }
-      ElMessage.success('⭐ 收藏成功')
+      ElMessage.success('收藏成功')
     } catch { ElMessage.error('收藏失败') }
   }
 }

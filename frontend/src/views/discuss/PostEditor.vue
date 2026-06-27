@@ -75,11 +75,11 @@ const form = reactive({
 })
 
 const sectionIcons: Record<number, string> = {
-  1: '📚', 2: '📝', 3: '❓', 4: '📅', 5: '📢'
+  1: '论', 2: '文', 3: '问', 4: '活', 5: '告'
 }
 
 function getSectionIcon(type: number) {
-  return sectionIcons[type] || '💬'
+  return sectionIcons[type] || '帖'
 }
 
 const rules = {
