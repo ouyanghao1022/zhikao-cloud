@@ -77,7 +77,7 @@
     <!-- 答题对话框 -->
     <el-dialog v-model="showQuestionDialog" title="选择题目答题" width="520px">
       <div class="question-picker">
-        <p style="color:#909399;font-size:13px;margin-bottom:12px">
+        <p style="color:var(--color-ink-muted);font-size:13px;margin-bottom:12px">
           对战共 {{ match.totalRounds }} 轮，选择一道题目进行答题
         </p>
         <el-select v-model="selectedRound" placeholder="选择轮次" style="width:100%;margin-bottom:12px">
@@ -205,8 +205,6 @@ onMounted(async () => {
 
 <style scoped>
 .pk-match-page { padding: 24px; max-width: 1200px; margin: 0 auto; }
-.page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-.page-header h2 { margin: 0; font-size: 20px; }
 
 .match-card { margin-bottom: 16px; }
 
@@ -215,28 +213,28 @@ onMounted(async () => {
   padding: 24px 0;
 }
 .team { text-align: center; }
-.team-name { font-size: 18px; font-weight: 700; color: #303133; margin-bottom: 8px; }
+.team-name { font-size: 18px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
 .team-score { font-size: 36px; font-weight: 800; color: var(--color-primary); }
-.winner .team-name { color: #e6a23c; }
-.winner .team-score { color: #f56c6c; }
+.winner .team-name { color: var(--color-warning); }
+.winner .team-score { color: var(--color-danger); }
 .vs-badge {
-  font-size: 28px; font-weight: 900; color: #dcdfe6;
-  background: #f5f7fa; border-radius: 50%; width: 64px; height: 64px;
+  font-size: 28px; font-weight: 900; color: var(--color-rice-border);
+  background: var(--color-rice); border-radius: 50%; width: 64px; height: 64px;
   display: flex; align-items: center; justify-content: center;
 }
 
 .match-actions { margin-top: 16px; display: flex; gap: 8px; }
-.match-result { text-align: center; margin-top: 20px; padding: 20px; background: #fdf6ec; border-radius: 10px; }
-.result-text { font-size: 22px; color: #e6a23c; margin: 0; }
+.match-result { text-align: center; margin-top: 20px; padding: 20px; background: #fdf6ec; border-radius: var(--radius-md); }
+.result-text { font-size: 22px; color: var(--color-warning); margin: 0; }
 
 .records-card { }
-.empty-records { text-align: center; padding: 32px 0; color: #c0c4cc; font-size: 13px; }
+.empty-records { text-align: center; padding: 32px 0; color: var(--color-ink-muted); font-size: 13px; }
 .record-item {
-  padding: 10px 8px; border-bottom: 1px solid #f0f0f0;
+  padding: 10px 8px; border-bottom: 1px solid var(--color-rice-border);
 }
 .record-item:last-child { border: none; }
 .record-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.record-user { font-size: 13px; font-weight: 600; color: #303133; }
-.record-round { font-size: 12px; color: #909399; }
+.record-user { font-size: 13px; font-weight: 600; color: var(--color-ink); }
+.record-round { font-size: 12px; color: var(--color-ink-muted); }
 .record-answer { display: flex; justify-content: space-between; align-items: center; }
 </style>

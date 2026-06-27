@@ -214,20 +214,18 @@ onMounted(loadData)
 
 <style scoped>
 .leaderboard-page { padding: 24px; max-width: 1000px; margin: 0 auto; }
-.page-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
-.page-header h2 { font-size: 22px; color: #303133; }
 .admin-actions { display: flex; gap: 8px; }
 
 .filter-card { margin-bottom: 24px; }
 .tab-row { display: flex; flex-direction: column; gap: 16px; }
 .tab-group { display: flex; align-items: center; gap: 12px; }
-.tab-label { font-size: 14px; color: #606266; font-weight: 500; white-space: nowrap; }
+.tab-label { font-size: 14px; color: var(--color-ink-light); font-weight: 500; white-space: nowrap; }
 
 .top-three { display: flex; justify-content: center; align-items: flex-end; gap: 24px; margin-bottom: 32px; min-height: 200px; }
-.top-item { text-align: center; cursor: pointer; padding: 20px; border-radius: 12px; transition: transform 0.3s; }
+.top-item { text-align: center; cursor: pointer; padding: 20px; border-radius: var(--radius-md); transition: transform 0.3s; }
 .top-item:hover { transform: translateY(-4px); }
 .rank-1 { background: linear-gradient(180deg, #fff7d6 0%, #fff 100%); box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3); order: 1; }
-.rank-2 { background: linear-gradient(180deg, #f0f0f0 0%, #fff 100%); box-shadow: 0 4px 16px rgba(0,0,0,0.1); order: 0; }
+.rank-2 { background: linear-gradient(180deg, var(--color-rice-border) 0%, #fff 100%); box-shadow: var(--shadow-md); order: 0; }
 .rank-3 { background: linear-gradient(180deg, #fff0e6 0%, #fff 100%); box-shadow: 0 4px 16px rgba(205, 127, 50, 0.2); order: 2; }
 .rank-badge {
   width: 40px; height: 40px; border-radius: 50%; display: flex;
@@ -244,7 +242,7 @@ onMounted(loadData)
   display: flex; align-items: center; justify-content: center;
 }
 .rank-1 .top-avatar { width: 64px; height: 64px; font-size: 26px; }
-.top-name { font-size: 14px; color: #303133; margin-bottom: 4px; font-weight: 500; }
+.top-name { font-size: 14px; color: var(--color-ink); margin-bottom: 4px; font-weight: 500; }
 .top-score { font-size: 18px; color: var(--color-primary); font-weight: 700; }
 
 .list-card { }
@@ -253,10 +251,10 @@ onMounted(loadData)
 .user-avatar {
   width: 36px; height: 36px; border-radius: 50%; background: #f0f2f5;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: #606266; font-weight: 500;
+  font-size: 14px; color: var(--color-ink-light); font-weight: 500;
 }
 .score-value { font-weight: 700; font-size: 15px; color: var(--color-primary); }
-.empty-tip { text-align: center; color: #909399; padding: 40px 0; }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 40px 0; }
 
 .season-card { margin-top: 24px; }
 .season-header { display: flex; align-items: center; justify-content: space-between; }

@@ -122,7 +122,7 @@ function viewScore(exam: any) {
     `<div style="text-align:center">
       <p style="font-size:18px;margin-bottom:4px"><strong>${exam.title}</strong></p>
       <p style="font-size:32px;color:var(--color-primary);margin:16px 0">${scoreText}</p>
-      <p style="color:#909399">总分：${exam.totalScore} 分 ${passText}</p>
+      <p style="color:var(--color-ink-muted)">总分：${exam.totalScore} 分 ${passText}</p>
     </div>`,
     '考试成绩',
     { dangerouslyUseHTMLString: true, confirmButtonText: '知道了' }
@@ -189,25 +189,23 @@ onMounted(async () => {
 
 <style scoped>
 .exam-list-page { padding: 24px; max-width: 1400px; margin: 0 auto; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.page-header h2 { font-size: 22px; }
 .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
 .exam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 .exam-card {
-  background: #fff; border-radius: 10px; padding: 20px; cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: all 0.3s;
+  background: var(--color-rice-card); border-radius: var(--radius-md); padding: 20px; cursor: pointer;
+  box-shadow: var(--shadow-md); transition: all 0.3s;
 }
-.exam-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-.exam-card.taken { opacity: 0.65; pointer-events: auto; cursor: default; border-left: 4px solid #67c23a; }
-.exam-card.taken:hover { transform: none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.exam-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.exam-card.taken { opacity: 0.65; pointer-events: auto; cursor: default; border-left: 4px solid var(--color-success); }
+.exam-card.taken:hover { transform: none; box-shadow: var(--shadow-md); }
 .exam-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .header-tags { display: flex; gap: 6px; align-items: center; }
-.exam-duration { font-size: 13px; color: #909399; }
-.exam-title { font-size: 17px; margin-bottom: 8px; color: #303133; }
-.exam-desc { font-size: 13px; color: #909399; margin-bottom: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.exam-meta { display: flex; gap: 16px; font-size: 12px; color: #606266; margin-bottom: 16px; flex-wrap: wrap; }
+.exam-duration { font-size: 13px; color: var(--color-ink-muted); }
+.exam-title { font-size: 17px; margin-bottom: 8px; color: var(--color-ink); }
+.exam-desc { font-size: 13px; color: var(--color-ink-muted); margin-bottom: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.exam-meta { display: flex; gap: 16px; font-size: 12px; color: var(--color-ink-light); margin-bottom: 16px; flex-wrap: wrap; }
 .exam-footer { display: flex; justify-content: space-between; align-items: center; }
-.exam-time { font-size: 13px; color: #909399; }
-.empty-tip { text-align: center; color: #909399; padding: 60px 0; grid-column: 1/-1; }
+.exam-time { font-size: 13px; color: var(--color-ink-muted); }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 60px 0; grid-column: 1/-1; }
 .pagination-wrapper { display: flex; justify-content: center; }
 </style>

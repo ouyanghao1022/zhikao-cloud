@@ -46,9 +46,9 @@
         </el-table-column>
         <el-table-column label="战绩" width="100" align="center">
           <template #default="{ row }">
-            <span style="color:#67c23a">{{ row.winCount || 0 }}胜</span>
-            <span style="margin:0 4px;color:#ccc">/</span>
-            <span style="color:#f56c6c">{{ row.loseCount || 0 }}负</span>
+            <span style="color:var(--color-success)">{{ row.winCount || 0 }}胜</span>
+            <span style="margin:0 4px;color:var(--color-rice-border)">/</span>
+            <span style="color:var(--color-danger)">{{ row.loseCount || 0 }}负</span>
           </template>
         </el-table-column>
         <el-table-column prop="totalScore" label="积分" width="80" align="center" sortable />
@@ -301,16 +301,16 @@ onMounted(loadTeams)
 .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
 
 .stats-row { margin-bottom: 16px; }
-.stat-card { background: #f5f7fa; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.stat-card { background: var(--color-rice); border-radius: var(--radius-md); padding: 18px 16px; text-align: center; }
 .stat-card.active { background: #f0f9eb; }
 .stat-card.warn { background: #fdf6ec; }
 .stat-card.danger { background: #fef0f0; }
-.stat-value { font-size: 26px; font-weight: 700; color: #303133; }
-.stat-card.active .stat-value { color: #67c23a; }
-.stat-card.warn .stat-value { color: #e6a23c; }
-.stat-card.danger .stat-value { color: #f56c6c; }
-.stat-label { font-size: 12px; color: #909399; margin-top: 2px; }
+.stat-value { font-size: 26px; font-weight: 700; color: var(--color-ink); }
+.stat-card.active .stat-value { color: var(--color-success); }
+.stat-card.warn .stat-value { color: var(--color-warning); }
+.stat-card.danger .stat-value { color: var(--color-danger); }
+.stat-label { font-size: 12px; color: var(--color-ink-muted); margin-top: 2px; }
 
-.section-title { font-size: 15px; font-weight: 600; color: #303133; margin: 0 0 10px; }
-.empty-mini { text-align: center; padding: 20px 0; color: #c0c4cc; font-size: 13px; }
+.section-title { font-size: 15px; font-weight: 600; color: var(--color-ink); margin: 0 0 10px; }
+.empty-mini { text-align: center; padding: 20px 0; color: var(--color-ink-muted); font-size: 13px; }
 </style>

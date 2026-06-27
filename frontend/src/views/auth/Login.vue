@@ -239,7 +239,7 @@ async function handleRegister() {
 }
 .deco-content { text-align: center; position: relative; z-index: 2; }
 .deco-seal {
-  width: 72px; height: 72px; border-radius: 8px; margin: 0 auto 24px;
+  width: 72px; height: 72px; border-radius: var(--radius-sm); margin: 0 auto 24px;
   border: 2.5px solid rgba(255,255,255,0.25);
   display: flex; align-items: center; justify-content: center;
   font-size: 32px; font-weight: 900; color: rgba(255,255,255,0.8);
@@ -273,7 +273,7 @@ async function handleRegister() {
 
 .card-brand { text-align: center; margin-bottom: 36px; }
 .brand-seal-sm {
-  width: 42px; height: 42px; border-radius: 6px; margin: 0 auto 12px;
+  width: 42px; height: 42px; border-radius: var(--radius-sm); margin: 0 auto 12px;
   background: var(--color-primary); color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-size: 20px; font-weight: 800;

@@ -209,16 +209,14 @@ onMounted(() => {
 
 <style scoped>
 .report-page { padding: 24px; max-width: 1400px; margin: 0 auto; }
-.page-header { margin-bottom: 20px; }
-.page-header h2 { font-size: 22px; }
 
 .summary-row { margin-bottom: 16px; }
 .stat-card { text-align: center; padding: 8px 0; }
 .stat-value { font-size: 32px; font-weight: bold; color: var(--color-primary); }
-.stat-label { font-size: 14px; color: #909399; margin-top: 4px; }
+.stat-label { font-size: 14px; color: var(--color-ink-muted); margin-top: 4px; }
 
 .charts-row { margin-bottom: 16px; }
 .card-title { font-weight: 600; font-size: 15px; }
 .chart-box { width: 100%; }
-.empty-data { text-align: center; color: #C0C4CC; padding: 40px 0; font-size: 14px; }
+.empty-data { text-align: center; color: var(--color-ink-muted); padding: 40px 0; font-size: 14px; }
 </style>

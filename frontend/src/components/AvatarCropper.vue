@@ -330,7 +330,7 @@ onBeforeUnmount(() => {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 8px; cursor: pointer; transition: all 0.3s; color: #c0c4cc;
 }
-.select-area:hover { border-color: #409eff; color: #409eff; background: #f5f7fa; }
+.select-area:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-rice); }
 .select-area .hint { font-size: 11px; color: #c0c4cc; margin: 0; }
 
 .crop-container { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
@@ -372,13 +372,13 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; gap: 8px; width: 240px;
 }
 .zoom-bar .el-icon { cursor: pointer; color: #606266; font-size: 16px; }
-.zoom-bar .el-icon:hover { color: #409eff; }
+.zoom-bar .el-icon:hover { color: var(--color-primary); }
 
 .action-bar { display: flex; gap: 8px; }
 
 .progress-tip {
   display: flex; align-items: center; gap: 6px;
-  font-size: 13px; color: #409eff;
+  font-size: 13px; color: var(--color-primary);
 }
 
 .preview-area { text-align: center; }

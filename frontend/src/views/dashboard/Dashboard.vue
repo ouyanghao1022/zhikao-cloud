@@ -207,7 +207,7 @@ onMounted(() => {
 
 .action-btn {
   border: 1.5px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); color: #fff;
-  padding: 10px 26px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600;
+  padding: 10px 26px; border-radius: var(--radius-sm); font-size: 14px; cursor: pointer; font-weight: 600;
   letter-spacing: 2px; transition: all .2s;
 }
 .action-btn:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.7); }
@@ -219,11 +219,11 @@ onMounted(() => {
   align-items: center; margin-bottom: 20px; color: #fff; cursor: pointer;
 }
 .points-left { display: flex; align-items: center; gap: 12px; }
-.level-badge { padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; background: rgba(255,255,255,0.2); }
+.level-badge { padding: 4px 14px; border-radius: var(--radius-lg); font-weight: 700; font-size: 13px; background: rgba(255,255,255,0.2); }
 .points-num { font-weight: 600; }
 .checkin-btn {
   background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 8px 18px;
-  border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px;
+  border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 13px;
 }
 .checkin-btn:hover:not(:disabled) { background: rgba(255,255,255,0.3); }
 .checkin-btn:disabled, .checkin-btn.done { opacity: .6; cursor: default; }
@@ -237,7 +237,7 @@ onMounted(() => {
   box-shadow: var(--shadow-sm); border: 1px solid var(--color-rice-border);
 }
 .stat-icon-box {
-  width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
   font-size: 20px; flex-shrink: 0;
 }
 .stat-value { font-size: 24px; font-weight: 700; color: var(--color-ink); }
@@ -255,7 +255,7 @@ onMounted(() => {
 .data-table th { text-align: left; padding: 10px 12px; color: var(--color-ink-muted); font-weight: 600; font-size: 12px; border-bottom: 2px solid var(--color-rice-border); }
 .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--color-rice-border); color: var(--color-ink-light); }
 .data-table tr:hover td { background: rgba(0,0,0,0.02); }
-.tag { padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+.tag { padding: 2px 10px; border-radius: var(--radius-md); font-size: 12px; font-weight: 600; }
 .tag.green { background: rgba(5,150,105,0.1); color: var(--color-primary); }
 .tag.orange { background: rgba(217,119,6,0.1); color: var(--color-accent-warm); }
 .muted { color: var(--color-ink-muted); font-size: 13px; }

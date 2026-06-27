@@ -153,6 +153,6 @@ onMounted(() => {
 <style scoped>
 .post-editor-page { padding: 24px; max-width: 800px; margin: 0 auto; }
 .breadcrumb { margin-bottom: 20px; }
-.editor-card { background: #fff; border-radius: 10px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.editor-title { font-size: 22px; color: #303133; margin-bottom: 28px; }
+.editor-card { background: var(--color-rice-card); border-radius: var(--radius-md); padding: 32px; box-shadow: var(--shadow-md); }
+.editor-title { font-size: 22px; color: var(--color-ink); margin-bottom: 28px; }
 </style>

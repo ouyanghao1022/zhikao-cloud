@@ -191,7 +191,7 @@
             </div>
           </div>
           <div class="detail-analysis" style="background:#fff7e6">
-            <div class="analysis-title" style="color:#e6a23c">🔒 考试未结束</div>
+            <div class="analysis-title" style="color:var(--color-warning)">🔒 考试未结束</div>
             <div class="analysis-content">考试结束后方可查看正确答案与解析</div>
           </div>
         </template>
@@ -410,62 +410,60 @@ onMounted(() => {
 
 <style scoped>
 .page-container { padding: 24px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.page-header h2 { margin: 0; font-size: 20px; }
-.hint { color: #909399; font-size: 14px; }
-.wb-tabs { background: #fff; border-radius: 8px; padding: 8px 16px; }
+.hint { color: var(--color-ink-muted); font-size: 14px; }
+.wb-tabs { background: var(--color-rice-card); border-radius: var(--radius-sm); padding: 8px 16px; }
 
 /* 复习计划 */
 .review-header { display: flex; justify-content: space-between; align-items: center; }
 .review-stats { display: flex; gap: 16px; margin-bottom: 8px; }
-.stat-item { flex: 1; text-align: center; padding: 16px 12px; border-radius: 10px; background: #f5f7fa; }
+.stat-item { flex: 1; text-align: center; padding: 16px 12px; border-radius: var(--radius-md); background: var(--color-rice); }
 .stat-ok { background: #f0f9eb; }
 .stat-err { background: #fef0f0; }
-.stat-num { display: block; font-size: 28px; font-weight: 700; color: #303133; }
-.stat-ok .stat-num { color: #67c23a; }
-.stat-err .stat-num { color: #f56c6c; }
-.stat-label { font-size: 13px; color: #909399; margin-top: 4px; display: block; }
+.stat-num { display: block; font-size: 28px; font-weight: 700; color: var(--color-ink); }
+.stat-ok .stat-num { color: var(--color-success); }
+.stat-err .stat-num { color: var(--color-danger); }
+.stat-label { font-size: 13px; color: var(--color-ink-muted); margin-top: 4px; display: block; }
 
 .review-list { display: flex; flex-direction: column; gap: 8px; }
-.review-note-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #f5f7fa; border-radius: 8px; }
+.review-note-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--color-rice); border-radius: var(--radius-sm); }
 .rn-left { display: flex; align-items: center; gap: 8px; }
-.rn-title { font-size: 14px; color: #303133; }
+.rn-title { font-size: 14px; color: var(--color-ink); }
 
 /* 标签单元格 */
 .note-tags-cell { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; }
 .tag-pop { padding: 4px; }
-.tag-pop-title { font-size: 13px; color: #303133; margin-bottom: 8px; }
+.tag-pop-title { font-size: 13px; color: var(--color-ink); margin-bottom: 8px; }
 .tag-pop-btn { margin-top: 8px; text-align: right; }
 
 .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; }
-.wrong-answer { color: #e6a23c; font-weight: 500; }
-.correct-answer { color: #67c23a; font-weight: 500; }
+.wrong-answer { color: var(--color-warning); font-weight: 500; }
+.correct-answer { color: var(--color-success); font-weight: 500; }
 
 /* Detail dialog */
 .detail-section { margin-bottom: 16px; }
 .detail-meta { margin-bottom: 12px; }
 .detail-title { font-size: 16px; font-weight: 600; line-height: 1.6; margin-bottom: 8px; }
-.detail-content { color: #606266; line-height: 1.7; margin-bottom: 8px; }
+.detail-content { color: var(--color-ink-light); line-height: 1.7; margin-bottom: 8px; }
 .detail-options { margin: 12px 0; }
-.option-item { padding: 8px 12px; margin-bottom: 6px; border-radius: 6px; background: #f5f7fa; display: flex; align-items: flex-start; gap: 8px; }
+.option-item { padding: 8px 12px; margin-bottom: 6px; border-radius: var(--radius-sm); background: var(--color-rice); display: flex; align-items: flex-start; gap: 8px; }
 .option-item.is-correct { background: #f0f9eb; border: 1px solid #b3e19d; }
 .option-item.is-wrong-user:not(.is-correct) { background: #fef0f0; border: 1px solid #fab6b6; }
 .option-label { font-weight: 600; min-width: 24px; color: var(--color-primary); }
 .option-badge { flex-shrink: 0; margin-left: auto; }
-.answer-compare { margin: 16px 0; padding: 12px; background: #f5f7fa; border-radius: 8px; }
+.answer-compare { margin: 16px 0; padding: 12px; background: var(--color-rice); border-radius: var(--radius-sm); }
 .answer-row { display: flex; align-items: center; padding: 4px 0; }
 .answer-label { font-size: 14px; min-width: 110px; }
 .answer-value { font-size: 15px; font-weight: 600; }
-.wrong-value { color: #e6a23c; }
-.correct-value { color: #67c23a; }
-.detail-analysis { margin-top: 16px; padding: 12px; background: rgba(5,150,105,0.06); border-radius: 8px; }
+.wrong-value { color: var(--color-warning); }
+.correct-value { color: var(--color-success); }
+.detail-analysis { margin-top: 16px; padding: 12px; background: rgba(5,150,105,0.06); border-radius: var(--radius-sm); }
 .analysis-title { font-weight: 600; margin-bottom: 6px; color: var(--color-primary); }
-.analysis-content { color: #606266; line-height: 1.7; white-space: pre-wrap; }
+.analysis-content { color: var(--color-ink-light); line-height: 1.7; white-space: pre-wrap; }
 
 /* 详情内标签 */
-.detail-tags { margin-top: 16px; padding: 12px; background: #fdf6ec; border-radius: 8px; }
-.dt-title { font-weight: 600; margin-bottom: 8px; color: #e6a23c; }
+.detail-tags { margin-top: 16px; padding: 12px; background: #fdf6ec; border-radius: var(--radius-sm); }
+.dt-title { font-weight: 600; margin-bottom: 8px; color: var(--color-warning); }
 .dt-tags { margin-bottom: 8px; }
-.dt-empty { color: #909399; font-size: 13px; }
+.dt-empty { color: var(--color-ink-muted); font-size: 13px; }
 .dt-input-row { display: flex; gap: 8px; align-items: center; }
 </style>

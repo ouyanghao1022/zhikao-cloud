@@ -126,7 +126,7 @@
           </el-select>
           <div v-else>
             <el-input v-model="form.answer" placeholder="A/B/C/D，多选题逗号分隔" />
-            <div style="font-size:12px;color:#909399;margin-top:4px">选择题填 A/B/C/D，多选题用逗号分隔</div>
+            <div style="font-size:12px;color:var(--color-ink-muted);margin-top:4px">选择题填 A/B/C/D，多选题用逗号分隔</div>
           </div>
         </el-form-item>
         <el-form-item label="解析"><el-input v-model="form.analysis" type="textarea" :rows="2" placeholder="选填" /></el-form-item>

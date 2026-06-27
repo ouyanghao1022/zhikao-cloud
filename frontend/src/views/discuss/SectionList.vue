@@ -86,19 +86,17 @@ onMounted(loadData)
 
 <style scoped>
 .section-list-page { padding: 24px; max-width: 1200px; margin: 0 auto; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.page-header h2 { font-size: 22px; color: #303133; }
 .section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
 .section-card {
-  background: #fff; border-radius: 12px; padding: 24px; cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; gap: 16px;
+  background: var(--color-rice-card); border-radius: var(--radius-md); padding: 24px; cursor: pointer;
+  box-shadow: var(--shadow-md); display: flex; gap: 16px;
   transition: all 0.3s; align-items: flex-start;
 }
-.section-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-.section-icon { font-size: 36px; flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: #f5f7fa; border-radius: 12px; }
+.section-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.section-icon { font-size: 36px; flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--color-rice); border-radius: var(--radius-md); }
 .section-info { flex: 1; min-width: 0; }
-.section-name { font-size: 17px; color: #303133; margin-bottom: 6px; }
-.section-desc { font-size: 13px; color: #909399; margin-bottom: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.section-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #909399; }
-.empty-tip { text-align: center; color: #909399; padding: 60px 0; grid-column: 1/-1; }
+.section-name { font-size: 17px; color: var(--color-ink); margin-bottom: 6px; }
+.section-desc { font-size: 13px; color: var(--color-ink-muted); margin-bottom: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.section-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-ink-muted); }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 60px 0; grid-column: 1/-1; }
 </style>

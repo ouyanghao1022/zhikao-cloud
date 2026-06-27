@@ -209,53 +209,53 @@ async function checkIfTaken() {
 <style scoped>
 .exam-detail-page { padding: 24px; max-width: 900px; margin: 0 auto; }
 .exam-detail-card {
-  background: #fff; border-radius: 16px; padding: 36px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  background: var(--color-rice-card); border-radius: var(--radius-lg); padding: 36px;
+  box-shadow: var(--shadow-md);
 }
 .exam-header {
   text-align: center; margin-bottom: 32px; padding-bottom: 24px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-rice-border);
 }
 .exam-header .el-tag { margin-bottom: 16px; }
-.exam-title { font-size: 26px; color: #303133; margin: 0 0 12px; }
-.exam-subtitle { font-size: 14px; color: #909399; margin: 0; line-height: 1.6; }
+.exam-title { font-size: 26px; color: var(--color-ink); margin: 0 0 12px; }
+.exam-subtitle { font-size: 14px; color: var(--color-ink-muted); margin: 0; line-height: 1.6; }
 
-.section-title { font-size: 17px; color: #303133; margin: 0 0 16px; padding-left: 0; }
+.section-title { font-size: 17px; color: var(--color-ink); margin: 0 0 16px; padding-left: 0; }
 
 /* 信息卡片 */
 .exam-info-section { margin-bottom: 28px; }
 .info-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 .info-card {
   display: flex; align-items: center; gap: 12px;
-  padding: 16px; background: #f5f7fa; border-radius: 10px;
+  padding: 16px; background: var(--color-rice); border-radius: var(--radius-md);
   transition: all 0.3s;
 }
 .info-card:hover { background: rgba(5,150,105,0.06); transform: translateY(-2px); }
 .info-icon { font-size: 28px; flex-shrink: 0; }
 .info-body { }
-.info-card-label { font-size: 12px; color: #909399; margin-bottom: 4px; }
-.info-card-value { font-size: 18px; font-weight: 700; color: #303133; }
+.info-card-label { font-size: 12px; color: var(--color-ink-muted); margin-bottom: 4px; }
+.info-card-value { font-size: 18px; font-weight: 700; color: var(--color-ink); }
 
 /* 题型分布 */
 .question-type-section { margin-bottom: 28px; }
 .type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 .type-card {
-  padding: 16px; background: #fafafa; border-radius: 10px;
-  border: 1px solid #f0f0f0; text-align: center;
+  padding: 16px; background: var(--color-rice-card); border-radius: var(--radius-md);
+  border: 1px solid var(--color-rice-border); text-align: center;
 }
-.type-label { font-size: 14px; color: #606266; margin-bottom: 6px; }
+.type-label { font-size: 14px; color: var(--color-ink-light); margin-bottom: 6px; }
 .type-count { font-size: 24px; font-weight: 700; color: var(--color-primary); }
-.type-score { font-size: 12px; color: #909399; margin-top: 4px; }
+.type-score { font-size: 12px; color: var(--color-ink-muted); margin-top: 4px; }
 
 /* 考试时间 */
 .exam-time-section { margin-bottom: 32px; }
 .time-row { display: flex; gap: 32px; }
 .time-item { font-size: 14px; }
-.time-label { color: #909399; }
-.time-value { color: #303133; font-weight: 500; }
+.time-label { color: var(--color-ink-muted); }
+.time-value { color: var(--color-ink); font-weight: 500; }
 
 /* 操作按钮 */
-.exam-actions { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid #f0f0f0; }
+.exam-actions { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--color-rice-border); }
 
 .error-tip { text-align: center; padding: 80px 0; }
 </style>

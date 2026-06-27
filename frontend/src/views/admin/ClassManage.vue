@@ -35,7 +35,7 @@
         <el-table-column prop="grade" label="年级" width="80" align="center" />
         <el-table-column label="人数" width="90" align="center">
           <template #default="{ row }">
-            <span :style="{ color: (row.studentCount||0) >= (row.maxStudents||50) ? '#f56c6c' : '#67c23a' }">
+            <span :style="{ color: (row.studentCount||0) >= (row.maxStudents||50) ? 'var(--color-danger)' : 'var(--color-success)' }">
               {{ row.studentCount || 0 }}/{{ row.maxStudents || 50 }}
             </span>
           </template>

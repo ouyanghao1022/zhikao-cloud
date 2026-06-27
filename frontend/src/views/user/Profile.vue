@@ -134,7 +134,7 @@
                 <el-form-item label="年级">
                   <template v-if="!userStore.isTeacher && !userStore.isAdmin && myClasses.length > 0">
                     <el-input :model-value="displayGrade" disabled placeholder="由班级决定" />
-                    <span style="font-size:11px;color:#909399;line-height:1.6">学生年级由所在班级决定</span>
+                    <span style="font-size:11px;color:var(--color-ink-muted);line-height:1.6">学生年级由所在班级决定</span>
                   </template>
                   <el-select v-else v-model="editForm.grade" style="width:100%">
                     <el-option v-for="g in grades" :key="g" :label="g" :value="g" />
@@ -161,7 +161,7 @@
             <span v-if="pointsProfile.continuousSignDays">连续签到 <b>{{ pointsProfile.continuousSignDays }}</b> 天</span>
           </div>
         </div>
-        <el-progress :percentage="levelProgress" :stroke-width="10" color="#e6a23c" />
+        <el-progress :percentage="levelProgress" :stroke-width="10" color="var(--color-warning)" />
       </div>
 
       <div class="ach-card">
@@ -463,7 +463,7 @@ onMounted(async()=>{
 .user-btns :deep(.el-button) {
   width: 100%; height: 34px; padding: 0 14px; margin: 0;
   display: inline-flex; align-items: center; justify-content: center;
-  gap: 4px; border-radius: 8px; font-size: 13px; line-height: 1;
+  gap: 4px; border-radius: var(--radius-sm); font-size: 13px; line-height: 1;
   box-sizing: border-box; font-weight: 500;
 }
 .user-btns :deep(.el-button) .el-icon { margin-right: 0; }
@@ -484,12 +484,12 @@ onMounted(async()=>{
 .stat span { display: block; font-size: 11px; color: var(--color-ink-muted); margin-top: 4px; }
 
 .class-items { display: flex; flex-wrap: wrap; gap: 10px; }
-.class-item { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--color-rice); border-radius: 8px; cursor: pointer; transition: all .2s; border: 1px solid var(--color-rice-border); }
+.class-item { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--color-rice); border-radius: var(--radius-sm); cursor: pointer; transition: all .2s; border: 1px solid var(--color-rice-border); }
 .class-item:hover { background: rgba(5,150,105,0.06); border-color: var(--color-primary-light); }
 .class-manage-btn { margin-left: auto; flex-shrink: 0; }
 .cname { font-size: 14px; font-weight: 600; color: var(--color-ink); }
 .cgrade { font-size: 11px; color: var(--color-primary); background: rgba(5,150,105,0.08); padding: 1px 7px; border-radius: 3px; }
-.ccode { font-family: monospace; font-size: 11px; color: var(--color-primary); background: var(--color-rice); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--color-rice-border); }
+.ccode { font-family: monospace; font-size: 11px; color: var(--color-primary); background: var(--color-rice); padding: 2px 6px; border-radius: var(--radius-sm); border: 1px solid var(--color-rice-border); }
 .ccount { font-size: 11px; color: var(--color-ink-muted); }
 .class-empty { text-align: center; padding: 20px 0; color: var(--color-ink-muted); font-size: 13px; }
 .admin-block { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 24px 20px; color: var(--color-primary); font-weight: 500; font-size: 14px; }
@@ -498,7 +498,7 @@ onMounted(async()=>{
 .bottom-row { }
 .info-card { background: var(--color-rice-card); border: 1px solid var(--color-rice-border); border-radius: var(--radius-lg); padding: 20px 24px; box-shadow: var(--shadow-sm); }
 .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.info-item { background: var(--color-rice); border: 1px solid var(--color-rice-border); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 3px; }
+.info-item { background: var(--color-rice); border: 1px solid var(--color-rice-border); border-radius: var(--radius-sm); padding: 10px 14px; display: flex; flex-direction: column; gap: 3px; }
 .info-item label { font-size: 11px; color: var(--color-ink-muted); }
 .info-item span { font-size: 13px; color: var(--color-ink); font-weight: 500; }
 .info-item span.sig { color: var(--color-ink-light); font-style: italic; }
@@ -519,7 +519,7 @@ onMounted(async()=>{
 .exp-info { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--color-ink-light); }
 .exp-info b { color: var(--color-accent-warm); font-size: 15px; margin-left: 4px; }
 .cert-list { display: flex; flex-direction: column; gap: 10px; }
-.cert-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--color-rice); border-radius: 8px; border: 1px solid var(--color-rice-border); }
+.cert-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--color-rice); border-radius: var(--radius-sm); border: 1px solid var(--color-rice-border); }
 .cert-info { display: flex; flex-direction: column; gap: 2px; }
 .cert-no { font-size: 13px; color: var(--color-ink); font-weight: 500; }
 .cert-time { font-size: 11px; color: var(--color-ink-muted); }

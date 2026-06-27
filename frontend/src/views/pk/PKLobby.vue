@@ -243,8 +243,6 @@ onMounted(loadTeams)
 
 <style scoped>
 .pk-lobby-page { padding: 24px; max-width: 1200px; margin: 0 auto; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.page-header h2 { font-size: 22px; color: #303133; }
 .header-actions { display: flex; gap: 12px; }
 
 .my-team-card { margin-bottom: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
@@ -261,13 +259,13 @@ onMounted(loadTeams)
 .card-header { display: flex; justify-content: space-between; align-items: center; }
 .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 .team-card {
-  border: 1px solid #ebeef5; border-radius: 10px; padding: 20px;
+  border: 1px solid var(--color-rice-border); border-radius: var(--radius-md); padding: 20px;
   transition: all 0.3s;
 }
-.team-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: var(--color-primary); }
+.team-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary); }
 .team-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.team-name { font-size: 16px; color: #303133; margin: 0; }
-.team-meta { display: flex; gap: 16px; font-size: 13px; color: #909399; margin: 12px 0; }
+.team-name { font-size: 16px; color: var(--color-ink); margin: 0; }
+.team-meta { display: flex; gap: 16px; font-size: 13px; color: var(--color-ink-muted); margin: 12px 0; }
 .team-actions { display: flex; gap: 8px; margin-top: 12px; }
-.empty-tip { text-align: center; color: #909399; padding: 40px 0; grid-column: 1/-1; }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 40px 0; grid-column: 1/-1; }
 </style>

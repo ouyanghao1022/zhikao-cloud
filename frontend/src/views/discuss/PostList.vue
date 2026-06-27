@@ -156,26 +156,25 @@ onMounted(() => {
 
 <style scoped>
 .post-list-page { padding: 24px; max-width: 1000px; margin: 0 auto; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-.post-list { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.post-list { background: var(--color-rice-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); }
 .post-item {
-  display: flex; padding: 16px 24px; border-bottom: 1px solid #f0f0f0; cursor: pointer;
+  display: flex; padding: 16px 24px; border-bottom: 1px solid var(--color-rice-border); cursor: pointer;
   transition: background 0.2s;
 }
 .post-item:last-child { border-bottom: none; }
-.post-item:hover { background: #fafafa; }
+.post-item:hover { background: var(--color-rice-card); }
 .post-left { margin-right: 20px; flex-shrink: 0; }
 .post-stats { display: flex; gap: 16px; }
 .stat-item { text-align: center; min-width: 48px; }
-.stat-num { display: block; font-size: 16px; font-weight: 600; color: #303133; }
-.stat-label { display: block; font-size: 11px; color: #909399; margin-top: 2px; }
+.stat-num { display: block; font-size: 16px; font-weight: 600; color: var(--color-ink); }
+.stat-label { display: block; font-size: 11px; color: var(--color-ink-muted); margin-top: 2px; }
 .post-main { flex: 1; min-width: 0; }
 .post-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-.post-title { font-size: 16px; color: #303133; margin: 0; }
+.post-title { font-size: 16px; color: var(--color-ink); margin: 0; }
 .post-tag { flex-shrink: 0; }
-.post-preview { font-size: 13px; color: #909399; margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.post-meta { display: flex; gap: 16px; font-size: 12px; color: #c0c4cc; }
-.empty-tip { text-align: center; color: #909399; padding: 60px 0; }
+.post-preview { font-size: 13px; color: var(--color-ink-muted); margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.post-meta { display: flex; gap: 16px; font-size: 12px; color: var(--color-ink-muted); }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 60px 0; }
 .pagination-wrapper { display: flex; justify-content: center; margin-top: 24px; }
 </style>

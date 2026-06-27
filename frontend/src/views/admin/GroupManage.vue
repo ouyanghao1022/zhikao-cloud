@@ -20,7 +20,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#67c23a">正</div>
+              <div class="stat-icon" style="background:var(--color-success)">正</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.activeGroups || 0 }}</div>
                 <div class="stat-label">正常小组</div>
@@ -29,7 +29,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#909399">解</div>
+              <div class="stat-icon" style="background:var(--color-ink-muted)">解</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.dismissedGroups || 0 }}</div>
                 <div class="stat-label">已解散</div>
@@ -38,7 +38,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#e6a23c">员</div>
+              <div class="stat-icon" style="background:var(--color-warning)">员</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.totalMembers || 0 }}</div>
                 <div class="stat-label">活跃成员</div>
@@ -47,7 +47,7 @@
           </el-col>
           <el-col :span="4">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#f56c6c">任</div>
+              <div class="stat-icon" style="background:var(--color-danger)">任</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.activeTasks || 0 }}</div>
                 <div class="stat-label">进行中任务</div>
@@ -429,5 +429,5 @@ onMounted(loadAll)
 
 <style scoped>
 .stat-card { display: flex; align-items: center; padding: 16px; }
-.stat-icon { width: 48px; height: 48px; border-radius: 8px; }
+.stat-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); }
 </style>

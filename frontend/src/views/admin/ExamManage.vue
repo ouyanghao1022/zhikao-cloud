@@ -134,7 +134,7 @@
         </el-row>
         <el-form-item label="切屏次数">
           <el-input-number v-model="editForm.maxScreenSwitch" :min="0" :max="10" :disabled="editHasSessions" style="width:120px" />
-          <span v-if="editHasSessions" style="font-size:12px;color:#e6a23c;margin-left:8px">已有作答记录，大部分字段不可修改</span>
+          <span v-if="editHasSessions" style="font-size:12px;color:var(--color-warning);margin-left:8px">已有作答记录，大部分字段不可修改</span>
         </el-form-item>
         <el-form-item label="考试说明">
           <el-input v-model="editForm.description" type="textarea" :rows="2" placeholder="考试说明（可选）" />
@@ -159,7 +159,7 @@
             <el-select v-model="selectedTeacherIds" multiple filterable placeholder="选择一位或多位老师（决定题库范围）" style="width:100%" @change="onTeacherChange">
               <el-option v-for="t in teacherOptions" :key="t.id" :label="t.name" :value="t.id" />
             </el-select>
-            <div style="font-size:12px;color:#909399;margin-top:6px">仅所选老师名下的题目对本次组卷可见</div>
+            <div style="font-size:12px;color:var(--color-ink-muted);margin-top:6px">仅所选老师名下的题目对本次组卷可见</div>
           </el-form-item>
         </el-form>
       </div>
@@ -192,7 +192,7 @@
               <el-radio-button :value="1">固定组卷（手动选题）</el-radio-button>
               <el-radio-button :value="2">随机组卷（自动抽题）</el-radio-button>
             </el-radio-group>
-            <div style="font-size:12px;color:#909399;margin-top:6px">
+            <div style="font-size:12px;color:var(--color-ink-muted);margin-top:6px">
               {{ createForm.mode===1?'手动从题库中选择题目组成试卷':'按题型/数量/难度自动从题库随机抽取' }}
             </div>
           </el-form-item>
@@ -213,7 +213,7 @@
           </el-form-item>
           <el-form-item label="允许切屏">
             <el-input-number v-model="createForm.maxScreenSwitch" :min="0" :max="10" style="width:120px" />
-            <span style="font-size:12px;color:#909399;margin-left:8px">超过次数自动交卷，0 为不允许切屏</span>
+            <span style="font-size:12px;color:var(--color-ink-muted);margin-left:8px">超过次数自动交卷，0 为不允许切屏</span>
           </el-form-item>
         </el-form>
       </div>
@@ -268,7 +268,7 @@
                   </el-button>
                 </div>
                 <div class="sel-score">
-                  <span style="font-size:12px;color:#909399">分值：</span>
+                  <span style="font-size:12px;color:var(--color-ink-muted)">分值：</span>
                   <el-input-number v-model="selectedScores[i]" :min="0" :max="100" size="small" style="width:90px" />
                 </div>
               </div>
@@ -283,15 +283,15 @@
           <el-form-item label="题型与数量">
             <div v-for="t in randomTypes" :key="t.value" class="random-type-row">
               <el-checkbox v-model="t.enabled" style="width:72px">{{ t.label }}</el-checkbox>
-              <span style="margin:0 4px;color:#909399">数量</span>
+              <span style="margin:0 4px;color:var(--color-ink-muted)">数量</span>
               <el-input-number v-model="t.count" :min="0" :max="50" size="small" :disabled="!t.enabled" style="width:80px" />
-              <span style="margin:0 4px;color:#909399">难度</span>
+              <span style="margin:0 4px;color:var(--color-ink-muted)">难度</span>
               <el-select v-model="t.difficulty" size="small" :disabled="!t.enabled" style="width:90px">
                 <el-option label="不限" :value="0" /><el-option label="简单" :value="1" />
                 <el-option label="中等" :value="2" /><el-option label="困难" :value="3" />
               </el-select>
             </div>
-            <div style="font-size:12px;color:#909399;margin-top:4px">
+            <div style="font-size:12px;color:var(--color-ink-muted);margin-top:4px">
               预计总题数：{{ randomTypes.filter(t=>t.enabled).reduce((s,t)=>s+t.count,0) }} 题
             </div>
           </el-form-item>
@@ -320,10 +320,10 @@
       <el-checkbox-group v-model="publishClassIds" style="display:flex;flex-direction:column;gap:6px">
         <el-checkbox v-for="c in publishClasses" :key="c.id" :value="c.id" :label="c.className || c.name">
           {{ c.className || c.name }}
-          <span style="color:#909399;font-size:12px">（{{ c.studentCount || 0 }}人）</span>
+          <span style="color:var(--color-ink-muted);font-size:12px">（{{ c.studentCount || 0 }}人）</span>
         </el-checkbox>
       </el-checkbox-group>
-      <div v-if="publishClasses.length===0" style="text-align:center;padding:24px;color:#909399">
+      <div v-if="publishClasses.length===0" style="text-align:center;padding:24px;color:var(--color-ink-muted)">
         {{ userStore.isAdmin ? '请先选择教师' : '您还没有创建班级' }}
       </div>
       <template #footer>
@@ -827,10 +827,10 @@ onMounted(loadData)
 .panel-title { font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
 .empty-hint { color: var(--color-ink-muted); text-align: center; padding: 32px 0; font-size: 13px; }
 
-.selected-item { border: 1px solid #e8e8e8; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; background: #fafafa; }
+.selected-item { border: 1px solid var(--color-rice-border); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px; background: var(--color-rice-card); }
 .selected-item:hover { border-color: var(--color-primary); }
 .sel-header { display: flex; align-items: center; gap: 8px; }
-.sel-title { flex: 1; font-size: 13px; color: #303133; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sel-title { flex: 1; font-size: 13px; color: var(--color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sel-score { margin-top: 6px; display: flex; align-items: center; gap: 4px; }
 
 .random-type-row { display: flex; align-items: center; gap: 6px; padding: 6px 0; }

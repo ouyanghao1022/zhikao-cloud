@@ -228,8 +228,6 @@ onMounted(loadGroups)
 
 <style scoped>
 .group-discovery-page { padding: 24px; max-width: 1200px; margin: 0 auto; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.page-header h2 { font-size: 22px; color: #303133; margin: 0; }
 .header-actions { display: flex; gap: 12px; }
 
 .search-card { margin-bottom: 20px; }
@@ -239,10 +237,10 @@ onMounted(loadGroups)
 .group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; min-height: 200px; }
 
 .group-card {
-  background: #fff; border-radius: 12px; overflow: hidden;
-  border: 1px solid #ebeef5; transition: all 0.3s;
+  background: var(--color-rice-card); border-radius: var(--radius-md); overflow: hidden;
+  border: 1px solid var(--color-rice-border); transition: all 0.3s;
 }
-.group-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-color: var(--color-primary); transform: translateY(-2px); }
+.group-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary); transform: translateY(-2px); }
 
 .group-card-header {
   height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -255,18 +253,18 @@ onMounted(loadGroups)
   padding: 16px;
 }
 .group-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.group-name { font-size: 16px; color: #303133; margin: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.group-name { font-size: 16px; color: var(--color-ink); margin: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .group-desc {
-  font-size: 13px; color: #909399; margin: 0 0 12px;
+  font-size: 13px; color: var(--color-ink-muted); margin: 0 0 12px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden; line-height: 1.5;
 }
 .group-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .tag-item { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.group-meta { display: flex; gap: 16px; font-size: 13px; color: #909399; margin-bottom: 14px; }
+.group-meta { display: flex; gap: 16px; font-size: 13px; color: var(--color-ink-muted); margin-bottom: 14px; }
 .meta-item { display: flex; align-items: center; gap: 4px; }
 .group-actions { display: flex; gap: 8px; }
 
-.empty-tip { text-align: center; color: #909399; padding: 60px 0; grid-column: 1/-1; }
+.empty-tip { text-align: center; color: var(--color-ink-muted); padding: 60px 0; grid-column: 1/-1; }
 .pagination-wrap { display: flex; justify-content: center; margin-top: 24px; }
 </style>

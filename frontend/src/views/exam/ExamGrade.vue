@@ -79,13 +79,13 @@ async function doGrade(answerId: number) {
 </script>
 
 <style scoped>
-.tip { color: #909399; font-size: 13px; margin-top: 8px }
+.tip { color: var(--color-ink-muted); font-size: 13px; margin-top: 8px }
 .stu { font-weight: 600; margin-right: 16px }
-.total { color: #e6a23c }
+.total { color: var(--color-warning) }
 .answer-item { padding: 12px 0; border-bottom: 1px dashed #eee }
 .q-title { font-weight: 600; margin-bottom: 6px }
-.ref { color: #67c23a; font-size: 13px; margin-bottom: 4px }
-.usr { color: #303133; margin-bottom: 4px }
-.ai { color: #e6a23c; font-size: 13px; margin-bottom: 6px }
+.ref { color: var(--color-success); font-size: 13px; margin-bottom: 4px }
+.usr { color: var(--color-ink); margin-bottom: 4px }
+.ai { color: var(--color-warning); font-size: 13px; margin-bottom: 6px }
 .grade-row { display: flex; align-items: center; gap: 8px; margin-top: 4px }
 </style>

@@ -64,7 +64,7 @@ a:hover {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-rice-border);
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -148,4 +148,12 @@ a:hover {
 .page-fade-enter-from,
 .page-fade-leave-to {
   opacity: 0;
+}
+
+/* 全局工具类 */
+.empty-tip {
+  text-align: center;
+  color: var(--color-ink-muted);
+  padding: 48px 0;
+  font-size: 14px;
 }

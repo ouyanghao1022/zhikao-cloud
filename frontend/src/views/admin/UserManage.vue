@@ -36,7 +36,7 @@
         <el-table-column prop="email" label="邮箱" min-width="170" show-overflow-tooltip />
         <el-table-column label="登录次数" width="85" align="center">
           <template #default="{ row }">
-            <span :style="{ color: row.loginCount > 10 ? '#67c23a' : '#909399' }">{{ row.loginCount || 0 }}</span>
+            <span :style="{ color: row.loginCount > 10 ? 'var(--color-success)' : 'var(--color-ink-muted)' }">{{ row.loginCount || 0 }}</span>
           </template>
         </el-table-column>
         <el-table-column label="注册时间" width="155">
@@ -191,7 +191,7 @@
       >
         <el-icon :size="40"><UploadFilled /></el-icon>
         <div style="margin-top:8px">拖拽或点击上传 Excel 文件</div>
-        <template #tip><div style="font-size:12px;color:#909399">仅支持 .xlsx / .xls</div></template>
+        <template #tip><div style="font-size:12px;color:var(--color-ink-muted)">仅支持 .xlsx / .xls</div></template>
       </el-upload>
       <div v-if="importResult" style="margin-top:12px">
         <el-alert :type="importResult.errors?.length?'warning':'success'" :closable="false">

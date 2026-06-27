@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#67c23a">评</div>
+              <div class="stat-icon" style="background:var(--color-success)">评</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.commentStats?.total || 0 }}</div>
                 <div class="stat-label">评论总数</div>
@@ -31,7 +31,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#e6a23c">版</div>
+              <div class="stat-icon" style="background:var(--color-warning)">版</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.sectionStats?.total || 0 }}</div>
                 <div class="stat-label">版块总数</div>
@@ -41,7 +41,7 @@
           </el-col>
           <el-col :span="6">
             <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#f56c6c">审</div>
+              <div class="stat-icon" style="background:var(--color-danger)">审</div>
               <div class="stat-info">
                 <div class="stat-num">{{ stats.postStats?.pending || 0 }}</div>
                 <div class="stat-label">待审核帖子</div>
@@ -243,7 +243,7 @@
           <el-table-column label="操作" width="100" fixed="right">
             <template #default="{ row }">
               <el-button v-if="row.status===1" type="danger" link size="small" @click="deleteComment(row)">删除</el-button>
-              <span v-else style="color:#909399;font-size:12px">—</span>
+              <span v-else style="color:var(--color-ink-muted);font-size:12px">—</span>
             </template>
           </el-table-column>
         </el-table>
@@ -476,9 +476,9 @@ onMounted(loadAll)
 
 <style scoped>
 .stat-card { display: flex; align-items: center; padding: 20px; }
-.stat-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-right: 16px; flex-shrink: 0; }
+.stat-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-right: 16px; flex-shrink: 0; }
 .stat-info { flex: 1; }
-.stat-num { font-size: 28px; font-weight: 700; color: #303133; line-height: 1.2; }
-.stat-label { font-size: 14px; color: #606266; margin-top: 4px; }
-.stat-sub { font-size: 12px; color: #909399; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--color-ink); line-height: 1.2; }
+.stat-label { font-size: 14px; color: var(--color-ink-light); margin-top: 4px; }
+.stat-sub { font-size: 12px; color: var(--color-ink-muted); }
 </style>
