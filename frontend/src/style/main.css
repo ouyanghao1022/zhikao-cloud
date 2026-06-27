@@ -80,7 +80,7 @@ a:hover {
   --el-button-active-border-color: var(--color-primary-dark);
 }
 
-/* 通用卡片 */
+/* ========== 全局通用 ========== */
 .card {
   background: var(--color-rice-card);
   border-radius: var(--radius-lg);
@@ -89,8 +89,7 @@ a:hover {
   border: 1px solid var(--color-rice-border);
 }
 
-/* 管理页面通用 */
-.admin-page { padding: 24px; background: var(--color-rice); min-height: 100%; }
+/* 页面标题（所有页面生效） */
 .page-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 20px; padding-bottom: 16px;
@@ -102,43 +101,66 @@ a:hover {
   padding-left: 12px; border-left: 4px solid var(--color-primary);
 }
 .page-header .el-button { font-size: 13px; }
+
+/* 筛选栏（所有页面生效） */
 .filter-bar {
   display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
   padding: 16px 20px; background: var(--color-rice-card);
   border-radius: var(--radius-md); border: 1px solid var(--color-rice-border);
 }
 
-/* 管理页内的 el-card */
-.admin-page .el-card {
+/* 空状态占位 */
+.empty-tip {
+  text-align: center;
+  color: var(--color-ink-muted);
+  padding: 48px 0;
+  font-size: 14px;
+}
+
+/* ========== 全局 el-card ========== */
+.el-card {
   background: var(--color-rice-card);
   border: 1px solid var(--color-rice-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
 }
-.admin-page .el-card__body { padding: 20px; }
+.el-card__header {
+  border-bottom: 1px solid var(--color-rice-border);
+  font-family: 'Noto Serif SC', 'Source Han Serif CN', 'SimSun', serif;
+  font-weight: 600;
+  color: var(--color-ink);
+}
 
-/* 管理页表格 */
-.admin-page .el-table { font-size: 13px; }
-.admin-page .el-table th.el-table__cell {
+/* ========== 全局 el-table ========== */
+.el-table {
+  --el-table-bg-color: var(--color-rice-card);
+  --el-table-tr-bg-color: var(--color-rice-card);
+  --el-table-header-bg-color: var(--color-rice);
+  --el-table-border-color: var(--color-rice-border);
+}
+.el-table th.el-table__cell {
   background: var(--color-rice) !important;
   color: var(--color-ink-light); font-weight: 600;
-  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
 }
-.admin-page .el-table td.el-table__cell { color: var(--color-ink); }
-.admin-page .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+.el-table td.el-table__cell { color: var(--color-ink); }
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
   background: rgba(254, 253, 245, 0.6);
 }
+.el-table .el-table__body tr:hover > td.el-table__cell {
+  background: rgba(5, 150, 105, 0.04);
+}
 
-/* 全局表格底色（所有页面生效） */
-.el-table { --el-table-bg-color: var(--color-rice-card); --el-table-tr-bg-color: var(--color-rice-card); --el-table-header-bg-color: var(--color-rice); --el-table-border-color: var(--color-rice-border); }
-.el-table th.el-table__cell { background: var(--color-rice) !important; color: var(--color-ink-light); font-weight: 600; }
-.el-table td.el-table__cell { color: var(--color-ink); }
-.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell { background: rgba(254, 253, 245, 0.6); }
-.el-table .el-table__body tr:hover > td.el-table__cell { background: rgba(5, 150, 105, 0.04); }
+/* ========== 全局 el-pagination ========== */
+.el-pagination {
+  justify-content: flex-end;
+}
 
-/* 管理页分页 */
-.admin-page .el-pagination { margin-top: 16px; justify-content: flex-end; }
+/* ========== 管理页面扩展 ========== */
+.admin-page { padding: 24px; background: var(--color-rice); min-height: 100%; }
+.admin-page .el-table { font-size: 13px; }
+.admin-page .el-table th.el-table__cell {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
 
 /* 页面过渡 */
 .page-fade-enter-active,
@@ -148,12 +170,4 @@ a:hover {
 .page-fade-enter-from,
 .page-fade-leave-to {
   opacity: 0;
-}
-
-/* 全局工具类 */
-.empty-tip {
-  text-align: center;
-  color: var(--color-ink-muted);
-  padding: 48px 0;
-  font-size: 14px;
 }
