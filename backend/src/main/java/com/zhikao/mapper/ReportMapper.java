@@ -16,6 +16,7 @@ public interface ReportMapper {
 
     /**
      * 查询某用户已完成考试的成绩趋势（按时间排序）
+     * 排除无答题记录的无效提交
      */
     @Select("SELECT es.id as session_id, es.total_score, es.submit_time, " +
             "COALESCE(ep.title, '未知试卷') as paperTitle, " +
@@ -24,6 +25,7 @@ public interface ReportMapper {
             "FROM exam_session es " +
             "LEFT JOIN exam_paper ep ON es.paper_id = ep.id " +
             "WHERE es.user_id = #{userId} AND es.status IN (1,2,3) " +
+            "AND EXISTS (SELECT 1 FROM exam_answer ea WHERE ea.session_id = es.id) " +
             "ORDER BY es.submit_time ASC")
     List<Map<String, Object>> selectExamTrend(@Param("userId") Long userId);
 

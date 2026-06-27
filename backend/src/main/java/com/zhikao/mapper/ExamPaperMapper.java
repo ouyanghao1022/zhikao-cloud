@@ -32,11 +32,13 @@ public interface ExamPaperMapper extends BaseMapper<ExamPaper> {
     List<Question> selectQuestionsByPaperId(@Param("paperId") Long paperId);
 
     /**
-     * 查询用户的考试记录
+     * 查询用户的考试记录（仅已完成且有答题记录的）
      */
     @Select("SELECT es.*, ep.title as paperTitle FROM exam_session es " +
             "INNER JOIN exam_paper ep ON es.paper_id = ep.id " +
-            "WHERE es.user_id = #{userId} ORDER BY es.created_at DESC")
+            "WHERE es.user_id = #{userId} AND es.status IN (1,2,3) " +
+            "AND EXISTS (SELECT 1 FROM exam_answer ea WHERE ea.session_id = es.id) " +
+            "ORDER BY es.created_at DESC")
     IPage<Map<String, Object>> selectMyRecords(@Param("userId") Long userId, Page<?> page);
 
     /**

@@ -519,11 +519,11 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
             throw new RuntimeException("试卷不可用");
         }
 
-        // 检查学生是否已提交过此试卷
+        // 检查学生是否已提交过此试卷（status: 1已提交 2待阅 3已批阅）
         LambdaQueryWrapper<ExamSession> checkWrapper = new LambdaQueryWrapper<>();
         checkWrapper.eq(ExamSession::getPaperId, paperId)
                      .eq(ExamSession::getUserId, userId)
-                     .eq(ExamSession::getStatus, 1);
+                     .in(ExamSession::getStatus, 1, 2, 3);
         long submittedCount = examSessionService.count(checkWrapper);
         if (submittedCount > 0) {
             throw new RuntimeException("你已参加过此考试");
@@ -592,6 +592,10 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> submitExam(Long paperId, Long userId, List<Map<String, Object>> answers) {
+        if (answers == null || answers.isEmpty()) {
+            throw new RuntimeException("请至少作答一道题再提交");
+        }
+
         ExamPaper paper = getById(paperId);
         if (paper == null || paper.getStatus() != 1) {
             throw new RuntimeException("试卷不可用");

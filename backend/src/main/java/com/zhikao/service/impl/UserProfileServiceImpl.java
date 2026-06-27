@@ -68,10 +68,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     public void recalcStats(Long userId) {
         UserProfile profile = getOrInitProfile(userId);
 
-        // 从 exam_session 聚合：已提交(status>=1)的考试次数与平均分
+        // 从 exam_session 聚合：已提交(status>=1)且有答题记录的考试
         LambdaQueryWrapper<ExamSession> examWrapper = new LambdaQueryWrapper<>();
         examWrapper.eq(ExamSession::getUserId, userId)
-                   .ge(ExamSession::getStatus, 1);
+                   .in(ExamSession::getStatus, 1, 2, 3)
+                   .exists("SELECT 1 FROM exam_answer ea WHERE ea.session_id = exam_session.id");
         List<ExamSession> sessions = examSessionMapper.selectList(examWrapper);
         int totalExams = sessions.size();
         BigDecimal avgScore = BigDecimal.ZERO;
