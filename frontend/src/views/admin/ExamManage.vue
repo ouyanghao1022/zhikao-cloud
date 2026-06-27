@@ -41,9 +41,10 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right" align="center">
+        <el-table-column label="操作" width="240" fixed="right" align="center">
           <template #default="{ row }">
             <el-button type="primary" link size="small" @click="viewDetail(row)">查看</el-button>
+            <el-button v-if="row.status!==2" type="warning" link size="small" @click="openEdit(row)">编辑</el-button>
             <el-button v-if="row.status===0" type="success" link size="small" @click="publishExam(row)">发布</el-button>
             <el-button type="danger" link size="small" @click="deleteExam(row)">删除</el-button>
           </template>
@@ -91,6 +92,57 @@
       <template #footer>
         <el-button v-if="detailExam?.paperType===2 && detailExam?.status===0" type="warning" :loading="reassembling" @click="reassemblePaper">🎲 重新抽题</el-button>
         <el-button @click="detailVisible=false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- ========== 编辑考试弹窗 ========== -->
+    <el-dialog v-model="showEdit" title="编辑考试" width="600px" :close-on-click-modal="false">
+      <el-form :model="editForm" label-width="90px" label-position="right">
+        <el-form-item label="考试名称" required>
+          <el-input v-model="editForm.title" maxlength="100" show-word-limit />
+        </el-form-item>
+        <el-row :gutter="16">
+          <el-col :span="8">
+            <el-form-item label="时长(min)">
+              <el-input-number v-model="editForm.duration" :min="1" :max="300" :disabled="editHasSessions" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="总分">
+              <el-input-number v-model="editForm.totalScore" disabled style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="合格分">
+              <el-input-number v-model="editForm.passScore" :min="0" :max="999" :disabled="editHasSessions" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="16">
+          <el-col :span="12">
+            <el-form-item label="开始时间" required>
+              <el-date-picker v-model="editForm.startTime" type="datetime" placeholder="选择开始时间"
+                value-format="YYYY-MM-DD HH:mm:ss" :disabled="editHasSessions" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="结束时间" required>
+              <el-date-picker v-model="editForm.endTime" type="datetime" placeholder="选择结束时间"
+                value-format="YYYY-MM-DD HH:mm:ss" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="切屏次数">
+          <el-input-number v-model="editForm.maxScreenSwitch" :min="0" :max="10" :disabled="editHasSessions" style="width:120px" />
+          <span v-if="editHasSessions" style="font-size:12px;color:#e6a23c;margin-left:8px">已有作答记录，大部分字段不可修改</span>
+        </el-form-item>
+        <el-form-item label="考试说明">
+          <el-input v-model="editForm.description" type="textarea" :rows="2" placeholder="考试说明（可选）" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="showEdit=false">取消</el-button>
+        <el-button type="primary" :loading="editSaving" @click="saveEdit">保存</el-button>
       </template>
     </el-dialog>
 
@@ -427,6 +479,56 @@ async function reassemblePaper() {
   } catch (e: any) {
     ElMessage.error(e?.response?.data?.message || '重新抽题失败')
   } finally { reassembling.value = false }
+}
+
+// ============ 编辑考试 ============
+const showEdit = ref(false)
+const editSaving = ref(false)
+const editHasSessions = ref(false)
+const editForm = reactive({
+  id: 0, title: '', duration: 60, totalScore: 100, passScore: 60,
+  startTime: '', endTime: '', maxScreenSwitch: 3, description: ''
+})
+
+function openEdit(row: any) {
+  editForm.id = row.id
+  editForm.title = row.title || ''
+  editForm.duration = row.duration || 60
+  editForm.totalScore = row.totalScore ?? 100
+  editForm.passScore = row.passScore ?? 60
+  editForm.startTime = row.startTime ? dayjs(row.startTime).format('YYYY-MM-DD HH:mm:ss') : ''
+  editForm.endTime = row.endTime ? dayjs(row.endTime).format('YYYY-MM-DD HH:mm:ss') : ''
+  editForm.maxScreenSwitch = row.maxScreenSwitch ?? 3
+  editForm.description = row.description || ''
+  editHasSessions.value = (row.enrolledCount || 0) > 0
+  showEdit.value = true
+}
+
+async function saveEdit() {
+  if (!editForm.title.trim()) { ElMessage.warning('请输入考试名称'); return }
+  if (!editForm.startTime || !editForm.endTime) { ElMessage.warning('请填写开始时间和结束时间'); return }
+  editSaving.value = true
+  try {
+    const payload: any = {
+      title: editForm.title,
+      description: editForm.description || null,
+      duration: editForm.duration,
+      passScore: editForm.passScore,
+      startTime: editForm.startTime,
+      endTime: editForm.endTime,
+      maxScreenSwitch: editForm.maxScreenSwitch,
+    }
+    const res = await request.put(`/exam/${editForm.id}`, payload)
+    if (res.code === 200) {
+      ElMessage.success('保存成功')
+      showEdit.value = false
+      loadData()
+    } else {
+      ElMessage.error(res.message || '保存失败')
+    }
+  } catch (e: any) {
+    ElMessage.error(e?.response?.data?.message || '保存失败')
+  } finally { editSaving.value = false }
 }
 
 const userStore = useUserStore()
