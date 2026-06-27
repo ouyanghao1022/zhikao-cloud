@@ -1,6 +1,6 @@
 <template>
   <div class="report-page">
-    <div class="page-header">
+    <div class="page-header header-indigo">
       <h2>学情报告</h2>
     </div>
 

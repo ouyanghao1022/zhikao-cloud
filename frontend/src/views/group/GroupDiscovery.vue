@@ -1,6 +1,6 @@
 <template>
   <div class="group-discovery-page">
-    <div class="page-header">
+    <div class="page-header header-wisteria">
       <h2>学习小组</h2>
       <div class="header-actions">
         <el-button type="primary" @click="showCreateDialog = true">
@@ -238,7 +238,7 @@ onMounted(loadGroups)
 
 .group-card {
   background: var(--color-rice-card); border-radius: var(--radius-md); overflow: hidden;
-  border: 1px solid var(--color-rice-border); border-left: 4px solid #7c3aed; transition: all 0.3s;
+  border: 1px solid var(--color-rice-border); border-left: 5px solid #7c3aed; transition: all 0.3s;
 }
 .group-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary); transform: translateY(-2px); }
 

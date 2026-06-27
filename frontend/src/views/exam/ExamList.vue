@@ -1,6 +1,6 @@
 <template>
   <div class="exam-list-page">
-    <div class="page-header">
+    <div class="page-header header-jade">
       <h2>考试中心</h2>
       <el-button v-if="userStore.isTeacher" type="primary" @click="$router.push('/admin/exams')">管理考试</el-button>
     </div>
@@ -193,7 +193,7 @@ onMounted(async () => {
 .exam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 .exam-card {
   background: var(--color-rice-card); border-radius: var(--radius-md); padding: 20px; cursor: pointer;
-  box-shadow: var(--shadow-md); transition: all 0.3s; border-left: 4px solid #059669;
+  box-shadow: var(--shadow-md); transition: all 0.3s; border-left: 5px solid #059669;
 }
 .exam-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .exam-card.taken { opacity: 0.65; pointer-events: auto; cursor: default; border-left: 4px solid var(--color-success); }

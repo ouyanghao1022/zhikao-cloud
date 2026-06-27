@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="page-header">
+    <div class="page-header header-vermilion">
       <h2>错题本</h2>
       <span class="hint" v-if="list.length">共 {{ total }} 道错题</span>
     </div>

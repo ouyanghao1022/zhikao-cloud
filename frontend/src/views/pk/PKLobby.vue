@@ -1,6 +1,6 @@
 <template>
   <div class="pk-lobby-page">
-    <div class="page-header">
+    <div class="page-header header-gold">
       <h2>组队PK大厅</h2>
       <div class="header-actions">
         <el-button type="primary" @click="showCreateDialog = true">
