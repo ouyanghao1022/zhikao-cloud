@@ -81,7 +81,7 @@
             <div v-if="resources.length > 0" class="resource-list">
               <div v-for="r in resources" :key="r.id" class="resource-item">
                 <span class="resource-icon">📄</span>
-                <span class="resource-name">{{ r.resourceName }}</span>
+                <span class="resource-name">{{ r.fileName }}</span>
                 <el-button size="small" link type="primary" v-if="r.fileUrl" @click="openUrl(r.fileUrl)">
                   下载
                 </el-button>

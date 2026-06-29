@@ -1,0 +1,15 @@
+# Cloudflare Tunnel 配置示例
+# 用法: cp deploy/cloudflared-config.yml.example ~/.cloudflared/config.yml
+#       cloudflared tunnel --config ~/.cloudflared/config.yml run zhikao
+
+tunnel: <TUNNEL_ID>          # cloudflared tunnel create zhikao 之后填入
+credentials-file: /root/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: yourdomain.com
+    service: http://localhost:80
+    originRequest:
+      noTLSVerify: false
+  - hostname: www.yourdomain.com
+    service: http://localhost:80
+  - service: http_status:404

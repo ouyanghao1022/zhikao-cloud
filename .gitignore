@@ -24,3 +24,22 @@ nul
 
 # Runtime uploads
 uploads/
+
+# Secrets — 部署用,不入仓
+.env
+.env.local
+
+# cloudflared
+.cloudflared/
+
+# Claude 工作记忆 — 本地笔记,不入仓
+.workbuddy/
+
+# 编译器/构建临时文件
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# 前端 Vite 缓存
+frontend/.vite/

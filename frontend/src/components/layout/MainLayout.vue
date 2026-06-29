@@ -218,12 +218,16 @@ function closePopups(e: MouseEvent) {
   if (!target.closest('.user-chip') && !target.closest('.dropdown-menu')) showUserMenu.value = false
   if (!target.closest('.notify-bell') && !target.closest('.notify-panel')) showNotify.value = false
 }
+let notifyTimer: ReturnType<typeof setInterval> | null = null
 onMounted(() => {
   document.addEventListener('click', closePopups)
   fetchNotifications()
-  setInterval(fetchNotifications, 30000)
+  notifyTimer = setInterval(fetchNotifications, 30000)
 })
-onUnmounted(() => document.removeEventListener('click', closePopups))
+onUnmounted(() => {
+  document.removeEventListener('click', closePopups)
+  if (notifyTimer) clearInterval(notifyTimer)
+})
 
 async function handleLogout() {
   try { await ElMessageBox.confirm('确定退出？', '提示', { type: 'warning' }); userStore.logout(); router.push('/auth/login') } catch {}

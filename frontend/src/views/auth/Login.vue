@@ -141,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
@@ -222,6 +222,8 @@ async function handleRegister() {
     if (ok) { ElMessage.success('注册成功，请登录'); isRegister.value = false; registerForm.value = { username: '', password: '', confirmPassword: '', email: '', phone: '', nickname: '', captcha: '' }; refreshCaptcha() }
   } finally { loading.value = false }
 }
+
+onUnmounted(() => { if (smsTimer) clearInterval(smsTimer) })
 </script>
 
 <style scoped>
