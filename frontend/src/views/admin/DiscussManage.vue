@@ -8,46 +8,34 @@
     <el-tabs v-model="activeTab" @tab-change="onTabChange">
       <!-- ========== Tab 1: 概览统计 ========== -->
       <el-tab-pane label="概览统计" name="stats">
-        <el-row :gutter="16" v-loading="loading">
+        <el-row :gutter="16" class="stats-row" v-loading="loading">
           <el-col :span="6">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-primary)">帖</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.postStats?.total || 0 }}</div>
-                <div class="stat-label">帖子总数</div>
-                <div class="stat-sub">正常 {{ stats.postStats?.normal || 0 }} · 已删 {{ stats.postStats?.deleted || 0 }}</div>
-              </div>
-            </el-card>
+            <div class="stat-card">
+              <div class="stat-value">{{ stats.postStats?.total || 0 }}</div>
+              <div class="stat-label">帖子总数</div>
+              <div class="stat-sub">正常 {{ stats.postStats?.normal || 0 }} · 已删 {{ stats.postStats?.deleted || 0 }}</div>
+            </div>
           </el-col>
           <el-col :span="6">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-success)">评</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.commentStats?.total || 0 }}</div>
-                <div class="stat-label">评论总数</div>
-                <div class="stat-sub">正常 {{ stats.commentStats?.active || 0 }}</div>
-              </div>
-            </el-card>
+            <div class="stat-card active">
+              <div class="stat-value">{{ stats.commentStats?.total || 0 }}</div>
+              <div class="stat-label">评论总数</div>
+              <div class="stat-sub">正常 {{ stats.commentStats?.active || 0 }}</div>
+            </div>
           </el-col>
           <el-col :span="6">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-warning)">版</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.sectionStats?.total || 0 }}</div>
-                <div class="stat-label">版块总数</div>
-                <div class="stat-sub">启用 {{ stats.sectionStats?.active || 0 }}</div>
-              </div>
-            </el-card>
+            <div class="stat-card warn">
+              <div class="stat-value">{{ stats.sectionStats?.total || 0 }}</div>
+              <div class="stat-label">版块总数</div>
+              <div class="stat-sub">启用 {{ stats.sectionStats?.active || 0 }}</div>
+            </div>
           </el-col>
           <el-col :span="6">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-danger)">审</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.postStats?.pending || 0 }}</div>
-                <div class="stat-label">待审核帖子</div>
-                <div class="stat-sub">置顶 {{ stats.postStats?.topped || 0 }} · 精华 {{ stats.postStats?.essenced || 0 }}</div>
-              </div>
-            </el-card>
+            <div class="stat-card danger">
+              <div class="stat-value">{{ stats.postStats?.pending || 0 }}</div>
+              <div class="stat-label">待审核帖子</div>
+              <div class="stat-sub">置顶 {{ stats.postStats?.topped || 0 }} · 精华 {{ stats.postStats?.essenced || 0 }}</div>
+            </div>
           </el-col>
         </el-row>
 
@@ -134,7 +122,7 @@
       </el-tab-pane>
 
       <!-- ========== Tab 3: 帖子管理 ========== -->
-      <el-tab-pane label="帖 帖子管理" name="posts">
+      <el-tab-pane label="帖子管理" name="posts">
         <div class="filter-bar">
           <el-input v-model="postFilter.keyword" placeholder="搜索标题/内容" clearable style="width:200px" @keyup.enter="loadPosts" />
           <el-select v-model="postFilter.sectionId" placeholder="版块" clearable style="width:130px" @change="loadPosts">
@@ -475,10 +463,15 @@ onMounted(loadAll)
 </script>
 
 <style scoped>
-.stat-card { display: flex; align-items: center; padding: 20px; }
-.stat-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-right: 16px; flex-shrink: 0; }
-.stat-info { flex: 1; }
-.stat-num { font-size: 28px; font-weight: 700; color: var(--color-ink); line-height: 1.2; }
-.stat-label { font-size: 14px; color: var(--color-ink-light); margin-top: 4px; }
-.stat-sub { font-size: 12px; color: var(--color-ink-muted); }
+.stats-row { margin-bottom: 16px; }
+.stat-card { background: var(--color-rice); border-radius: var(--radius-md); padding: 18px 16px; text-align: center; }
+.stat-card.active { background: #f0f9eb; }
+.stat-card.warn { background: #fdf6ec; }
+.stat-card.danger { background: #fef0f0; }
+.stat-value { font-size: 26px; font-weight: 700; color: var(--color-ink); }
+.stat-card.active .stat-value { color: var(--color-success); }
+.stat-card.warn .stat-value { color: var(--color-warning); }
+.stat-card.danger .stat-value { color: var(--color-danger); }
+.stat-label { font-size: 12px; color: var(--color-ink-muted); margin-top: 2px; }
+.stat-sub { font-size: 11px; color: var(--color-ink-muted); margin-top: 4px; opacity: 0.8; }
 </style>

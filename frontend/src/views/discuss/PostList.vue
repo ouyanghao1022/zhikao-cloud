@@ -1,11 +1,11 @@
 <template>
   <div class="post-list-page">
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/discuss' }">讨论区</el-breadcrumb-item>
+      <el-breadcrumb-item v-if="sectionName">{{ sectionName }}</el-breadcrumb-item>
+      <el-breadcrumb-item>帖子列表</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="page-header">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/discuss' }">讨论区</el-breadcrumb-item>
-        <el-breadcrumb-item v-if="sectionName">{{ sectionName }}</el-breadcrumb-item>
-        <el-breadcrumb-item>帖子列表</el-breadcrumb-item>
-      </el-breadcrumb>
       <el-button type="primary" @click="$router.push('/discuss/create')">
         <el-icon><Edit /></el-icon> 发布新帖
       </el-button>
@@ -156,6 +156,7 @@ onMounted(() => {
 
 <style scoped>
 .post-list-page { padding: 24px; max-width: 1000px; margin: 0 auto; }
+.post-list-page .el-breadcrumb { margin-bottom: 16px; }
 .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
 .post-list { background: var(--color-rice-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); }
 .post-item {

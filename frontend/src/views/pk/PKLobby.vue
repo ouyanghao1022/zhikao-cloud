@@ -1,19 +1,11 @@
 <template>
   <div class="pk-lobby-page">
-    <div class="page-header header-gold">
+    <div class="page-header">
       <h2>组队PK大厅</h2>
-      <div class="header-actions">
-        <el-button type="primary" @click="showCreateDialog = true">
-          <el-icon><Plus /></el-icon> 创建队伍
-        </el-button>
-        <el-button type="success" :disabled="!myTeam" :loading="matching" @click="handleStartMatch">
-          快速匹配
-        </el-button>
-      </div>
     </div>
 
     <!-- 我的队伍 -->
-    <el-card v-if="myTeam" class="my-team-card accent-gold" shadow="hover">
+    <el-card v-if="myTeam" class="my-team-card" shadow="hover">
       <template #header>
         <div class="my-team-header">
           <span class="my-team-label">我的队伍</span>
@@ -38,11 +30,19 @@
     </el-card>
 
     <!-- 队伍列表 -->
-    <el-card class="team-list-card accent-jade">
+    <el-card class="team-list-card">
       <template #header>
         <div class="card-header">
           <span>队伍列表 ({{ teams.length }})</span>
-          <el-input v-model="searchKeyword" placeholder="搜索队伍..." clearable style="width: 240px" :prefix-icon="Search" />
+          <div style="display:flex;gap:8px;align-items:center">
+            <el-input v-model="searchKeyword" placeholder="搜索队伍..." clearable style="width: 240px" :prefix-icon="Search" />
+            <el-button type="primary" @click="showCreateDialog = true">
+              <el-icon><Plus /></el-icon> 创建队伍
+            </el-button>
+            <el-button type="success" :disabled="!myTeam" :loading="matching" @click="handleStartMatch">
+              快速匹配
+            </el-button>
+          </div>
         </div>
       </template>
       <div class="team-grid" v-loading="loading">

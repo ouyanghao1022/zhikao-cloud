@@ -1,13 +1,13 @@
 <template>
   <div class="report-page">
-    <div class="page-header header-indigo">
+    <div class="page-header">
       <h2>学情报告</h2>
     </div>
 
     <!-- 概览统计 -->
     <el-row :gutter="16" class="summary-row" v-if="summary">
       <el-col :span="12">
-        <el-card shadow="hover" class="accent-jade">
+        <el-card shadow="hover">
           <div class="stat-card">
             <div class="stat-value num-jade">{{ summary.totalExams }}</div>
             <div class="stat-label">总考试次数</div>
@@ -15,7 +15,7 @@
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card shadow="hover" class="accent-amber">
+        <el-card shadow="hover">
           <div class="stat-card">
             <div class="stat-value num-amber">{{ summary.avgScore }}</div>
             <div class="stat-label">平均分</div>
@@ -28,7 +28,7 @@
     <el-row :gutter="16" class="charts-row">
       <!-- 能力雷达图 -->
       <el-col :span="12">
-        <el-card shadow="hover" v-loading="loading" class="accent-indigo">
+        <el-card shadow="hover" v-loading="loading">
           <template #header>
             <span class="card-title">个人能力模型</span>
           </template>
@@ -41,7 +41,7 @@
 
       <!-- 成绩趋势图 -->
       <el-col :span="12">
-        <el-card shadow="hover" v-loading="loading" class="accent-indigo">
+        <el-card shadow="hover" v-loading="loading">
           <template #header>
             <span class="card-title">考试成绩趋势</span>
           </template>

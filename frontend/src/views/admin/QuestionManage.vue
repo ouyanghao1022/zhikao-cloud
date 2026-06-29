@@ -2,16 +2,6 @@
   <div class="admin-page">
     <div class="page-header">
       <h2>题库管理</h2>
-      <div style="display:flex;gap:8px">
-        <el-button @click="categoryDialogVisible=true">
-          <el-icon><FolderAdd /></el-icon> 管理目录
-        </el-button>
-        <el-button @click="downloadQuestionTemplate"><el-icon><Download /></el-icon> 模板</el-button>
-        <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入题库</el-button>
-        <el-button type="primary" @click="openAdd">
-          <el-icon><Plus /></el-icon> 添加题目
-        </el-button>
-      </div>
     </div>
 
     <el-card>
@@ -41,6 +31,16 @@
         </el-select>
         <el-input v-model="keyword" placeholder="搜索题目..." clearable style="width:200px" @keyup.enter="loadData" @clear="loadData" />
         <el-button type="primary" @click="loadData">搜索</el-button>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <el-button @click="categoryDialogVisible=true">
+            <el-icon><FolderAdd /></el-icon> 管理目录
+          </el-button>
+          <el-button @click="downloadQuestionTemplate"><el-icon><Download /></el-icon> 模板</el-button>
+          <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入题库</el-button>
+          <el-button type="primary" @click="openAdd">
+            <el-icon><Plus /></el-icon> 添加题目
+          </el-button>
+        </div>
       </div>
 
       <el-table :data="list" v-loading="loading" style="width:100%">

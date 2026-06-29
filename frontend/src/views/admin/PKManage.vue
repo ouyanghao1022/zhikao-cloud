@@ -1,10 +1,5 @@
 <template>
   <div class="admin-page">
-    <div class="page-header">
-      <h2>组队PK管理</h2>
-      <span class="header-hint">管理所有PK队伍、对战记录与排行榜</span>
-    </div>
-
     <!-- 统计卡片 -->
     <el-row :gutter="16" class="stats-row">
       <el-col :span="6">

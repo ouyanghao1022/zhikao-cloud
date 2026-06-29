@@ -2,10 +2,6 @@
   <div class="leaderboard-page">
     <div class="page-header">
       <h2>排行榜</h2>
-      <div class="admin-actions" v-if="userStore.isAdmin">
-        <el-button size="small" :loading="refreshing" @click="doRefresh">刷新榜单</el-button>
-        <el-button size="small" type="warning" @click="doArchive">归档赛季</el-button>
-      </div>
     </div>
 
     <!-- 类型和周期Tab切换 -->
@@ -28,6 +24,10 @@
             <el-radio-button :value="1">周榜</el-radio-button>
             <el-radio-button :value="2">月榜</el-radio-button>
           </el-radio-group>
+        </div>
+        <div class="admin-actions" v-if="userStore.isAdmin" style="margin-left:auto;display:flex;gap:8px;align-self:center">
+          <el-button size="small" :loading="refreshing" @click="doRefresh">刷新榜单</el-button>
+          <el-button size="small" type="warning" @click="doArchive">归档赛季</el-button>
         </div>
       </div>
     </el-card>

@@ -1,7 +1,5 @@
 <template>
   <div class="admin-page">
-    <div class="page-header"><h2>系统日志</h2></div>
-
     <el-card>
     <el-tabs v-model="activeTab">
       <!-- 操作日志 -->

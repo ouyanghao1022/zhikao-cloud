@@ -116,14 +116,16 @@
           <button class="collapse-btn" @click="isCollapse = !isCollapse">
             <Fold v-if="!isCollapse" /><Expand v-else />
           </button>
-          <span class="topbar-breadcrumb">{{ pageTitle }}</span>
         </div>
         <div class="topbar-right">
           <div class="notify-bell" @click.stop="showNotify = !showNotify">
-            <Bell /><span v-if="unreadCount" class="badge">{{ unreadCount }}</span>
+            <Bell /><span v-if="unreadCount" class="dot"></span>
           </div>
           <div class="user-chip" @click.stop="showUserMenu = !showUserMenu">
-            <div class="avatar">{{ userStore.nickname?.[0] || 'U' }}</div>
+            <div class="avatar">
+              <img v-if="userStore.avatar" :src="userStore.avatar" :alt="userStore.nickname" />
+              <span v-else>{{ userStore.nickname?.[0] || userStore.username?.[0] || 'U' }}</span>
+            </div>
             <span class="user-name">{{ userStore.nickname || userStore.username }}</span>
             <span class="role-badge" :class="roleClass">{{ roleText }}</span>
           </div>
@@ -172,26 +174,14 @@ const showUserMenu = ref(false)
 const roleText = computed(() => userStore.isAdmin ? '管理员' : userStore.isTeacher ? '教师' : '学生')
 const roleClass = computed(() => userStore.isAdmin ? 'admin' : userStore.isTeacher ? 'teacher' : 'student')
 
-const pageTitle = computed(() => {
-  const m: Record<string, string> = {
-    '/dashboard': '首页', '/exam': '参加考试', '/wrongbook': '错题本', '/question': '题库练习',
-    '/favorite': '收藏夹', '/report': '学情报告', '/discuss': '讨论区', '/pk': '组队PK',
-    '/group': '学习小组', '/user/profile': '个人中心', '/admin/users': '用户管理',
-    '/admin/classes': '班级管理', '/admin/pk': '组队PK管理', '/admin/groups': '学习小组管理',
-    '/admin/exams': '考试管理', '/admin/questions': '题库管理',    '/admin/reports': '班级报告',
-    '/admin/discuss': '讨论区管理', '/admin/logs': '系统日志', '/admin/grade': '主观题批阅',
-    '/user/notification': '通知设置'
-  }
-  for (const [k, v] of Object.entries(m)) if (route.path.startsWith(k)) return v
-  return ''
-})
-
 const notifications = ref<any[]>([])
 const unreadCount = ref(0)
 
 async function fetchNotifications() {
-  const r = await getMessageList()
-  notifications.value = r.data || []
+  try {
+    const r = await getMessageList()
+    notifications.value = r.data || []
+  } catch {}
   try {
     const u = await getUnreadCount()
     unreadCount.value = u.data?.count ?? 0
@@ -304,12 +294,13 @@ async function handleLogout() {
 .topbar-left { display: flex; align-items: center; gap: 16px; }
 .collapse-btn { border: none; background: none; cursor: pointer; padding: 4px; color: var(--color-ink-muted); font-size: 18px; border-radius: 6px; }
 .collapse-btn:hover { background: rgba(0,0,0,0.04); }
-.topbar-breadcrumb { font-size: 15px; font-weight: 600; color: var(--color-ink); letter-spacing: 1px; }
 .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
 
-.notify-bell { position: relative; cursor: pointer; color: var(--color-ink-light); font-size: 20px; padding: 4px; border-radius: 6px; }
+.notify-bell { position: relative; cursor: pointer; color: var(--color-ink-light); font-size: 20px; padding: 4px; border-radius: 6px; display: flex; align-items: center; }
 .notify-bell:hover { background: rgba(0,0,0,0.04); }
-.notify-bell .badge { position: absolute; top: 0; right: 0; width: 16px; height: 16px; background: var(--color-accent); color: #fff; font-size: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.notify-bell svg { width: 22px; height: 22px; flex-shrink: 0; }
+.notify-bell .badge { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; background: var(--color-accent); color: #fff; font-size: 11px; border-radius: 9px; display: flex; align-items: center; justify-content: center; line-height: 1; font-weight: 600; padding: 0 4px; box-shadow: 0 0 0 2px var(--color-rice-card); pointer-events: none; }
+.notify-bell .dot { position: absolute; top: 0; right: 0; width: 8px; height: 8px; background: var(--color-primary); border-radius: 50%; box-shadow: 0 0 0 2px var(--color-rice-card); }
 
 .user-chip { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 8px; border-radius: 8px; }
 .user-chip:hover { background: rgba(0,0,0,0.04); }
@@ -317,7 +308,9 @@ async function handleLogout() {
   width: 30px; height: 30px; border-radius: 50%;
   background: var(--color-primary); color: #fff;
   display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+  overflow: hidden; flex-shrink: 0;
 }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .user-name { font-size: 13px; color: var(--color-ink-light); font-weight: 500; }
 .role-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 .role-badge.admin { background: rgba(220,38,38,0.08); color: var(--color-accent); }

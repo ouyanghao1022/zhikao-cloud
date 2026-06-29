@@ -1,12 +1,7 @@
 <template>
   <div class="group-discovery-page">
-    <div class="page-header header-wisteria">
+    <div class="page-header">
       <h2>学习小组</h2>
-      <div class="header-actions">
-        <el-button type="primary" @click="showCreateDialog = true">
-          <el-icon><Plus /></el-icon> 创建小组
-        </el-button>
-      </div>
     </div>
 
     <!-- 搜索与筛选 -->
@@ -26,6 +21,9 @@
           <el-option label="邀请加入" :value="3" />
         </el-select>
         <el-button type="primary" @click="handleSearch">搜索</el-button>
+        <el-button type="primary" style="margin-left:auto" @click="showCreateDialog = true">
+          <el-icon><Plus /></el-icon> 创建小组
+        </el-button>
       </div>
     </el-card>
 
@@ -238,7 +236,7 @@ onMounted(loadGroups)
 
 .group-card {
   background: var(--color-rice-card); border-radius: var(--radius-md); overflow: hidden;
-  border: 1px solid var(--color-rice-border); border-left: 5px solid #7c3aed; transition: all 0.3s;
+  border: 1px solid var(--color-rice-border); transition: all 0.3s;
 }
 .group-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary); transform: translateY(-2px); }
 

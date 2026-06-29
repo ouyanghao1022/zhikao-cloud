@@ -1,9 +1,5 @@
 <template>
   <div class="admin-page">
-    <div class="page-header">
-      <h2>班级报告</h2>
-    </div>
-
     <el-card>
       <div class="filter-bar">
         <!-- 管理员：先选教师 -->

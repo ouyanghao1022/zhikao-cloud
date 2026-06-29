@@ -1,10 +1,5 @@
 <template>
   <div class="group-detail-page" v-loading="loading">
-    <el-breadcrumb separator="/" class="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/group' }">学习小组</el-breadcrumb-item>
-      <el-breadcrumb-item>小组详情</el-breadcrumb-item>
-    </el-breadcrumb>
-
     <div v-if="group" class="group-detail-container">
       <!-- 小组头部 -->
       <div class="group-header-card">
@@ -342,7 +337,6 @@ onUnmounted(stopChatPolling)
 
 <style scoped>
 .group-detail-page { padding: 24px; max-width: 1000px; margin: 0 auto; }
-.breadcrumb { margin-bottom: 20px; }
 
 .group-header-card {
   background: var(--color-rice-card); border-radius: var(--radius-md); padding: 28px; margin-bottom: 20px;

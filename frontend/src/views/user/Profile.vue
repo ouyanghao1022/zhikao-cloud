@@ -447,7 +447,7 @@ onMounted(async()=>{
 <style scoped>
 .profile-page { padding: 24px; background: var(--color-rice); min-height: 100%; }
 .page-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--color-rice-border); }
-.page-header h2 { margin: 0; font-size: 21px; font-weight: 700; color: var(--color-ink); font-family: 'Noto Serif SC','Source Han Serif CN','SimSun',serif; padding-left: 12px; border-left: 4px solid var(--color-primary); }
+.page-header h2 { margin: 0; font-size: 21px; font-weight: 700; color: var(--color-ink); font-family: 'Noto Serif SC','Source Han Serif CN','SimSun',serif; }
 
 /* ======== 上排 ======== */
 .top-row { display: flex; gap: 16px; margin-bottom: 16px; }

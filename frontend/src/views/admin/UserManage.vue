@@ -2,11 +2,6 @@
   <div class="admin-page">
     <div class="page-header">
       <h2>用户管理</h2>
-      <div style="display:flex;gap:8px">
-        <el-button @click="downloadUserTemplate"><el-icon><Download /></el-icon> 模板</el-button>
-        <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入用户</el-button>
-        <el-button type="primary" @click="openAdd"><el-icon><Plus /></el-icon> 新增用户</el-button>
-      </div>
     </div>
 
     <el-card>
@@ -20,6 +15,11 @@
           <el-option label="管理员" value="SUPER_ADMIN" />
         </el-select>
         <el-button type="primary" @click="loadData">搜索</el-button>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <el-button @click="downloadUserTemplate"><el-icon><Download /></el-icon> 模板</el-button>
+          <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入用户</el-button>
+          <el-button type="primary" @click="openAdd"><el-icon><Plus /></el-icon> 新增用户</el-button>
+        </div>
       </div>
 
       <el-table :data="list" v-loading="loading" stripe style="width:100%">

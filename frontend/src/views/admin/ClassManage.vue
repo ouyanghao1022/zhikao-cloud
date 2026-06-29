@@ -1,10 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="page-header">
-      <h2>🏫 班级管理</h2>
-      <el-button type="primary" @click="showCreate=true">
-        <el-icon><Plus /></el-icon> 创建班级
-      </el-button>
+      <h2>班级管理</h2>
     </div>
 
     <el-card>
@@ -16,6 +13,11 @@
           <template #prefix><el-icon><Search /></el-icon></template>
         </el-input>
         <el-button type="primary" @click="loadData">搜索</el-button>
+        <div style="margin-left:auto">
+          <el-button type="primary" @click="showCreate=true">
+            <el-icon><Plus /></el-icon> 创建班级
+          </el-button>
+        </div>
       </div>
 
       <el-table :data="list" v-loading="loading" stripe style="width:100%">

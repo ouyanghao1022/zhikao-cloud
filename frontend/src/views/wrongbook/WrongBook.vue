@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="page-header header-vermilion">
+    <div class="page-header">
       <h2>错题本</h2>
       <span class="hint" v-if="list.length">共 {{ total }} 道错题</span>
     </div>
@@ -8,7 +8,7 @@
     <el-tabs v-model="activeTab" class="wb-tabs">
       <!-- ============ Tab 1: 今日复习计划 ============ -->
       <el-tab-pane label="今日复习计划" name="review">
-        <el-card v-loading="reviewLoading" class="accent-amber">
+        <el-card v-loading="reviewLoading">
           <template #header>
             <div class="review-header">
               <span>今日复习计划</span>
@@ -50,7 +50,7 @@
 
       <!-- ============ Tab 2: 错题列表 ============ -->
       <el-tab-pane label="错题列表" name="list">
-        <el-card v-if="list.length > 0" class="accent-vermilion">
+        <el-card v-if="list.length > 0">
           <div class="filter-bar">
             <el-select v-model="masterFilter" placeholder="掌握状态" clearable style="width:140px" @change="loadData">
               <el-option label="未掌握" :value="0" />

@@ -2,13 +2,6 @@
   <div class="admin-page">
     <div class="page-header">
       <h2>考试管理</h2>
-      <div style="display:flex;gap:8px">
-        <el-button @click="downloadExamTemplate"><el-icon><Download /></el-icon> 模板</el-button>
-        <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入试卷</el-button>
-        <el-button type="primary" @click="openCreate">
-          <el-icon><Plus /></el-icon> 创建考试
-        </el-button>
-      </div>
     </div>
 
     <!-- 试卷列表 -->
@@ -21,6 +14,13 @@
           <el-option label="草稿" :value="0" />
         </el-select>
         <el-button @click="loadData">刷新</el-button>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <el-button @click="downloadExamTemplate"><el-icon><Download /></el-icon> 模板</el-button>
+          <el-button type="success" @click="showImport=true"><el-icon><Upload /></el-icon> 导入试卷</el-button>
+          <el-button type="primary" @click="openCreate">
+            <el-icon><Plus /></el-icon> 创建考试
+          </el-button>
+        </div>
       </div>
 
       <el-table :data="list" v-loading="loading" stripe style="width:100%">
@@ -104,17 +104,20 @@
         <el-row :gutter="16">
           <el-col :span="8">
             <el-form-item label="时长(min)">
-              <el-input-number v-model="editForm.duration" :min="1" :max="300" :disabled="editHasSessions" style="width:100%" />
+              <el-input-number v-model="editForm.duration" :min="1" :max="300" :disabled="editHasSessions" style="width:100px" />
+              <span class="unit-hint">分钟</span>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="总分">
-              <el-input-number v-model="editForm.totalScore" disabled style="width:100%" />
+              <el-input-number v-model="editForm.totalScore" disabled style="width:100px" />
+              <span class="unit-hint">分</span>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="合格分">
-              <el-input-number v-model="editForm.passScore" :min="0" :max="999" :disabled="editHasSessions" style="width:100%" />
+              <el-input-number v-model="editForm.passScore" :min="0" :max="999" :disabled="editHasSessions" style="width:100px" />
+              <span class="unit-hint">分</span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -170,30 +173,35 @@
           <el-form-item label="考试名称" required>
             <el-input v-model="createForm.title" placeholder="请输入考试名称" maxlength="100" show-word-limit />
           </el-form-item>
-          <el-row :gutter="20">
+          <el-row :gutter="16">
             <el-col :span="8">
               <el-form-item label="时长(min)">
-                <el-input-number v-model="createForm.duration" :min="1" :max="300" style="width:100%" />
+                <el-input-number v-model="createForm.duration" :min="1" :max="300" style="width:100px" />
+                <span class="unit-hint">分钟</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="总分">
-                <el-input-number v-model="createForm.totalScore" :min="1" :max="999" style="width:100%" @change="onTotalScoreChange" />
+                <el-input-number v-model="createForm.totalScore" :min="1" :max="999" style="width:100px" @change="onTotalScoreChange" />
+                <span class="unit-hint">分</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="合格分">
-                <el-input-number v-model="createForm.passScore" :min="0" :max="999" style="width:100%" />
+                <el-input-number v-model="createForm.passScore" :min="0" :max="999" style="width:100px" />
+                <span class="unit-hint">分</span>
               </el-form-item>
             </el-col>
           </el-row>
           <el-form-item label="组卷模式" required>
-            <el-radio-group v-model="createForm.mode">
-              <el-radio-button :value="1">固定组卷（手动选题）</el-radio-button>
-              <el-radio-button :value="2">随机组卷（自动抽题）</el-radio-button>
-            </el-radio-group>
-            <div style="font-size:12px;color:var(--color-ink-muted);margin-top:6px">
-              {{ createForm.mode===1?'手动从题库中选择题目组成试卷':'按题型/数量/难度自动从题库随机抽取' }}
+            <div class="mode-row">
+              <el-radio-group v-model="createForm.mode">
+                <el-radio-button :value="1">固定组卷</el-radio-button>
+                <el-radio-button :value="2">随机组卷</el-radio-button>
+              </el-radio-group>
+              <span class="mode-hint-inline">
+                {{ createForm.mode===1?'手动从题库中选择题目组成试卷,出题过程可控':'按题型/数量/难度自动从题库随机抽取,每次组卷不同' }}
+              </span>
             </div>
           </el-form-item>
           <el-row :gutter="16">
@@ -836,4 +844,15 @@ onMounted(loadData)
 .random-type-row { display: flex; align-items: center; gap: 6px; padding: 6px 0; }
 .random-type-row + .random-type-row { border-top: 1px dashed #eee; }
 
+.unit-hint { font-size: 12px; color: var(--color-ink-muted); margin-left: 8px; }
+
+/* 表单 label 与内容之间留出呼吸空间 */
+:deep(.el-form-item .el-form-item__content) { padding-left: 12px; }
+
+/* 数字输入框与单位文字保持同一行 */
+.unit-hint { display: inline-block; font-size: 12px; color: var(--color-ink-muted); margin-left: 6px; white-space: nowrap; }
+
+/* 组卷模式 - radio 与解释文字同行 */
+.mode-row { display: flex; align-items: center; flex-wrap: nowrap; gap: 16px; }
+.mode-hint-inline { display: inline-block; font-size: 12px; color: var(--color-ink-muted); line-height: 1.5; }
 </style>

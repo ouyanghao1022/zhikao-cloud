@@ -1,8 +1,7 @@
 <template>
   <div class="exam-list-page">
-    <div class="page-header header-jade">
+    <div class="page-header">
       <h2>考试中心</h2>
-      <el-button v-if="userStore.isTeacher" type="primary" @click="$router.push('/admin/exams')">管理考试</el-button>
     </div>
 
     <!-- 搜索筛选 -->
@@ -16,6 +15,7 @@
         <el-option label="已结束" :value="2" />
       </el-select>
       <el-button type="primary" @click="loadData">搜索</el-button>
+      <el-button v-if="userStore.isTeacher" style="margin-left:auto" type="primary" @click="$router.push('/admin/exams')">管理考试</el-button>
     </div>
 
     <!-- 考试卡片列表 -->
@@ -193,10 +193,10 @@ onMounted(async () => {
 .exam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 .exam-card {
   background: var(--color-rice-card); border-radius: var(--radius-md); padding: 20px; cursor: pointer;
-  box-shadow: var(--shadow-md); transition: all 0.3s; border-left: 5px solid #059669;
+  box-shadow: var(--shadow-md); transition: all 0.3s;
 }
 .exam-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.exam-card.taken { opacity: 0.65; pointer-events: auto; cursor: default; border-left: 4px solid var(--color-success); }
+.exam-card.taken { opacity: 0.65; pointer-events: auto; cursor: default; }
 .exam-card.taken:hover { transform: none; box-shadow: var(--shadow-md); }
 .exam-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .header-tags { display: flex; gap: 6px; align-items: center; }

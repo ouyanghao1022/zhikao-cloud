@@ -1,6 +1,6 @@
 <template>
   <div class="favorite-page">
-    <div class="page-header header-amber">
+    <div class="page-header">
       <h2>我的收藏夹</h2>
     </div>
 
@@ -550,7 +550,7 @@ onMounted(() => {
 .folder-sidebar {
   width: 260px; flex-shrink: 0;
   background: var(--color-rice-card); border-radius: var(--radius-md); padding: 16px;
-  box-shadow: var(--shadow-md); border-left: 5px solid #d97706;
+  box-shadow: var(--shadow-md);
   max-height: 70vh; overflow-y: auto;
 }
 .folder-header {

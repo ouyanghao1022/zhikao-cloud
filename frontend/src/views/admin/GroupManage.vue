@@ -6,69 +6,50 @@
     </div>
 
     <el-tabs v-model="activeTab" @tab-change="onTabChange">
-      <!-- ========== Tab 1: 概览统计 ========== -->
-      <el-tab-pane label="概览统计" name="stats">
-        <el-row :gutter="16" v-loading="loading">
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-primary)">组</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.totalGroups || 0 }}</div>
-                <div class="stat-label">小组总数</div>
-              </div>
-            </el-card>
+      <!-- ========== Tab 1: 小组管理 (含概览统计) ========== -->
+      <el-tab-pane label="小组管理" name="groups">
+        <!-- 概览统计卡片 -->
+        <el-row :gutter="16" class="stats-row" v-loading="loading">
+          <el-col :span="8">
+            <div class="stat-card">
+              <div class="stat-value num-wisteria">{{ stats.totalGroups || 0 }}</div>
+              <div class="stat-label">小组总数</div>
+            </div>
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-success)">正</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.activeGroups || 0 }}</div>
-                <div class="stat-label">正常小组</div>
-              </div>
-            </el-card>
+          <el-col :span="8">
+            <div class="stat-card active">
+              <div class="stat-value">{{ stats.activeGroups || 0 }}</div>
+              <div class="stat-label">正常小组</div>
+            </div>
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-ink-muted)">解</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.dismissedGroups || 0 }}</div>
-                <div class="stat-label">已解散</div>
-              </div>
-            </el-card>
+          <el-col :span="8">
+            <div class="stat-card">
+              <div class="stat-value" style="color:var(--color-ink-muted)">{{ stats.dismissedGroups || 0 }}</div>
+              <div class="stat-label">已解散</div>
+            </div>
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-warning)">员</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.totalMembers || 0 }}</div>
-                <div class="stat-label">活跃成员</div>
-              </div>
-            </el-card>
+          <el-col :span="8">
+            <div class="stat-card warn">
+              <div class="stat-value">{{ stats.totalMembers || 0 }}</div>
+              <div class="stat-label">活跃成员</div>
+            </div>
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:var(--color-danger)">任</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.activeTasks || 0 }}</div>
-                <div class="stat-label">进行中任务</div>
-              </div>
-            </el-card>
+          <el-col :span="8">
+            <div class="stat-card danger">
+              <div class="stat-value">{{ stats.activeTasks || 0 }}</div>
+              <div class="stat-label">进行中任务</div>
+            </div>
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="hover" class="stat-card">
-              <div class="stat-icon" style="background:#9c27b0">件</div>
-              <div class="stat-info">
-                <div class="stat-num">{{ stats.totalResources || 0 }}</div>
-                <div class="stat-label">共享资源</div>
-              </div>
-            </el-card>
+          <el-col :span="8">
+            <div class="stat-card">
+              <div class="stat-value num-jade">{{ stats.totalResources || 0 }}</div>
+              <div class="stat-label">共享资源</div>
+            </div>
           </el-col>
         </el-row>
-      </el-tab-pane>
 
-      <!-- ========== Tab 2: 小组管理 ========== -->
-      <el-tab-pane label="小组管理" name="groups">
-        <div class="filter-bar">
+        <!-- 小组列表 -->
+        <div class="filter-bar" style="margin-top:20px">
           <el-input v-model="groupFilter.keyword" placeholder="搜索小组名称" clearable style="width:180px" @keyup.enter="loadGroups" />
           <el-select v-model="groupFilter.joinType" placeholder="加入方式" clearable style="width:110px" @change="loadGroups">
             <el-option label="公开" :value="1" />
@@ -246,7 +227,7 @@ import {
 } from '@/api/group'
 
 const loading = ref(false)
-const activeTab = ref('stats')
+const activeTab = ref('groups')
 
 const stats = ref<any>({})
 
@@ -319,8 +300,7 @@ async function loadResources() {
 }
 
 function onTabChange(tab: string) {
-  if (tab === 'stats') loadStats()
-  else if (tab === 'groups') loadGroups()
+  if (tab === 'groups') loadGroups()
   else if (tab === 'tasks') loadTasks()
   else if (tab === 'resources') loadResources()
 }
@@ -428,6 +408,14 @@ onMounted(loadAll)
 </script>
 
 <style scoped>
-.stat-card { display: flex; align-items: center; padding: 16px; }
-.stat-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); }
+.stats-row { margin-bottom: 16px; }
+.stat-card { background: var(--color-rice); border-radius: var(--radius-md); padding: 18px 16px; text-align: center; }
+.stat-card.active { background: #f0f9eb; }
+.stat-card.warn { background: #fdf6ec; }
+.stat-card.danger { background: #fef0f0; }
+.stat-value { font-size: 26px; font-weight: 700; color: var(--color-ink); }
+.stat-card.active .stat-value { color: var(--color-success); }
+.stat-card.warn .stat-value { color: var(--color-warning); }
+.stat-card.danger .stat-value { color: var(--color-danger); }
+.stat-label { font-size: 12px; color: var(--color-ink-muted); margin-top: 2px; }
 </style>

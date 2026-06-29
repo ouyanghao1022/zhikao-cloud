@@ -91,30 +91,15 @@ a:hover {
 
 /* 页面标题（所有页面生效） */
 .page-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 20px; padding-bottom: 16px;
-  border-bottom: 2px solid var(--color-rice-border);
+  display: flex; justify-content: flex-end; align-items: center; gap: 12px;
+  margin-bottom: 0;
 }
 .page-header h2 {
-  margin: 0; font-size: 21px; font-weight: 700;
-  color: var(--color-ink); font-family: 'Noto Serif SC', 'Source Han Serif CN', 'SimSun', serif;
-  padding-left: 12px; border-left: 4px solid var(--color-primary);
+  display: none;
 }
 .page-header .el-button { font-size: 13px; }
 
-/* 页面标题色系 — 每个页面不同主色 */
-.header-jade h2     { border-left-color: #059669; }
-.header-jade        { border-bottom-color: rgba(5,150,105,0.2); }
-.header-amber h2    { border-left-color: #d97706; }
-.header-amber       { border-bottom-color: rgba(217,119,6,0.2); }
-.header-vermilion h2 { border-left-color: #dc2626; }
-.header-vermilion   { border-bottom-color: rgba(220,38,38,0.2); }
-.header-indigo h2   { border-left-color: #4f46e5; }
-.header-indigo      { border-bottom-color: rgba(79,70,229,0.2); }
-.header-gold h2     { border-left-color: #b45309; }
-.header-gold        { border-bottom-color: rgba(180,83,9,0.2); }
-.header-wisteria h2 { border-left-color: #7c3aed; }
-.header-wisteria    { border-bottom-color: rgba(124,58,237,0.2); }
+/* 页面标题色系 — 每个页面不同主色(已移除,改用统一样式) */
 
 /* 筛选栏（所有页面生效） */
 .filter-bar {
@@ -137,6 +122,9 @@ a:hover {
   border: 1px solid var(--color-rice-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+}
+.el-card__body {
+  padding: 12px 20px;
 }
 .el-card__header {
   border-bottom: 1px solid var(--color-rice-border);
@@ -169,65 +157,40 @@ a:hover {
   justify-content: flex-end;
 }
 
-/* ========== 卡片色系点缀（左侧彩边 + 饱和底色） ========== */
-/* 翡翠 — 考试/学习类 */
-.accent-jade {
-  border-left: 5px solid #059669;
-  background: linear-gradient(135deg, rgba(5,150,105,0.08), var(--color-rice-card) 50%);
+/* ========== 全局 el-dialog ========== */
+.el-dialog {
+  background: var(--color-rice-card);
+  border: 1px solid var(--color-rice-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
-.accent-jade .el-card__header {
-  background: rgba(5,150,105,0.1);
-  border-bottom-color: rgba(5,150,105,0.18);
+.el-dialog__header {
+  border-bottom: 1px solid var(--color-rice-border);
+  padding: 18px 24px;
+  margin: 0;
 }
-
-/* 琥珀 — 复习/练习类 */
-.accent-amber {
-  border-left: 5px solid #d97706;
-  background: linear-gradient(135deg, rgba(217,119,6,0.08), var(--color-rice-card) 50%);
+.el-dialog__title {
+  font-family: 'Noto Serif SC', 'Source Han Serif CN', 'SimSun', serif;
+  font-weight: 600;
+  color: var(--color-ink);
 }
-.accent-amber .el-card__header {
-  background: rgba(217,119,6,0.1);
-  border-bottom-color: rgba(217,119,6,0.18);
+.el-dialog__body {
+  padding: 24px;
+  color: var(--color-ink);
 }
-
-/* 朱砂 — 错题/警示类 */
-.accent-vermilion {
-  border-left: 5px solid #dc2626;
-  background: linear-gradient(135deg, rgba(220,38,38,0.06), var(--color-rice-card) 50%);
+.el-dialog__footer {
+  border-top: 1px solid var(--color-rice-border);
+  padding: 14px 24px;
 }
-.accent-vermilion .el-card__header {
-  background: rgba(220,38,38,0.08);
-  border-bottom-color: rgba(220,38,38,0.15);
+.el-dialog__headerbtn .el-dialog__close {
+  color: var(--color-ink-muted);
 }
-
-/* 靛蓝 — 报告/图表类 */
-.accent-indigo {
-  border-left: 5px solid #4f46e5;
-  background: linear-gradient(135deg, rgba(79,70,229,0.08), var(--color-rice-card) 50%);
+.el-dialog__headerbtn:hover .el-dialog__close {
+  color: var(--color-ink);
 }
-.accent-indigo .el-card__header {
-  background: rgba(79,70,229,0.1);
-  border-bottom-color: rgba(79,70,229,0.18);
-}
-
-/* 鎏金 — PK/竞赛类 */
-.accent-gold {
-  border-left: 5px solid #b45309;
-  background: linear-gradient(135deg, rgba(180,83,9,0.08), var(--color-rice-card) 50%);
-}
-.accent-gold .el-card__header {
-  background: rgba(180,83,9,0.1);
-  border-bottom-color: rgba(180,83,9,0.18);
-}
-
-/* 藤紫 — 小组/社交类 */
-.accent-wisteria {
-  border-left: 5px solid #7c3aed;
-  background: linear-gradient(135deg, rgba(124,58,237,0.08), var(--color-rice-card) 50%);
-}
-.accent-wisteria .el-card__header {
-  background: rgba(124,58,237,0.1);
-  border-bottom-color: rgba(124,58,237,0.18);
+/* 遮罩层 */
+.el-overlay {
+  background-color: rgba(28, 25, 23, 0.45);
 }
 
 /* 统计数字色系 */

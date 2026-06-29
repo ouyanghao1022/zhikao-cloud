@@ -466,6 +466,8 @@ async function submitExam() {
       paperId: Number(route.params.id),
       answers: answerList
     })
+    // 清除考试开始时间记录
+    localStorage.removeItem(`exam_start_${Number(route.params.id)}`)
     if (timer) clearInterval(timer)
     showSummaryDialog.value = false
     // 提交后允许退出全屏
@@ -505,10 +507,21 @@ onMounted(async () => {
   try {
     const res = await takeExam(Number(route.params.id))
     if (res.code === 200 && res.data) {
+      const paperId = Number(route.params.id)
       examInfo.value = res.data.paper || res.data.examInfo || res.data
       const qs = res.data.questions || res.data.questionList || res.data.questionsList || []
       questions.value = qs.map((q: any, i: number) => ({ ...q, index: i }))
-      remainingSeconds.value = (examInfo.value.duration || 60) * 60
+
+      // 用 localStorage 记录考试开始时间，刷新后恢复正确剩余时间
+      const storageKey = `exam_start_${paperId}`
+      let startTime = Number(localStorage.getItem(storageKey))
+      if (!startTime) {
+        startTime = Date.now()
+        localStorage.setItem(storageKey, String(startTime))
+      }
+      const totalSeconds = (examInfo.value.duration || 60) * 60
+      const elapsed = Math.floor((Date.now() - startTime) / 1000)
+      remainingSeconds.value = Math.max(0, totalSeconds - elapsed)
       // 读取允许切屏次数
       if (examInfo.value.maxScreenSwitch !== undefined && examInfo.value.maxScreenSwitch !== null) {
         maxCheatCount.value = Number(examInfo.value.maxScreenSwitch)
@@ -522,6 +535,9 @@ onMounted(async () => {
       // 锁定全屏：禁止退出
       document.addEventListener('fullscreenchange', handleFullscreenChange)
       document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+      // 拦截键盘：禁止 Esc/F11/Ctrl+W 等
+      document.addEventListener('keydown', handleKeyDown, true)
+      document.addEventListener('contextmenu', handleContextMenu)
     }
   } catch {
     ElMessage.error('加载试卷失败')
@@ -568,12 +584,76 @@ function handleWindowBlur() {
 
 /** 锁定全屏：提交试卷前不允许退出全屏 */
 let fullscreenLocked = false
+let fullscreenRecovering = false
+
 function handleFullscreenChange() {
-  const isFullscreen = !!(document.fullscreenElement)
-  if (!isFullscreen && !fullscreenLocked) {
-    // 用户尝试退出全屏，重新进入
-    ElMessage.warning('考试期间不可退出全屏模式')
+  const isFullscreen = !!(document.fullscreenElement || (document as any).webkitFullscreenElement)
+  if (isFullscreen || fullscreenLocked) return
+
+  // 退出全屏 → 算一次切屏
+  cheatCount.value++
+  ElMessage.warning(`禁止退出全屏！切屏警告 (${cheatCount.value}/${maxCheatCount.value})`)
+
+  if (cheatCount.value >= maxCheatCount.value) {
+    ElMessage.error('切屏次数过多，系统自动交卷')
+    if (timer) clearInterval(timer)
+    submitExam()
+    return
+  }
+
+  // 尝试重新进入全屏（需用户手势，可能失败）
+  if (!fullscreenRecovering) {
+    fullscreenRecovering = true
     tryFullScreen()
+    setTimeout(() => { fullscreenRecovering = false }, 500)
+  }
+}
+
+/** 拦截键盘事件：禁止 Esc/F11 退出全屏，禁止 Alt+Tab 等组合键 */
+function handleKeyDown(e: KeyboardEvent) {
+  if (fullscreenLocked) return
+
+  // 拦截 Esc — 浏览器无法完全阻止，但至少阻止其他逻辑
+  if (e.key === 'Escape') {
+    e.preventDefault()
+    e.stopPropagation()
+    ElMessage.warning('考试期间禁止退出全屏，请先交卷')
+    return false
+  }
+
+  // 拦截 F11（全屏切换）
+  if (e.key === 'F11') {
+    e.preventDefault()
+    e.stopPropagation()
+    return false
+  }
+
+  // 拦截 Alt+Tab（浏览器无法完全阻止，但记录）
+  if (e.altKey && e.key === 'Tab') {
+    e.preventDefault()
+    return false
+  }
+
+  // 拦截 Ctrl+W（关闭标签页）
+  if (e.ctrlKey && e.key === 'w') {
+    e.preventDefault()
+    e.stopPropagation()
+    ElMessage.warning('考试期间禁止关闭页面')
+    return false
+  }
+
+  // 拦截 Ctrl+T（新标签页）/ Ctrl+N（新窗口）
+  if (e.ctrlKey && (e.key === 't' || e.key === 'n')) {
+    e.preventDefault()
+    return false
+  }
+}
+
+/** 禁止右键菜单 */
+function handleContextMenu(e: Event) {
+  if (!fullscreenLocked) {
+    e.preventDefault()
+    return false
   }
 }
 
@@ -583,7 +663,10 @@ onUnmounted(() => {
   window.removeEventListener('blur', handleWindowBlur)
   document.removeEventListener('fullscreenchange', handleFullscreenChange)
   document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+  document.removeEventListener('keydown', handleKeyDown, true)
+  document.removeEventListener('contextmenu', handleContextMenu)
   // 退出全屏
+  fullscreenLocked = true
   try {
     if (document.exitFullscreen) document.exitFullscreen()
     else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen()
