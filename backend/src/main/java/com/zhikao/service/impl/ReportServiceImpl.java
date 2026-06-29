@@ -195,6 +195,10 @@ public class ReportServiceImpl implements ReportService {
         List<Map<String, Object>> distribution = reportMapper.selectClassScoreDistribution(paperId, classId);
         result.put("distribution", distribution != null ? distribution : new ArrayList<>());
 
+        // 考生明细（含 sessionId、是否已颁证）— 给教师/管理员手动颁发证书用
+        List<Map<String, Object>> students = reportMapper.selectClassStudentList(paperId, classId);
+        result.put("students", students != null ? students : new ArrayList<>());
+
         return result;
     }
 

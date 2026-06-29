@@ -13,6 +13,7 @@ import com.zhikao.utils.CertificateImageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
@@ -43,6 +44,7 @@ public class CertificateController {
      * 颁发证书（持久化到 exam_certificate 表）
      */
     @PostMapping("/issue/{sessionId}")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'TEACHER')")
     public Result<ExamCertificate> issue(@PathVariable Long sessionId) {
         try {
             ExamCertificate cert = examCertificateService.issue(sessionId);

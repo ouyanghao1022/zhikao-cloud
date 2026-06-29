@@ -54,6 +54,49 @@
             </template>
           </el-table-column>
         </el-table>
+
+        <!-- 考生名单（含证书颁发） -->
+        <h4 class="section-title">考生成绩明细</h4>
+        <el-table :data="studentList" style="width:100%">
+          <el-table-column type="index" label="序号" width="60" align="center" />
+          <el-table-column label="学生" min-width="160">
+            <template #default="{ row }">
+              {{ row.nickname || row.username }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="totalScore" label="得分" width="100" align="center">
+            <template #default="{ row }">
+              <span :class="row.passed ? 'score-pass' : 'score-fail'">
+                {{ row.totalScore ?? '--' }}
+              </span>
+              <span class="score-sep">/ {{ row.paperTotalScore }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="状态" width="100" align="center">
+            <template #default="{ row }">
+              <el-tag v-if="row.passed" type="success" size="small">及格</el-tag>
+              <el-tag v-else type="danger" size="small">未及格</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="证书" min-width="220" align="center">
+            <template #default="{ row }">
+              <template v-if="row.certId">
+                <el-tag type="warning" size="small">{{ row.certNo }}</el-tag>
+                <el-button size="small" link type="primary" @click="viewCert(row.sessionId)">查看</el-button>
+              </template>
+              <el-button
+                v-else-if="row.passed"
+                size="small"
+                type="primary"
+                :loading="row.issuing"
+                @click="handleIssueCert(row)"
+              >
+                <el-icon><Medal /></el-icon> 颁发证书
+              </el-button>
+              <span v-else class="muted">—</span>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </el-card>
   </div>
@@ -64,8 +107,11 @@ import { ref, computed, onMounted } from 'vue'
 import { getExamList } from '@/api/exam'
 import { getMyClasses } from '@/api/class'
 import { getClassReport } from '@/api/report'
+import { issueCertificate } from '@/api/cert'
 import request from '@/utils/request'
 import { useUserStore } from '@/stores/user'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Medal } from '@element-plus/icons-vue'
 
 const userStore = useUserStore()
 
@@ -99,6 +145,58 @@ const distributionData = computed(() => {
     count: r.count || 0
   }))
 })
+
+const studentList = computed(() => {
+  const raw = reportData.value?.students || []
+  return raw.map((r: any) => {
+    const totalScore = r.total_score ?? r.totalScore
+    const passScore = r.pass_score ?? r.passScore
+    const passed = totalScore != null && passScore != null && Number(totalScore) >= Number(passScore)
+    return {
+      sessionId: r.session_id ?? r.sessionId,
+      userId: r.user_id ?? r.userId,
+      username: r.username,
+      nickname: r.nickname,
+      totalScore,
+      paperTotalScore: r.paper_total_score ?? r.paperTotalScore,
+      passScore,
+      passed,
+      certId: r.cert_id ?? r.certId,
+      certNo: r.cert_no ?? r.certNo,
+      certUrl: r.cert_url ?? r.certUrl,
+      issuing: false
+    }
+  })
+})
+
+async function handleIssueCert(row: any) {
+  try {
+    await ElMessageBox.confirm(
+      `为「${row.nickname || row.username}」颁发本次考试证书？`,
+      '颁发证书',
+      { type: 'success', confirmButtonText: '确认颁发' }
+    )
+  } catch { return }
+  row.issuing = true
+  try {
+    const res = await issueCertificate(row.sessionId)
+    if (res.code === 200) {
+      row.certId = res.data?.id
+      row.certNo = res.data?.certNo
+      ElMessage.success('证书已颁发')
+    } else {
+      ElMessage.error(res.message || '颁发失败')
+    }
+  } catch (e: any) {
+    ElMessage.error(e?.response?.data?.message || '颁发失败')
+  } finally {
+    row.issuing = false
+  }
+}
+
+function viewCert(sessionId: number) {
+  window.open(`/api/v1/cert/by-session/${sessionId}`, '_blank')
+}
 
 function getPercent(count: number) {
   const total = distributionData.value.reduce((s: number, d: any) => s + d.count, 0)
@@ -185,4 +283,8 @@ onMounted(loadClassList)
 .stat-num { font-size: 28px; font-weight: 700; color: var(--color-primary); }
 .stat-text { font-size: 13px; color: var(--color-ink-muted); margin-top: 4px; }
 .section-title { font-size: 16px; color: var(--color-ink); margin: 0 0 12px; }
+.score-pass { color: var(--color-success); font-weight: 600; }
+.score-fail { color: var(--color-danger); font-weight: 600; }
+.score-sep { color: var(--color-ink-muted); font-size: 12px; margin-left: 2px; }
+.muted { color: var(--color-ink-muted); font-size: 12px; }
 </style>

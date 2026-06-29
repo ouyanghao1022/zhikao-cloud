@@ -123,6 +123,23 @@ public interface ReportMapper {
                                          @Param("classId") Long classId);
 
     /**
+     * 查询某班级某试卷的考生成绩明细（含是否已颁证）— 用于教师/管理员手动颁发证书
+     */
+    @Select("SELECT es.id as session_id, es.user_id, es.total_score, es.status as session_status, " +
+            "u.username, COALESCE(u.nickname, u.username) as nickname, " +
+            "ep.total_score as paper_total_score, ep.pass_score, " +
+            "ec.id as cert_id, ec.cert_no, ec.cert_url " +
+            "FROM exam_session es " +
+            "INNER JOIN class_member cm ON cm.user_id = es.user_id AND cm.class_id = #{classId} AND cm.status = 1 " +
+            "INNER JOIN user u ON u.id = es.user_id " +
+            "INNER JOIN exam_paper ep ON ep.id = es.paper_id " +
+            "LEFT JOIN exam_certificate ec ON ec.session_id = es.id " +
+            "WHERE es.paper_id = #{paperId} AND es.status >= 2 " +
+            "ORDER BY es.total_score DESC")
+    List<Map<String, Object>> selectClassStudentList(@Param("paperId") Long paperId,
+                                                     @Param("classId") Long classId);
+
+    /**
      * 查询用户错题涉及的知识点统计
      */
     @Select("SELECT qc.id as knowledge_id, qc.category_name as knowledge_name, " +
