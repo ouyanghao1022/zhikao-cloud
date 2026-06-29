@@ -19,8 +19,8 @@
     <!-- 队伍列表 -->
     <el-card>
       <div class="filter-bar">
-        <el-input v-model="keyword" placeholder="搜索队伍名称..." clearable style="width:240px" @keyup.enter="filterTeams" @clear="filterTeams" />
-        <el-select v-model="statusFilter" placeholder="状态" clearable style="width:120px" @change="filterTeams">
+        <el-input v-model="keyword" placeholder="搜索队伍名称..." clearable style="width:240px" />
+        <el-select v-model="statusFilter" placeholder="状态" clearable style="width:120px">
           <el-option label="正常" :value="1" />
           <el-option label="已解散" :value="0" />
         </el-select>
@@ -190,8 +190,6 @@ const filteredTeams = computed(() => {
   }
   return list
 })
-
-function filterTeams() { /* filteredTeams is reactive */ }
 
 // 详情
 const detailVisible = ref(false)

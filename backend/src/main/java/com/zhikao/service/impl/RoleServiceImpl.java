@@ -18,12 +18,4 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public List<Role> getRolesByUserId(Long userId) {
         return baseMapper.selectRolesByUserId(userId);
     }
-
-    @Override
-    public List<Role> listEnabledRoles() {
-        return lambdaQuery()
-                .eq(Role::getStatus, 1)
-                .orderByAsc(Role::getSort)
-                .list();
-    }
 }

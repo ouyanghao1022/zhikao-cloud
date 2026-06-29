@@ -157,23 +157,6 @@ export async function compressImage(
 }
 
 /**
- * 压缩并返回 File 对象（方便直接放入 FormData）
- *
- * @param file 原始 File
- * @param options 压缩选项
- * @param filename 输出文件名（默认用原始名换后缀为 .jpg）
- */
-export async function compressImageToFile(
-  file: File,
-  options: CompressOptions = {},
-  filename?: string
-): Promise<File> {
-  const blob = await compressImage(file, options)
-  const name = filename || file.name.replace(/\.\w+$/, '') + '.jpg'
-  return new File([blob], name, { type: options.mimeType || 'image/jpeg' })
-}
-
-/**
  * 压缩并返回 Base64 字符串
  */
 export async function compressImageToBase64(

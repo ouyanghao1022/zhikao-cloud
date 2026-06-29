@@ -25,9 +25,4 @@ public interface GroupChatService {
      * 分页查询小组聊天记录（按时间升序），带用户昵称/头像
      */
     IPage<StudyGroupChat> listMessages(Long groupId, long current, long size);
-
-    /**
-     * 查询小组最新一条消息
-     */
-    StudyGroupChat getLatestMessage(Long groupId);
 }

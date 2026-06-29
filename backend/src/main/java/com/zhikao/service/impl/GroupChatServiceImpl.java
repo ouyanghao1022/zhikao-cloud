@@ -79,13 +79,4 @@ public class GroupChatServiceImpl implements GroupChatService {
         }
         return result;
     }
-
-    @Override
-    public StudyGroupChat getLatestMessage(Long groupId) {
-        LambdaQueryWrapper<StudyGroupChat> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudyGroupChat::getGroupId, groupId)
-               .orderByDesc(StudyGroupChat::getCreatedAt)
-               .last("LIMIT 1");
-        return groupChatMapper.selectOne(wrapper);
-    }
 }

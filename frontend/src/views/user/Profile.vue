@@ -157,8 +157,8 @@
           <el-tag size="large" type="warning" effect="dark">{{ pointsProfile.levelName || '青铜' }}</el-tag>
           <div class="exp-info">
             <span>经验值 <b>{{ pointsProfile.experience ?? 0 }}</b></span>
-            <span>积分 <b>{{ pointsProfile.integration ?? 0 }}</b></span>
-            <span v-if="pointsProfile.continuousSignDays">连续签到 <b>{{ pointsProfile.continuousSignDays }}</b> 天</span>
+            <span>积分 <b>{{ pointsProfile.totalPoints ?? 0 }}</b></span>
+            <span v-if="pointsProfile.checkinStreak">连续签到 <b>{{ pointsProfile.checkinStreak }}</b> 天</span>
           </div>
         </div>
         <el-progress :percentage="levelProgress" :stroke-width="10" color="var(--color-warning)" />
@@ -284,7 +284,6 @@ const userStore = useUserStore()
 const editMode = ref(false); const saving = ref(false)
 const showAvatarDialog = ref(false); const savingAvatar = ref(false)
 const croppedAvatarBlob = ref<Blob | null>(null)
-const croppedAvatarPreview = ref('')
 const showPwdDialog = ref(false); const savingPwd = ref(false)
 const pwdForm = reactive({ oldPassword: '', newPassword: '', confirmPassword: '' })
 
@@ -324,9 +323,8 @@ async function saveProfile() { saving.value=true; try {
 } finally { saving.value=false } }
 
 /** AvatarCropper 裁剪完成回调 */
-function onAvatarCropped(blob: Blob, previewUrl: string) {
+function onAvatarCropped(blob: Blob) {
   croppedAvatarBlob.value = blob
-  croppedAvatarPreview.value = previewUrl
 }
 
 async function saveAvatar() {
@@ -405,7 +403,7 @@ async function refreshProfile(){
 }
 
 // ===== 学习成就：等级/证书/积分 =====
-const pointsProfile = reactive<any>({ level: 1, experience: 0, integration: 0, levelName: '', continuousSignDays: 0 })
+const pointsProfile = reactive<any>({ level: 1, experience: 0, totalPoints: 0, levelName: '', checkinStreak: 0 })
 const levelConfig = ref<any[]>([])
 const certs = ref<any[]>([])
 const integralLogs = ref<any[]>([])

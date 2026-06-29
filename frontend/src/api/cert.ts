@@ -14,8 +14,3 @@ export function getMyCertificates() {
 export function getCertBySession(sessionId: number) {
   return request.get(`/cert/${sessionId}`)
 }
-
-/** 证书图片地址（img src 直接用） */
-export function certImageUrl(sessionId: number) {
-  return `/api/v1/cert/by-session/${sessionId}`
-}

@@ -22,11 +22,6 @@ export function reportMonitorEvent(data: { sessionId: number; eventType: number;
   return request.post('/exam/monitor/event', data)
 }
 
-/** 查询考试监控记录（教师） */
-export function getMonitorLogs(sessionId: number) {
-  return request.get(`/exam/monitor/${sessionId}`)
-}
-
 /**
  * 获取试卷列表
  */
